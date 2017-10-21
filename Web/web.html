@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Driving Simulator</title>
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #FFFFFF; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<canvas id="simulationCanvas" width="480" height="320"></canvas>
+<input style="button" id="start" onClick="startSimulation();" value="Start Simulation"></input> 
+<input style="button" id="stop" onClick="stopSimulation();" value="Stop Simulation"></input>
+<input style="button" id="reset" onClick="resetSimulation();" value="Reset Simulation"></input>
+
+<script src="httpRequests.js"></script>
+<script src="drawing.js"></script>
+<script src="simulator.js"></script>
+
+</body>
+</html>
