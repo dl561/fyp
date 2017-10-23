@@ -1,6 +1,6 @@
 package com.dl561.rest.service;
 
-import com.dl561.rest.domain.dto.SimulationDataDto;
+import com.dl561.simulation.Simulation;
 import com.dl561.simulation.course.Course;
 import com.dl561.simulation.course.location.Location;
 import com.dl561.simulation.course.segment.Arc;
@@ -16,14 +16,14 @@ import java.util.List;
 @Service
 public class ExampleData {
 
-    public SimulationDataDto getExampleSimulationDataDto() {
-        SimulationDataDto simulationDto = new SimulationDataDto();
-        simulationDto.setId(0);
-        simulationDto.setRunning(true);
-        simulationDto.setVehicles(getExampleVehicles());
-        simulationDto.setCourse(getExampleCourse());
-        simulationDto.setHud(new Hud());
-        return simulationDto;
+    public Simulation getExampleSimulation() {
+        Simulation simulation = new Simulation();
+        simulation.setId(0);
+        simulation.setRunning(true);
+        simulation.setVehicles(getExampleVehicles());
+        simulation.setCourse(getExampleCourse());
+        simulation.setHud(new Hud());
+        return simulation;
     }
 
 
@@ -46,8 +46,8 @@ public class ExampleData {
         return arcs;
     }
 
-    private List<Car> getExampleVehicles() {
-        List<Car> vehicles = new LinkedList<>();
+    private List<Vehicle> getExampleVehicles() {
+        List<Vehicle> vehicles = new LinkedList<>();
         vehicles.add(getExampleVehicle());
         return vehicles;
     }

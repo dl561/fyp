@@ -14,6 +14,7 @@ public abstract class Vehicle {
     private double acceleratorPedalDepth;
     private double brakePedalDepth;
     private int gear;
+    private VehicleType vehicleType;
 
     public int getId() {
         return id;
@@ -21,6 +22,14 @@ public abstract class Vehicle {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public Location getLocation() {

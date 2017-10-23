@@ -1,7 +1,6 @@
 package com.dl561.rest.service;
 
-import com.dl561.rest.domain.dto.SimulationDataDto;
-import com.dl561.rest.domain.dto.VehicleDto;
+import com.dl561.simulation.Simulation;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Service;
 
@@ -9,23 +8,23 @@ import java.util.List;
 
 @Service
 public interface ISimulationService {
-    List<SimulationDataDto> getAllSimulations();
+    List<Simulation> getAllSimulations();
 
-    SimulationDataDto getSimulation(int simulationId);
+    Simulation getSimulation(int simulationId);
 
-    SimulationDataDto startSimulation(int simulationId);
+    Simulation startSimulation(int simulationId);
 
-    SimulationDataDto stopSimulation(int simulationId);
+    Simulation stopSimulation(int simulationId);
 
-    SimulationDataDto createSimulation(SimulationDataDto simulationDataDto);
+    Simulation createSimulation(Simulation simulation);
 
-    List<VehicleDto> getAllVehicles(int simulationId);
+    List<Vehicle> getAllVehicles(int simulationId);
 
-    VehicleDto getVehicleById(int simulationId, int vehicleId);
+    Vehicle getVehicleById(int simulationId, int vehicleId);
 
-    VehicleDto updateVehicle(int simulationId, int vehicleId, VehicleDto vehicleDto);
+    Vehicle updateVehicle(int simulationId, int vehicleId, Vehicle vehicle);
 
-    SimulationDataDto exampleSimulationData();
+    Simulation exampleSimulationData();
 
     void doTick();
 }

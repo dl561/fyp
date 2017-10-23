@@ -3,6 +3,8 @@ package com.dl561.rest.controller;
 import com.dl561.rest.domain.dto.SimulationDataDto;
 import com.dl561.rest.domain.dto.VehicleDto;
 import com.dl561.rest.service.ISimulationService;
+import com.dl561.simulation.Simulation;
+import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
@@ -25,55 +27,55 @@ public class SimulationController {
     }
 
     @RequestMapping(value = "/simulation", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<List<SimulationDataDto>> getAllSimulations() {
+    public ResponseEntity<List<Simulation>> getAllSimulations() {
         System.out.println("getAllSimulations");
         return new ResponseEntity<>(simulationService.getAllSimulations(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<SimulationDataDto> getSimulationById(@PathVariable("simulation_id") Integer simulationId) {
+    public ResponseEntity<Simulation> getSimulationById(@PathVariable("simulation_id") Integer simulationId) {
         System.out.println("getSimulationById(" + simulationId + ")");
         return new ResponseEntity<>(simulationService.getSimulation(simulationId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation", method = RequestMethod.PUT, produces = JSON_RESULT)
-    public ResponseEntity<SimulationDataDto> createSimulation(@RequestBody SimulationDataDto simulationDataDto) {
+    public ResponseEntity<Simulation> createSimulation(@RequestBody SimulationDataDto simulationDataDto) {
         System.out.println("createSimulation");
         return new ResponseEntity<>(simulationService.createSimulation(simulationDataDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/start", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<SimulationDataDto> startSimulation(@PathVariable("simulation_id") Integer simulationId) {
+    public ResponseEntity<Simulation> startSimulation(@PathVariable("simulation_id") Integer simulationId) {
         System.out.println("startSimulation");
         return new ResponseEntity<>(simulationService.startSimulation(simulationId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/stop", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<SimulationDataDto> stopSimulation(@PathVariable("simulation_id") Integer simulationId) {
+    public ResponseEntity<Simulation> stopSimulation(@PathVariable("simulation_id") Integer simulationId) {
         System.out.println("endSimulation(" + simulationId + ")");
         return new ResponseEntity<>(simulationService.stopSimulation(simulationId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/vehicles", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<List<VehicleDto>> getAllVehicles(@PathVariable("simulation_id") Integer simulationId) {
+    public ResponseEntity<List<Vehicle>> getAllVehicles(@PathVariable("simulation_id") Integer simulationId) {
         System.out.println("getAllVehicles");
         return new ResponseEntity<>(simulationService.getAllVehicles(simulationId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/vehicle/{vehicle_id}", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId) {
+    public ResponseEntity<Vehicle> getVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId) {
         System.out.println("getVehicleById(" + vehicleId + ")");
         return new ResponseEntity<>(simulationService.getVehicleById(simulationId, vehicleId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/vehicle/{vehicle_id}", method = RequestMethod.POST, produces = JSON_RESULT)
-    public ResponseEntity<VehicleDto> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody VehicleDto vehicleDto) {
+    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody VehicleDto vehicleDto) {
         System.out.println("updateVehicleById(" + vehicleId + ")");
         return new ResponseEntity<>(simulationService.updateVehicle(simulationId, vehicleId, vehicleDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/example", method = RequestMethod.GET, produces = JSON_RESULT)
-    public ResponseEntity<SimulationDataDto> exampleData() {
+    public ResponseEntity<Simulation> exampleData() {
         System.out.println("exampleData");
         return new ResponseEntity<>(simulationService.exampleSimulationData(), HttpStatus.OK);
     }

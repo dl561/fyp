@@ -30,60 +30,58 @@ public class SimulationService implements ISimulationService {
     }
 
     @Override
-    public List<SimulationDataDto> getAllSimulations() {
-        return simulationConverter.convertToSimulationDto(simulations);
+    public List<Simulation> getAllSimulations() {
+        return simulations;
     }
 
     @Override
-    public SimulationDataDto getSimulation(int simulationId) {
-        return simulationConverter.convertToSimulationDto(simulations.get(simulationId));
+    public Simulation getSimulation(int simulationId) {
+        return simulations.get(simulationId);
         //TODO: This will throw an exception if it doesn't exist, need to handle
     }
 
     @Override
-    public SimulationDataDto startSimulation(int simulationId) {
+    public Simulation startSimulation(int simulationId) {
         simulations.get(simulationId).start();
-        return simulationConverter.convertToSimulationDto(simulations.get(simulationId));
+        return simulations.get(simulationId);
     }
 
     @Override
-    public SimulationDataDto stopSimulation(int simulationId) {
+    public Simulation stopSimulation(int simulationId) {
         simulations.get(simulationId).stop();
-        return simulationConverter.convertToSimulationDto(simulations.get(simulationId));
+        return simulations.get(simulationId);
     }
 
     @Override
-    public SimulationDataDto createSimulation(SimulationDataDto simulationDataDto) {
+    public Simulation createSimulation(Simulation simulation) {
         //TODO: how to use the simulation you are given!?!
         //I assume it will be acceptable to just take what you are given and put it into the simulation
         //If you are given a blank one then you create
-        Simulation simulation = new Simulation(simulationDataDto);
         simulation.setId(simulations.size());
         simulations.add(simulation);
-        return simulationConverter.convertToSimulationDto(simulation);
+        return simulation;
     }
 
     @Override
-    public List<VehicleDto> getAllVehicles(int simulationId) {
-        return simulationConverter.convertToVehicleDto(simulations.get(simulationId).getVehicles());
+    public List<Vehicle> getAllVehicles(int simulationId) {
+        return simulations.get(simulationId).getVehicles();
     }
 
     @Override
-    public VehicleDto getVehicleById(int simulationId, int vehicleId) {
+    public Vehicle getVehicleById(int simulationId, int vehicleId) {
         //TODO: This will also error if it doesn't exist
-        return simulationConverter.convertToVehicleDto(simulations.get(simulationId).getVehicles().get(vehicleId));
+        return simulations.get(simulationId).getVehicles().get(vehicleId);
     }
 
     @Override
-    public VehicleDto updateVehicle(int simulationId, int vehicleId, VehicleDto vehicleDto) {
-        Vehicle vehicle = simulationConverter.convertToVehicle(vehicleDto);
-        return simulationConverter.convertToVehicleDto(simulations.get(simulationId).getVehicles().get(vehicleId).update(vehicle));
+    public Vehicle updateVehicle(int simulationId, int vehicleId, Vehicle vehicle) {
+        return simulations.get(simulationId).getVehicles().get(vehicleId);//.update(vehicle);
     }
 
 
     @Override
-    public SimulationDataDto exampleSimulationData() {
-        return exampleData.getExampleSimulationDataDto();
+    public Simulation exampleSimulationData() {
+        return exampleData.getExampleSimulation();
     }
 
     @Override

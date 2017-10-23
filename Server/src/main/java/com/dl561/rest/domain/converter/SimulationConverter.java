@@ -79,5 +79,6 @@ public class SimulationConverter {
         vehicle.setId(vehicleDto.getId());
         vehicle.setDirectionOfTravel(vehicleDto.getDirectionOfTravel());
         vehicle.setMass(vehicleDto.getMass());
+        return vehicle;
     }
 }
