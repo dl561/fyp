@@ -5,6 +5,7 @@ import com.dl561.rest.domain.dto.SimulationDataDto;
 import com.dl561.rest.domain.dto.VehicleDto;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.physics.Physics;
+import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,19 @@ public class SimulationService implements ISimulationService {
     public List<VehicleDto> getAllVehicles(int simulationId) {
         return simulationConverter.convertToVehicleDto(simulations.get(simulationId).getVehicles());
     }
+
+    @Override
+    public VehicleDto getVehicleById(int simulationId, int vehicleId) {
+        //TODO: This will also error if it doesn't exist
+        return simulationConverter.convertToVehicleDto(simulations.get(simulationId).getVehicles().get(vehicleId));
+    }
+
+    @Override
+    public VehicleDto updateVehicle(int simulationId, int vehicleId, VehicleDto vehicleDto) {
+        Vehicle vehicle = simulationConverter.convertToVehicle(vehicleDto);
+        return simulationConverter.convertToVehicleDto(simulations.get(simulationId).getVehicles().get(vehicleId).update(vehicle));
+    }
+
 
     @Override
     public SimulationDataDto exampleSimulationData() {

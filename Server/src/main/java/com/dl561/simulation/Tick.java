@@ -32,7 +32,6 @@ public class Tick {
     }
 
     private class TickTask extends TimerTask {
-
         @Override
         public void run() {
             tick();

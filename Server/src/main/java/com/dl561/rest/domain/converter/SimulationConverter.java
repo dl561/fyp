@@ -72,4 +72,12 @@ public class SimulationConverter {
         }
         return vehicleDtos;
     }
+
+    public Vehicle convertToVehicle(VehicleDto vehicleDto) {
+        Vehicle vehicle = new Car();
+        vehicle.setLocation(vehicleDto.getLocation());
+        vehicle.setId(vehicleDto.getId());
+        vehicle.setDirectionOfTravel(vehicleDto.getDirectionOfTravel());
+        vehicle.setMass(vehicleDto.getMass());
+    }
 }

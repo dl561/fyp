@@ -45,7 +45,7 @@ public class SimulationController {
     @RequestMapping(value = "/simulation/{simulation_id}/start", method = RequestMethod.GET, produces = JSON_RESULT)
     public ResponseEntity<SimulationDataDto> startSimulation(@PathVariable("simulation_id") Integer simulationId) {
         System.out.println("startSimulation");
-        return new ResponseEntity<>(simulationService.startSimulation(simulationId),HttpStatus.OK);
+        return new ResponseEntity<>(simulationService.startSimulation(simulationId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/stop", method = RequestMethod.GET, produces = JSON_RESULT)
@@ -58,6 +58,18 @@ public class SimulationController {
     public ResponseEntity<List<VehicleDto>> getAllVehicles(@PathVariable("simulation_id") Integer simulationId) {
         System.out.println("getAllVehicles");
         return new ResponseEntity<>(simulationService.getAllVehicles(simulationId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/simulation/{simulation_id}/vehicle/{vehicle_id}", method = RequestMethod.GET, produces = JSON_RESULT)
+    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId) {
+        System.out.println("getVehicleById(" + vehicleId + ")");
+        return new ResponseEntity<>(simulationService.getVehicleById(simulationId, vehicleId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/simulation/{simulation_id}/vehicle/{vehicle_id}", method = RequestMethod.POST, produces = JSON_RESULT)
+    public ResponseEntity<VehicleDto> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody VehicleDto vehicleDto) {
+        System.out.println("updateVehicleById(" + vehicleId + ")");
+        return new ResponseEntity<>(simulationService.updateVehicle(simulationId, vehicleId, vehicleDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/example", method = RequestMethod.GET, produces = JSON_RESULT)
