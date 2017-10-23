@@ -1,9 +1,7 @@
 package com.dl561.simulation;
 
-import com.dl561.rest.domain.dto.SimulationDataDto;
 import com.dl561.simulation.course.Course;
 import com.dl561.simulation.hud.Hud;
-import com.dl561.simulation.vehicle.Car;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +12,7 @@ import java.util.List;
 public class Simulation {
 
     private int id;
-    private List<Car> vehicles;
+    private List<Vehicle> vehicles;
     private Course course;
     private Hud hud;
     private Boolean running;
@@ -26,30 +24,30 @@ public class Simulation {
 
     }
 
-    public Simulation(SimulationDataDto simulationDataDto) {
-        if (simulationDataDto != null) {
-            if (simulationDataDto.getVehicles() != null) {
-                this.vehicles = simulationDataDto.getVehicles();
+    public Simulation(Simulation simulation) {
+        if (simulation != null) {
+            if (simulation.getVehicles() != null) {
+                this.vehicles = simulation.getVehicles();
             } else {
                 this.vehicles = new LinkedList<>();
             }
-            if (simulationDataDto.getCourse() != null) {
-                this.course = simulationDataDto.getCourse();
+            if (simulation.getCourse() != null) {
+                this.course = simulation.getCourse();
             } else {
                 this.course = new Course();
             }
-            if (simulationDataDto.getHud() != null) {
-                this.hud = simulationDataDto.getHud();
+            if (simulation.getHud() != null) {
+                this.hud = simulation.getHud();
             } else {
                 this.hud = new Hud();
             }
-            if (simulationDataDto.getRunTime() != 0) {
-                this.runTime = simulationDataDto.getRunTime();
+            if (simulation.getRunTime() != 0) {
+                this.runTime = simulation.getRunTime();
             } else {
                 this.runTime = 0;
             }
-            if (simulationDataDto.getRunning() != null) {
-                this.running = simulationDataDto.getRunning();
+            if (simulation.getRunning() != null) {
+                this.running = simulation.getRunning();
             } else {
                 this.running = true;
             }
@@ -66,11 +64,11 @@ public class Simulation {
         this.id = id;
     }
 
-    public List<Car> getVehicles() {
+    public List<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(List<Car> vehicles) {
+    public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
