@@ -1,8 +1,5 @@
 package com.dl561.rest.service;
 
-import com.dl561.rest.domain.converter.SimulationConverter;
-import com.dl561.rest.domain.dto.SimulationDataDto;
-import com.dl561.rest.domain.dto.VehicleDto;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.physics.Physics;
 import com.dl561.simulation.vehicle.Vehicle;
@@ -15,15 +12,13 @@ import java.util.List;
 @Service
 public class SimulationService implements ISimulationService {
 
-    private final SimulationConverter simulationConverter;
     private final ExampleData exampleData;
     private final Physics physics;
 
     private List<Simulation> simulations;
 
     @Autowired
-    public SimulationService(SimulationConverter simulationConverter, ExampleData exampleData, Physics physics) {
-        this.simulationConverter = simulationConverter;
+    public SimulationService(ExampleData exampleData, Physics physics) {
         this.exampleData = exampleData;
         this.physics = physics;
         simulations = new LinkedList<>();

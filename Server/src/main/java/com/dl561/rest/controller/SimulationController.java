@@ -1,7 +1,5 @@
 package com.dl561.rest.controller;
 
-import com.dl561.rest.domain.dto.SimulationDataDto;
-import com.dl561.rest.domain.dto.VehicleDto;
 import com.dl561.rest.service.ISimulationService;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.vehicle.Vehicle;
@@ -39,9 +37,9 @@ public class SimulationController {
     }
 
     @RequestMapping(value = "/simulation", method = RequestMethod.PUT, produces = JSON_RESULT)
-    public ResponseEntity<Simulation> createSimulation(@RequestBody SimulationDataDto simulationDataDto) {
+    public ResponseEntity<Simulation> createSimulation(@RequestBody Simulation simulation) {
         System.out.println("createSimulation");
-        return new ResponseEntity<>(simulationService.createSimulation(simulationDataDto), HttpStatus.OK);
+        return new ResponseEntity<>(simulationService.createSimulation(simulation), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/start", method = RequestMethod.GET, produces = JSON_RESULT)
@@ -69,9 +67,9 @@ public class SimulationController {
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/vehicle/{vehicle_id}", method = RequestMethod.POST, produces = JSON_RESULT)
-    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody VehicleDto vehicleDto) {
+    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody Vehicle vehicle) {
         System.out.println("updateVehicleById(" + vehicleId + ")");
-        return new ResponseEntity<>(simulationService.updateVehicle(simulationId, vehicleId, vehicleDto), HttpStatus.OK);
+        return new ResponseEntity<>(simulationService.updateVehicle(simulationId, vehicleId, vehicle), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/example", method = RequestMethod.GET, produces = JSON_RESULT)
