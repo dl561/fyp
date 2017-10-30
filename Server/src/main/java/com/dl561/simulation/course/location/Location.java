@@ -4,22 +4,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Location {
-    private float x;
-    private float y;
+    private double x;
+    private double y;
 
-    public float getX() {
+    public Location() {
+    }
+
+    public Location(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 }

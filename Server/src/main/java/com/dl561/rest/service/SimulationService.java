@@ -1,5 +1,6 @@
 package com.dl561.rest.service;
 
+import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.physics.Physics;
 import com.dl561.simulation.vehicle.Vehicle;
@@ -69,8 +70,8 @@ public class SimulationService implements ISimulationService {
     }
 
     @Override
-    public Vehicle updateVehicle(int simulationId, int vehicleId, Vehicle vehicle) {
-        return simulations.get(simulationId).getVehicles().get(vehicleId);//.update(vehicle);
+    public Vehicle updateVehicle(int simulationId, int vehicleId, VehicleUpdateDto vehicleUpdateDto) {
+        return simulations.get(simulationId).getVehicles().get(vehicleId).update(vehicleUpdateDto);
     }
 
 

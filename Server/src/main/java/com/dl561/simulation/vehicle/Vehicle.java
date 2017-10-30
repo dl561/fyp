@@ -1,5 +1,6 @@
 package com.dl561.simulation.vehicle;
 
+import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.course.location.Location;
 import org.springframework.stereotype.Component;
 
@@ -8,13 +9,27 @@ public abstract class Vehicle {
     private int id;
     private Location location;
     private double directionOfTravel;
-    private double velocity;
+    private double xVelocity;
+    private double yVelocity;
+    private double xAcceleration;
+    private double yAcceleration;
     private double mass;
     private double steeringWheelDirection;
     private double acceleratorPedalDepth;
     private double brakePedalDepth;
     private int gear;
     private VehicleType vehicleType;
+    private double maxEngineForce;
+    private double maxBrakingForce;
+    private double dragConstant;
+    private double rollingResistanceConstant;
+
+    public Vehicle update(VehicleUpdateDto vehicleUpdateDto) {
+        this.steeringWheelDirection = vehicleUpdateDto.getSteeringWheelOrientation();
+        this.acceleratorPedalDepth = vehicleUpdateDto.getAcceleratorPedalDepth();
+        this.brakePedalDepth = vehicleUpdateDto.getBrakePedalDepth();
+        return this;
+    }
 
     public int getId() {
         return id;
@@ -46,14 +61,6 @@ public abstract class Vehicle {
 
     public void setDirectionOfTravel(double directionOfTravel) {
         this.directionOfTravel = directionOfTravel;
-    }
-
-    public double getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(double velocity) {
-        this.velocity = velocity;
     }
 
     public double getMass() {
@@ -94,5 +101,69 @@ public abstract class Vehicle {
 
     public void setGear(int gear) {
         this.gear = gear;
+    }
+
+    public double getxVelocity() {
+        return xVelocity;
+    }
+
+    public void setxVelocity(double xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+
+    public double getMaxEngineForce() {
+        return maxEngineForce;
+    }
+
+    public void setMaxEngineForce(double maxEngineForce) {
+        this.maxEngineForce = maxEngineForce;
+    }
+
+    public double getyVelocity() {
+        return yVelocity;
+    }
+
+    public void setyVelocity(double yVelocity) {
+        this.yVelocity = yVelocity;
+    }
+
+    public double getxAcceleration() {
+        return xAcceleration;
+    }
+
+    public void setxAcceleration(double xAcceleration) {
+        this.xAcceleration = xAcceleration;
+    }
+
+    public double getyAcceleration() {
+        return yAcceleration;
+    }
+
+    public void setyAcceleration(double yAcceleration) {
+        this.yAcceleration = yAcceleration;
+    }
+
+    public double getMaxBrakingForce() {
+        return maxBrakingForce;
+    }
+
+    public void setMaxBrakingForce(double maxBrakingForce) {
+        this.maxBrakingForce = maxBrakingForce;
+    }
+
+    public double getDragConstant() {
+        return dragConstant;
+    }
+
+    public void setDragConstant(double dragConstant) {
+        this.dragConstant = dragConstant;
+    }
+
+    public double getRollingResistanceConstant() {
+        return rollingResistanceConstant;
+    }
+
+    public void setRollingResistanceConstant(double rollingResistanceConstant) {
+        this.rollingResistanceConstant = rollingResistanceConstant;
     }
 }

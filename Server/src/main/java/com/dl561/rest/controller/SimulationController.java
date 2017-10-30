@@ -1,5 +1,6 @@
 package com.dl561.rest.controller;
 
+import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.rest.service.ISimulationService;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.vehicle.Vehicle;
@@ -67,9 +68,9 @@ public class SimulationController {
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/vehicle/{vehicle_id}", method = RequestMethod.POST, produces = JSON_RESULT)
-    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody Vehicle vehicle) {
+    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("simulation_id") Integer simulationId, @PathVariable("vehicle_id") Integer vehicleId, @RequestBody VehicleUpdateDto vehicleUpdateDto) {
         System.out.println("updateVehicleById(" + vehicleId + ")");
-        return new ResponseEntity<>(simulationService.updateVehicle(simulationId, vehicleId, vehicle), HttpStatus.OK);
+        return new ResponseEntity<>(simulationService.updateVehicle(simulationId, vehicleId, vehicleUpdateDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/example", method = RequestMethod.GET, produces = JSON_RESULT)

@@ -1,5 +1,6 @@
 package com.dl561.rest.service;
 
+import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public interface ISimulationService {
 
     Vehicle getVehicleById(int simulationId, int vehicleId);
 
-    Vehicle updateVehicle(int simulationId, int vehicleId, Vehicle vehicle);
+    Vehicle updateVehicle(int simulationId, int vehicleId, VehicleUpdateDto vehicleUpdateDto);
 
     Simulation exampleSimulationData();
 

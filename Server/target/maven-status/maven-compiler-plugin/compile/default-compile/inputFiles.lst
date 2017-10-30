@@ -1,6 +1,4 @@
-E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\converter\SimulationConverter.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\service\ExampleData.java
-E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\dto\VehicleDto.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\dto\VehicleUpdateDto.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\service\SimulationService.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\course\Course.java
@@ -13,7 +11,6 @@ E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\controller\Simulat
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\Simulation.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\SpringBootStarter.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\vehicle\VehicleType.java
-E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\dto\SimulationDataDto.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\course\segment\Rectangle.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\course\location\Location.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\vehicle\Vehicle.java
