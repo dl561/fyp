@@ -1,7 +1,10 @@
 package com.dl561.rest.service;
 
+import com.dl561.rest.domain.dto.NewSimulationOptionsDto;
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.Simulation;
+import com.dl561.simulation.course.Course;
+import com.dl561.simulation.hud.Hud;
 import com.dl561.simulation.physics.Physics;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +59,27 @@ public class SimulationService implements ISimulationService {
         simulation.setId(simulations.size());
         simulations.add(simulation);
         return simulation;
+    }
+
+    @Override
+    public Simulation createSimulation(NewSimulationOptionsDto newSimulationOptionsDto) {
+        Simulation simulation = new Simulation();
+        simulation.setId(simulations.size());
+        //TODO: this doesnt work
+        populateSimulation(simulation, newSimulationOptionsDto);
+        simulation.setRunning(true);
+        simulation.setCurrentTime(0);
+        simulation.setPreviousTickTime(-10);
+        simulation.setRunTime(0);
+        simulation.setHud(new Hud());
+        simulations.add(simulation);
+        System.out.println("Finish creating simulation");
+        return simulation;
+    }
+
+    private void populateSimulation(Simulation simulation, NewSimulationOptionsDto newSimulationOptionsDto) {
+        simulation.setCourse(Course.getByTrackNumber(newSimulationOptionsDto.getTrackNumber()));
+        simulation.setVehicles(Course.getVehiclesByTrackNumber(newSimulationOptionsDto.getTrackNumber(), newSimulationOptionsDto.getVehiclesToCreate()));
     }
 
     @Override

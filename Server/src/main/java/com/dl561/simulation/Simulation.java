@@ -130,6 +130,7 @@ public class Simulation {
 
     public void doTick() {
         if (running) {
+            previousTickTime = currentTime;
             currentTime = System.currentTimeMillis();
             runTime += currentTime - previousTickTime;
         }

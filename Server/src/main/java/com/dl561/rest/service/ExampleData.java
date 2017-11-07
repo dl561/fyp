@@ -61,7 +61,7 @@ public class ExampleData {
         vehicle.setLocation(location);
         vehicle.setDirectionOfTravel(210);
         vehicle.setMass(50);
-        vehicle.setxVelocity(21);
+        vehicle.setXVelocity(21);
         return vehicle;
     }
 }

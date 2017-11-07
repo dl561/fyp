@@ -57,6 +57,14 @@ function doNewSimulation(callBackFunction) {
 	client.put('http://localhost:8080/simulation', callBackFunction, simulationDataDto);		
 }
 
+function doNewSimulationByOptions(callBackFunction, trackNumber, vehiclesToCreate){
+	var newSimulationOptionsDto = new Object();
+	newSimulationOptionsDto.trackNumber = trackNumber;
+	newSimulationOptionsDto.vehiclesToCreate = vehiclesToCreate;
+	var client = new HttpClient();
+	client.put('http://localhost:8080/simulation/options', callBackFunction, newSimulationOptionsDto);
+}
+
 function doFetchExample(callBackFunction){
 	var client = new HttpClient();
 	client.get('http://localhost:8080/example/', callBackFunction);

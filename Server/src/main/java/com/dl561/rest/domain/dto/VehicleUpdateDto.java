@@ -5,6 +5,7 @@ public class VehicleUpdateDto {
     private double steeringWheelOrientation;
     private double acceleratorPedalDepth;
     private double brakePedalDepth;
+    private int gear;
 
     public int getId() {
         return id;
@@ -36,5 +37,13 @@ public class VehicleUpdateDto {
 
     public void setBrakePedalDepth(double brakePedalDepth) {
         this.brakePedalDepth = brakePedalDepth;
+    }
+
+    public int getGear() {
+        return gear;
+    }
+
+    public void setGear(int gear) {
+        this.gear = gear;
     }
 }

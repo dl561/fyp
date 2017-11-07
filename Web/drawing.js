@@ -13,17 +13,11 @@ function drawCourse(){
 }
 
 function drawCourseRectangle(rectangle){
-	drawRectangle(rectangle.x, rectangle.y, rectangle.xSize, rectangle.ySize, rectangle.rotation);
+	drawRectangle(rectangle.x, rectangle.y, rectangle.xSize, rectangle.ySize, rectangle.rotation, "#000000");
 }
 
 function drawCourseArc(arc){
-	ctx.beginPath();
-	ctx.arc(arc.x, arc.y, arc.radius, arc.startAngle, arc.endAngle, arc.counterClockwise);
-	ctx.fillStyle = "#000000";
-	ctx.rotate(arc.rotation * Math.PI / 180);
-	ctx.fill();
-	ctx.closePath();	
-	ctx.restore();
+	drawArc(arc.x, arc.y, arc.radius, arc.startAngle, arc.endAngle, arc.counterClockwise, arc.rotation);
 }
 
 function drawVehicles(){
@@ -31,7 +25,7 @@ function drawVehicles(){
 }
 
 function drawVehiclePieces(vehicle){
-	drawRectangle(vehicle.location.x, vehicle.location.y, 100, 150, vehicle.directionOfTravel);
+	drawRectangle(vehicle.location.x, vehicle.location.y, 4, 2, vehicle.directionOfTravel, "#00ffff");
 }
 
 function drawHUD(){
@@ -46,7 +40,7 @@ function rotationTest() {
 	drawRectangle(x,y,w,h,rotationAmount);
 }
 
-function drawRectangle(x, y, width, height, degrees){
+function drawRectangle(x, y, width, height, degrees, colour){
     var radians = degrees * Math.PI / 180;
 	var cx = x + width / 2;
 	var cy = y + height / 2;
@@ -55,7 +49,19 @@ function drawRectangle(x, y, width, height, degrees){
 	
     ctx.translate(cx, cy);
     ctx.rotate(radians);
+	ctx.fillStyle = colour;
     ctx.fillRect(drawX, drawY, width, height);
     ctx.rotate(radians * ( -1 ));
     ctx.translate(cx * (-1), cy * (-1));
+}
+
+function drawArc(x, y, radius, startAngle, endAngle, counterClockwise, rotation){
+	ctx.beginPath();
+	ctx.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+	ctx.strokeStyle = "#000000";
+	ctx.lineWidth = 60;
+	ctx.rotate(rotation * Math.PI / 180);
+	ctx.stroke();
+	ctx.closePath();	
+	ctx.restore();
 }

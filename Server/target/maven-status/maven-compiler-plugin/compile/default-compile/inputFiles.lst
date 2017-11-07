@@ -1,5 +1,6 @@
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\service\ExampleData.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\dto\VehicleUpdateDto.java
+E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\dto\NewSimulationOptionsDto.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\service\SimulationService.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\course\Course.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\service\ISimulationService.java
@@ -7,7 +8,9 @@ E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\course\segme
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\physics\Physics.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\Tick.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\vehicle\Car.java
+E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\domain\dto\VehicleCreationDto.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\rest\controller\SimulationController.java
+E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\physics\Vector2D.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\Simulation.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\SpringBootStarter.java
 E:\University\CM30082\fyp\Server\src\main\java\com\dl561\simulation\vehicle\VehicleType.java

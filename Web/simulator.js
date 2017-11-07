@@ -12,7 +12,17 @@ var courseRectangles = [];
 var courseArcs = [];
 var vehicleObjects = [];
 var hUDObjects = [];
-	
+
+var trackNumber1 = localStorage.getItem("trackNumber1");
+var trackNumber2 = localStorage.getItem("trackNumber2");
+var trackNumber;
+if(trackNumber1){
+	trackNumber = 1;
+}else if(trackNumber2){
+	trackNumber = 2;
+}
+var carCount = localStorage.getItem("carCount");
+
 function populateCourseObjects(course){
 	courseRectangles = course.rectangles;
 	courseArcs = course.arcs;
@@ -67,6 +77,24 @@ function newSimulation() {
 	});
 }
 
+function newSimulationByOptions(){
+	console.log("Getting new simulation by options");
+	console.log("Track Number: " + trackNumber);
+	console.log("Car count: " + carCount);
+	doNewSimulationByOptions(function(response){
+		var responseObj = JSON.parse(response);
+		simulationId = responseObj.id;
+	}, trackNumber, getList(carCount));
+	//Need to turn carCount into a list of car objects
+}
+
+function getList(carCount){
+	var list = [
+		{vehicleType:"CAR", count:carCount}
+	];
+	return list;
+}
+
 function fetch(){
 	console.log("Fetching");
 	doFetch(function (response){
@@ -92,14 +120,28 @@ function sendKeysAndFetch() {
 	var right;
 	if(keys[38]){
 		accelerating = true;
+		braking = false;
 	}else if(keys[40]){
 		braking = true;
+		accelerating = false;
+	}else{
+		braking = false;
+		accelerating = false;
 	}
 	if(keys[37]){
 		left = true;
+		right = false;
 	}else if(keys[39]){
 		right = true;
+		left = false;
+	}else{
+		left = false;
+		right = false;
 	}
+	console.log("accelerating: " + accelerating);
+	console.log("braking: " + braking);
+	console.log("left: " + left);
+	console.log("right: " + right);
 	var vehicleUpdateDto = new Object();
 	vehicleUpdateDto.id = 0;
 	if(accelerating){
@@ -124,9 +166,9 @@ function sendKeysAndFetch() {
 	doUpdateVehicle(vehicleUpdateDto, simulationId, 0);
 	fetch();
 }
-
-newSimulation();
+//CreateSimulationByOptions
+newSimulationByOptions();
 document.title = "Simulation number: " + localStorage.getItem("simulationId");
 
 //setInterval(fetch, 30);
-setInterval(sendKeysAndFetch, 3000);
+setInterval(sendKeysAndFetch, 20);

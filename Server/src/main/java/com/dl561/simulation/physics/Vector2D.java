@@ -74,7 +74,23 @@ public class Vector2D {
     }
 
     public void setXAndY(double x, double y) {
-        this.direction = Math.atan2(y, x);
-        this.magnitude = (x * x) + (y * y);
+        if (x == -0.0d) {
+            x = 0d;
+        }
+        if (y == -0.0d) {
+            y = 0d;
+        }
+        this.direction = normaliseRadians(Math.atan2(y, x));
+        this.magnitude = Math.sqrt((x * x) + (y * y));
+    }
+
+    private double normaliseRadians(double radians) {
+        double degrees = Math.toDegrees(radians);
+        degrees = degrees % 360;
+
+        if (degrees < 0) {
+            degrees = 360 + degrees;
+        }
+        return Math.toRadians(degrees);
     }
 }

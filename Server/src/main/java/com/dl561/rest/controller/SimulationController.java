@@ -1,5 +1,6 @@
 package com.dl561.rest.controller;
 
+import com.dl561.rest.domain.dto.NewSimulationOptionsDto;
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.rest.service.ISimulationService;
 import com.dl561.simulation.Simulation;
@@ -41,6 +42,12 @@ public class SimulationController {
     public ResponseEntity<Simulation> createSimulation(@RequestBody Simulation simulation) {
         System.out.println("createSimulation");
         return new ResponseEntity<>(simulationService.createSimulation(simulation), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/simulation/options", method = RequestMethod.PUT, produces = JSON_RESULT)
+    public ResponseEntity<Simulation> createSimulationByOptions(@RequestBody NewSimulationOptionsDto newSimulationOptionsDto) {
+        System.out.println("createSimulationByOptions");
+        return new ResponseEntity<>(simulationService.createSimulation(newSimulationOptionsDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/simulation/{simulation_id}/start", method = RequestMethod.GET, produces = JSON_RESULT)

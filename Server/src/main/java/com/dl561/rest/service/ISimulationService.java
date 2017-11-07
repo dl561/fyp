@@ -1,5 +1,6 @@
 package com.dl561.rest.service;
 
+import com.dl561.rest.domain.dto.NewSimulationOptionsDto;
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.vehicle.Vehicle;
@@ -18,6 +19,8 @@ public interface ISimulationService {
     Simulation stopSimulation(int simulationId);
 
     Simulation createSimulation(Simulation simulation);
+
+    Simulation createSimulation(NewSimulationOptionsDto newSimulationOptionsDto);
 
     List<Vehicle> getAllVehicles(int simulationId);
 

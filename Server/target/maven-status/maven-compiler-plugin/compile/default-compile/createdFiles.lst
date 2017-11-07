@@ -1,9 +1,11 @@
 com\dl561\simulation\physics\Physics.class
 com\dl561\rest\service\SimulationService.class
+com\dl561\rest\domain\dto\VehicleCreationDto.class
 com\dl561\rest\domain\dto\VehicleUpdateDto.class
 com\dl561\simulation\hud\Hud.class
 com\dl561\rest\service\ExampleData.class
 com\dl561\simulation\course\segment\Arc.class
+com\dl561\rest\domain\dto\NewSimulationOptionsDto.class
 com\dl561\simulation\vehicle\Vehicle.class
 com\dl561\SpringBootStarter.class
 com\dl561\simulation\Simulation.class
@@ -12,8 +14,10 @@ com\dl561\simulation\course\location\Location.class
 com\dl561\simulation\vehicle\Car.class
 com\dl561\rest\controller\SimulationController.class
 com\dl561\rest\service\ISimulationService.class
+com\dl561\simulation\physics\Vector2D.class
 com\dl561\simulation\course\Course.class
 com\dl561\simulation\Tick$1.class
 com\dl561\simulation\Tick.class
 com\dl561\simulation\vehicle\VehicleType.class
+com\dl561\simulation\course\Course$1.class
 com\dl561\simulation\course\segment\Rectangle.class
