@@ -28,17 +28,21 @@ public class Course {
         Course course = new Course();
 
         List<Rectangle> rectangles = new LinkedList<>();
+        /**
         rectangles.add(new Rectangle(150, 50, 900, 100, 0));
         rectangles.add(new Rectangle(150, 420, 900, 100, 0));
         rectangles.add(new Rectangle(100, 100, 100, 370, 0));
         rectangles.add(new Rectangle(1000, 100, 100, 370, 0));
+         **/
         course.setRectangles(rectangles);
 
         List<Arc> arcs = new LinkedList<>();
+        /**
         arcs.add(new Arc(160, 110, 30, Math.toRadians(180), Math.toRadians(270), false, 0));
         arcs.add(new Arc(1040, 110, 30, Math.toRadians(270), Math.toRadians(0), false, 0));
         arcs.add(new Arc(160, 460, 30, Math.toRadians(90), Math.toRadians(180), false, 0));
         arcs.add(new Arc(1040, 460, 30, Math.toRadians(180), Math.toRadians(90), false, 0));
+         **/
         course.setArcs(arcs);
 
         return course;
@@ -67,7 +71,7 @@ public class Course {
             case CAR:
                 switch (count) {
                     case 0:
-                        return new Car(650, 100, 90);
+                        return new Car(650, 100, 0);
                     case 1:
                         return new Car(610, 55, 90);
                     case 2:

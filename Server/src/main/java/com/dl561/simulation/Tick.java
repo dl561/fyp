@@ -13,8 +13,10 @@ import java.util.TimerTask;
 public class Tick {
 
     private final ISimulationService simulationService;
-    public static final int TICK_TIME = 30;
+    public static final int TICKS_PER_SECOND = 100;
     private static final int ONE_SECOND = 1000;
+    public static final int TICK_TIME = ONE_SECOND / TICKS_PER_SECOND;
+    public static final double SECONDS_PER_TICK = (double) TICKS_PER_SECOND / (double) ONE_SECOND;
     private static long previousTickTime;
     private static int tickCount = 0;
 

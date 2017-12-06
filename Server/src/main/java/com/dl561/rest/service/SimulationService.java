@@ -107,8 +107,8 @@ public class SimulationService implements ISimulationService {
     @Override
     public void doTick() {
         for (Simulation simulation : simulations) {
-            simulation.doTick();
             physics.calculateNewPositions(simulation);
+            simulation.doTick();
         }
     }
 }

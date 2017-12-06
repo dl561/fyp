@@ -12,27 +12,31 @@ public class Car extends Vehicle {
     @Value("${vehicle.car.width}")
     private double width = 30;
     @Value("${vehicle.car.maxengineforce}")
-    private double maxEngineForce = 6d;
+    private double maxEngineForce = 600d;
     @Value("${vehicle.car.maxbrakingforce}")
-    private double maxBrakingForce = 8d;
+    private double maxBrakingForce = 800d;
     @Value("${vehicle.car.dragresistance}")
-    private double dragResistance = 0.4d;
+    private double dragResistance = 500d;
     @Value("${vehicle.car.rollingresistance}")
-    private double rollingResistance = 12d;
+    private double rollingResistance = 3000d;
     @Value("${vehicle.car.mass}")
-    private double mass = 900d;
+    private double mass = 1500d;
+    private double frontWheelBase = 2d;
+    private double rearWheelBase = 3d;
     @Value("${vehicle.car.wheelbase}")
-    private double wheelBase = 4d;
+    private double wheelBase = frontWheelBase + rearWheelBase;
     @Value("${vehicle.car.centreofgravityheight}")
     private double centreOfGravityHeight = 1d;
-    @Value("${vehicle.car.differentialratio}")
+    //   @Value("${vehicle.car.differentialratio}")
     private double differentialRatio = 3.4d;
-    @Value("${vehicle.car.transmissionefficiency}")
+    //  @Value("${vehicle.car.transmissionefficiency}")
     private double transmissionEfficiency = 0.7d;
-    @Value("${vehicle.car.wheelradius}")
+    // @Value("${vehicle.car.wheelradius}")
     private double wheelRadius = 0.34d;
-    @Value("${vehicle.car.gearratios}")
+    // @Value("${vehicle.car.gearratios}")
     private double[] gearRatios = {-2.90d, 2.66d, 1.78d, 1.30d, 1.0d, 0.74d};
+
+    private double inertia = 1500d;
 
     public Car() {
         setValues();
@@ -45,14 +49,22 @@ public class Car extends Vehicle {
     }
 
     private void setValues() {
-        this.setVehicleType(VehicleType.CAR);
-        this.setMaxEngineForce(maxEngineForce);
-        this.setMaxBrakingForce(maxBrakingForce);
-        this.setDragConstant(dragResistance);
-        this.setRollingResistanceConstant(rollingResistance);
-        this.setMass(mass);
-        this.setWheelBaseConstant(wheelBase);
-        this.setCentreOfGravityHeight(centreOfGravityHeight);
+        setVehicleType(VehicleType.CAR);
+        setMaxEngineForce(maxEngineForce);
+        setMaxBrakingForce(maxBrakingForce);
+        setDragConstant(dragResistance);
+        setRollingResistanceConstant(rollingResistance);
+        setMass(mass);
+        setWheelBaseConstant(wheelBase);
+        setCentreOfGravityHeight(centreOfGravityHeight);
+        setDifferentialRatio(differentialRatio);
+        setTransmissionEfficiency(transmissionEfficiency);
+        setWheelRadius(wheelRadius);
+        setGearRatios(gearRatios);
+        setGear(1);
+        setInertia(inertia);
+        setFrontWheelBase(frontWheelBase);
+        setRearWheelBase(rearWheelBase);
     }
 
 }

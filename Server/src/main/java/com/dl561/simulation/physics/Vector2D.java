@@ -93,4 +93,14 @@ public class Vector2D {
         }
         return Math.toRadians(degrees);
     }
+
+    public void setX(double x) {
+        double y = getY();
+        setXAndY(x, y);
+    }
+
+    public void setY(double y) {
+        double x = getX();
+        setXAndY(x, y);
+    }
 }

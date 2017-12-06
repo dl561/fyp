@@ -46,4 +46,15 @@ public class VehicleUpdateDto {
     public void setGear(int gear) {
         this.gear = gear;
     }
+
+    @Override
+    public String toString() {
+        return "VehicleUpdateDto{" +
+                "id=" + id +
+                ", steeringWheelOrientation=" + steeringWheelOrientation +
+                ", acceleratorPedalDepth=" + acceleratorPedalDepth +
+                ", brakePedalDepth=" + brakePedalDepth +
+                ", gear=" + gear +
+                '}';
+    }
 }

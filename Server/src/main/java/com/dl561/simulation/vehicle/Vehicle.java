@@ -2,6 +2,8 @@ package com.dl561.simulation.vehicle;
 
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.course.location.Location;
+import com.dl561.simulation.physics.Physics;
+import com.dl561.simulation.physics.Vector2DNoMAGDIR;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,8 +11,8 @@ public abstract class Vehicle {
     private int id;
     private Location location;
     private double directionOfTravel;
-    private double xVelocity = 0;
-    private double yVelocity = 0;
+    private double worldReferenceXVelocity = 0;
+    private double worldReferenceYVelocity = 0;
     private double mass;
     private double steeringWheelDirection;
     private double acceleratorPedalDepth;
@@ -22,16 +24,27 @@ public abstract class Vehicle {
     private double dragConstant;
     private double rollingResistanceConstant;
     private double wheelBaseConstant;
+    private double frontWheelBase;
+    private double rearWheelBase;
     private double centreOfGravityHeight;
     private double differentialRatio;
     private double transmissionEfficiency;
     private double wheelRadius;
     private double[] gearRatios;
+    private double angularVelocity;
+    private double inertia;
 
     public Vehicle update(VehicleUpdateDto vehicleUpdateDto) {
-        this.steeringWheelDirection = vehicleUpdateDto.getSteeringWheelOrientation();
-        this.acceleratorPedalDepth = vehicleUpdateDto.getAcceleratorPedalDepth();
-        this.brakePedalDepth = vehicleUpdateDto.getBrakePedalDepth();
+        steeringWheelDirection = Physics.normalise(-45d, 45d, vehicleUpdateDto.getSteeringWheelOrientation());
+        acceleratorPedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getAcceleratorPedalDepth());
+        brakePedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getBrakePedalDepth());
+        if (vehicleUpdateDto.getGear() < 0) {
+            gear = 0;
+        } else if (vehicleUpdateDto.getGear() > 5) {
+            gear = 5;
+        } else {
+            gear = vehicleUpdateDto.getGear();
+        }
         return this;
     }
 
@@ -40,8 +53,27 @@ public abstract class Vehicle {
         return 450d;
     }
 
+    public double getSteerAngleInRadians(){
+        return Math.toRadians(steeringWheelDirection);
+    }
+
     public double getGearRatio(int gearNumber) {
         return this.gearRatios[gearNumber];
+    }
+
+    public double getSin() {
+        return Math.sin(directionOfTravel);
+    }
+
+    public double getCos() {
+        return Math.cos(directionOfTravel);
+    }
+
+    public Vector2DNoMAGDIR getVehicleReferenceVelocity() {
+        Vector2DNoMAGDIR vehicleReferenceVelocity = new Vector2DNoMAGDIR();
+        vehicleReferenceVelocity.setX(getCos() * worldReferenceYVelocity + getSin() * worldReferenceXVelocity);
+        vehicleReferenceVelocity.setY(getCos() * worldReferenceXVelocity - getSin() * worldReferenceYVelocity);
+        return vehicleReferenceVelocity;
     }
 
     public int getId() {
@@ -73,7 +105,7 @@ public abstract class Vehicle {
     }
 
     public void setDirectionOfTravel(double directionOfTravel) {
-        this.directionOfTravel = directionOfTravel;
+        this.directionOfTravel = directionOfTravel % 360;
     }
 
     public double getOppositeDirectionOfTravel() {
@@ -125,11 +157,11 @@ public abstract class Vehicle {
     }
 
     public double getXVelocity() {
-        return xVelocity;
+        return worldReferenceXVelocity;
     }
 
     public void setXVelocity(double xVelocity) {
-        this.xVelocity = xVelocity;
+        this.worldReferenceXVelocity = xVelocity;
     }
 
     public double getMaxEngineForce() {
@@ -141,11 +173,11 @@ public abstract class Vehicle {
     }
 
     public double getYVelocity() {
-        return yVelocity;
+        return worldReferenceYVelocity;
     }
 
     public void setYVelocity(double yVelocity) {
-        this.yVelocity = yVelocity;
+        this.worldReferenceYVelocity = yVelocity;
     }
 
     public double getMaxBrakingForce() {
@@ -218,5 +250,37 @@ public abstract class Vehicle {
 
     public void setGearRatios(double[] gearRatios) {
         this.gearRatios = gearRatios;
+    }
+
+    public double getAngularVelocity() {
+        return angularVelocity;
+    }
+
+    public void setAngularVelocity(double angularVelocity) {
+        this.angularVelocity = angularVelocity;
+    }
+
+    public double getInertia() {
+        return inertia;
+    }
+
+    public void setInertia(double inertia) {
+        this.inertia = inertia;
+    }
+
+    public double getFrontWheelBase() {
+        return frontWheelBase;
+    }
+
+    public void setFrontWheelBase(double frontWheelBase) {
+        this.frontWheelBase = frontWheelBase;
+    }
+
+    public double getRearWheelBase() {
+        return rearWheelBase;
+    }
+
+    public void setRearWheelBase(double rearWheelBase) {
+        this.rearWheelBase = rearWheelBase;
     }
 }

@@ -2,9 +2,11 @@ package com.dl561.simulation;
 
 import com.dl561.simulation.course.Course;
 import com.dl561.simulation.hud.Hud;
+import com.dl561.simulation.hud.TextHud;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
 
+import javax.xml.soap.Text;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -133,6 +135,12 @@ public class Simulation {
             previousTickTime = currentTime;
             currentTime = System.currentTimeMillis();
             runTime += currentTime - previousTickTime;
+            updateHud();
         }
+    }
+
+    private void updateHud(){
+        List<TextHud> textHuds = new LinkedList<>();
+
     }
 }
