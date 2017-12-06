@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Driving Simulator</title>
-    <style>
-    	* { padding: 0; margin: 0; }
-    	canvas { background: #FFFFFF; display: block; margin: 0 auto; }
-    </style>
+<meta charset = "utf-8"/>
+<title> Driving Simulator </title>
+<style>
+* {
+padding: 0;
+margin: 0;
+}
+canvas {
+	background:  # FFFFFF;
+	display: block;
+	margin: 0 auto;
+}
+</style>
 </head>
 <body>
 
-<canvas id="simulationCanvas" width="480" height="320"></canvas>
+<canvas id = "simulationCanvas" width = "480" height = "320">  < / canvas>
 
-<script src="drawing.js"></script>
+<script src = "js/httpRequests.js"></script>
+<script src = "js/drawing.js"></script>
+<script src = "js/keyPressing.js"></script>
+<script src = "js/simulator.js"></script>
 <script>
 var canvas = document.getElementById("simulationCanvas");
 var ctx = canvas.getContext("2d");
 
 var stopButton = document.getElementById("stop");
-ctx.canvas.width  = window.innerWidth;
+ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 //TODO: See if you can get the height of the canvas to be a bit smaller
 
@@ -27,32 +37,65 @@ var courseArcs = [];
 var vehicleObjects = [];
 var hUDObjects = [];
 
-courseRectangles = [
-	{x:150,y:50,xSize:900,ySize:100,rotation:0},
-	{x:150,y:420,xSize:900,ySize:100,rotation:0},
-	{x:100,y:100,xSize:100,ySize:370,rotation:0},
-	{x:1000,y:100,xSize:100,ySize:370,rotation:0}
-	];
-courseArcs = [
-	{x:160,y:110,radius:30,startAngle:1*Math.PI,endAngle:1.5*Math.PI,counterClockwise:false,rotation:0},
-	{x:1040,y:110,radius:30,startAngle:1.5*Math.PI,endAngle:0,counterClockwise:false,rotation:0},
-	{x:160,y:460,radius:30,startAngle:0.5*Math.PI,endAngle:1*Math.PI,counterClockwise:false,rotation:0},
-	{x:1040,y:460,radius:30,startAngle:1*Math.PI,endAngle:0.5*Math.PI,counterClockwise:false,rotation:0}
-];
-vehicleObjects = [
-	{location:{x:650,y:100},directionOfTravel:45},
-	{location:{x:610,y:55},directionOfTravel:90},
-	{location:{x:570,y:100},directionOfTravel:90},
-	{location:{x:530,y:55},directionOfTravel:90},
-	{location:{x:490,y:100},directionOfTravel:90},
-	{location:{x:450,y:55},directionOfTravel:90},
-	{location:{x:410,y:100},directionOfTravel:90},
-	{location:{x:370,y:55},directionOfTravel:90},
-	{location:{x:330,y:100},directionOfTravel:90},
-	{location:{x:290,y:55},directionOfTravel:90}
-];
-draw();
-</script>
+var acceleratorPedalDepthVariable = 0;
+var brakePedalDepthVariable = 0;
+var steeringAngle = 0;
+var gearNumber = 1;
 
-</body>
+initImages();
+
+function getUpdatedPedalDepths() {
+	if (accelerating) {
+		acceleratorPedalDepthVariable += 10;
+	} else {
+		acceleratorPedalDepthVariable -= 10;
+	}
+	if (braking) {
+		brakePedalDepthVariable += 10;
+	} else {
+		brakePedalDepthVariable -= 10;
+	}
+
+	if (acceleratorPedalDepthVariable> 100) {
+		acceleratorPedalDepthVariable = 100;
+	}
+	if (acceleratorPedalDepthVariable <0) {
+		acceleratorPedalDepthVariable = 0;
+	}
+	if (brakePedalDepthVariable> 100) {
+		brakePedalDepthVariable = 100;
+	}
+	if (brakePedalDepthVariable <0) {
+		brakePedalDepthVariable = 0;
+	}
+
+	if (left) {
+		if (steeringAngle> -30) {
+			steeringAngle -= 5;
+		}
+	} else if (right) {
+		if (steeringAngle <30) {
+			steeringAngle += 5;
+		}
+	} else {
+		if (steeringAngle <0) {
+			steeringAngle += 5;
+		} else if (steeringAngle> 0) {
+			steeringAngle -= 5;
+		}
+	}
+}
+
+function tick(){
+	tickCount++;
+	updateKeys();
+	getUpdatedPedalDepths();
+	draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber);
+}
+tickCount = 0;
+lastGearChange = 0;
+setInterval(tick, 30);
+ </script>
+
+ </body>
 </html>

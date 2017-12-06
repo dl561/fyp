@@ -1,12 +1,12 @@
-function submitFunction(){
+function submitFunction() {
 	var carCount = document.getElementById("carCount").value;
 	var trackNumber1 = document.getElementById("trackNumber1").checked;
 	var trackNumber2 = document.getElementById("trackNumber2").checked;
-	if(!trackNumber1&&!trackNumber2){
+	if (!trackNumber1 && !trackNumber2) {
 		var errorLabel = document.getElementById("trackNumberError");
 		errorLabel.hidden = false;
 		return;
-	}else{
+	} else {
 		var buttons = document.getElementById("submit");
 		var newUrl = "web.html";
 		localStorage.setItem("carCount", carCount);
@@ -16,9 +16,19 @@ function submitFunction(){
 		document.location.href = newUrl;
 	}
 }
-
 function updateRange() {
 	var range = document.getElementById("carCount").value;
 	var label = document.getElementById("carCountLabel");
 	label.innerHTML = range;
+	hideCarButtons(range);
+}
+function checkSingleLocal(carNumber) {
+	if (document.getElementById("carLocal" + carNumber).checked) {
+		for (i = 1; i < 7; i++) {
+			if (i != carNumber) {
+				var x = document.getElementById("carLocal" + i);
+				x.checked = false;
+			}
+		}
+	}
 }
