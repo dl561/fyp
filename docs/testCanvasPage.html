@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset = "utf-8"/>
+<title> Driving Simulator </title>
+<style>
+* {
+padding: 0;
+margin: 0;
+}
+canvas {
+	background:  # FFFFFF;
+	display: block;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<canvas id = "simulationCanvas" width = "480" height = "320">  < / canvas>
+
+<script src = "js/httpRequests.js"></script>
+<script src = "js/drawing.js"></script>
+<script src = "js/keyPressing.js"></script>
+<script src = "js/simulator.js"></script>
+<script>
+var canvas = document.getElementById("simulationCanvas");
+var ctx = canvas.getContext("2d");
+
+var stopButton = document.getElementById("stop");
+ctx.canvas.width = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+//TODO: See if you can get the height of the canvas to be a bit smaller
+
+var courseRectangles = [];
+var courseArcs = [];
+var vehicleObjects = [];
+var hUDObjects = [];
+
+var acceleratorPedalDepthVariable = 0;
+var brakePedalDepthVariable = 0;
+var steeringAngle = 0;
+var gearNumber = 1;
+
+initImages();
+
+vehicleObjects = [new Object()];
+
+
+function getUpdatedPedalDepths() {
+	if (accelerating) {
+		acceleratorPedalDepthVariable += 10;
+	} else {
+		acceleratorPedalDepthVariable -= 10;
+	}
+	if (braking) {
+		brakePedalDepthVariable += 10;
+	} else {
+		brakePedalDepthVariable -= 10;
+	}
+
+	if (acceleratorPedalDepthVariable> 100) {
+		acceleratorPedalDepthVariable = 100;
+	}
+	if (acceleratorPedalDepthVariable <0) {
+		acceleratorPedalDepthVariable = 0;
+	}
+	if (brakePedalDepthVariable> 100) {
+		brakePedalDepthVariable = 100;
+	}
+	if (brakePedalDepthVariable <0) {
+		brakePedalDepthVariable = 0;
+	}
+
+	if (left) {
+		if (steeringAngle > -Math.PI / 6) {
+			steeringAngle -= Math.PI / 64;
+		}
+	} else if (right) {
+		if (steeringAngle < Math.PI / 6) {
+			steeringAngle += Math.PI / 64;
+		}
+	} else {
+		if (steeringAngle < 0) {
+			steeringAngle += Math.PI / 64;
+		} else if (steeringAngle > 0) {
+			steeringAngle -= Math.PI / 64;
+		}
+	}
+	var vehicle = vehicleObjects[0];
+	vehicleObjects[0].speed = acceleratorPedalDepthVariable;
+	vehicleObjects[0].location = new Object();
+	vehicleObjects[0].location.x = 30;
+	vehicleObjects[0].location.y = 40;
+	vehicleObjects[0].vehicleReferenceVelocity = new Object();
+	vehicleObjects[0].vehicleReferenceVelocity.x = 1;
+	vehicleObjects[0].vehicleReferenceVelocity.y = 2
+}
+
+function tick(){
+	tickCount++;
+	updateKeys();
+	getUpdatedPedalDepths();
+	draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber);
+}
+tickCount = 0;
+lastGearChange = 0;
+setInterval(tick, 30);
+ </script>
+
+ </body>
+</html>
