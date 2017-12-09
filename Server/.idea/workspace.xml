@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="082aefe0-1efd-43d3-ba7e-5a15f780d3ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/AIService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/Computer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/img/steeringWheel.png" afterPath="$PROJECT_DIR$/../Web/img/steeringWheel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/img/track0.png" afterPath="$PROJECT_DIR$/../Web/img/track0.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ExampleData.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ExampleData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/PhysicsTest.java" afterPath="$PROJECT_DIR$/src/test/java/PhysicsTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/drawing.js" afterPath="$PROJECT_DIR$/../Web/js/drawing.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/httpRequests.js" afterPath="$PROJECT_DIR$/../Web/js/httpRequests.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/options.js" afterPath="$PROJECT_DIR$/../Web/js/options.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/simulator.js" afterPath="$PROJECT_DIR$/../Web/js/simulator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/options.html" afterPath="$PROJECT_DIR$/../Web/options.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/testCanvasPage.html" afterPath="$PROJECT_DIR$/../Web/testCanvasPage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/web.html" afterPath="$PROJECT_DIR$/../Web/web.html" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,7 +20,7 @@
       <file leaf-file-name="Physics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
+            <state relative-caret-position="287">
               <caret line="170" column="35" lean-forward="true" selection-start-line="170" selection-start-column="35" selection-end-line="170" selection-end-column="35" />
               <folding />
             </state>
@@ -606,7 +584,7 @@
       <workItem from="1512744849992" duration="7152000" />
       <workItem from="1512757298687" duration="4488000" />
       <workItem from="1512777412403" duration="710000" />
-      <workItem from="1512818723848" duration="706000" />
+      <workItem from="1512818723848" duration="958000" />
     </task>
     <servers />
   </component>
@@ -643,7 +621,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144088000" />
+    <option name="totallyTimeSpent" value="144340000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -656,7 +634,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1618" height="868" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -669,7 +646,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43982807" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24254215" sideWeight="0.49164677" order="0" side_tool="false" content_ui="combo" />
@@ -1175,7 +1152,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
+        <state relative-caret-position="287">
           <caret line="170" column="35" lean-forward="true" selection-start-line="170" selection-start-column="35" selection-end-line="170" selection-end-column="35" />
           <folding />
         </state>
