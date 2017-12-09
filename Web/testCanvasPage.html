@@ -44,6 +44,9 @@ var gearNumber = 1;
 
 initImages();
 
+vehicleObjects = [new Object()];
+
+
 function getUpdatedPedalDepths() {
 	if (accelerating) {
 		acceleratorPedalDepthVariable += 10;
@@ -70,20 +73,28 @@ function getUpdatedPedalDepths() {
 	}
 
 	if (left) {
-		if (steeringAngle> -30) {
-			steeringAngle -= 5;
+		if (steeringAngle > -Math.PI / 6) {
+			steeringAngle -= Math.PI / 64;
 		}
 	} else if (right) {
-		if (steeringAngle <30) {
-			steeringAngle += 5;
+		if (steeringAngle < Math.PI / 6) {
+			steeringAngle += Math.PI / 64;
 		}
 	} else {
-		if (steeringAngle <0) {
-			steeringAngle += 5;
-		} else if (steeringAngle> 0) {
-			steeringAngle -= 5;
+		if (steeringAngle < 0) {
+			steeringAngle += Math.PI / 64;
+		} else if (steeringAngle > 0) {
+			steeringAngle -= Math.PI / 64;
 		}
 	}
+	var vehicle = vehicleObjects[0];
+	vehicleObjects[0].speed = acceleratorPedalDepthVariable;
+	vehicleObjects[0].location = new Object();
+	vehicleObjects[0].location.x = 30;
+	vehicleObjects[0].location.y = 40;
+	vehicleObjects[0].vehicleReferenceVelocity = new Object();
+	vehicleObjects[0].vehicleReferenceVelocity.x = 1;
+	vehicleObjects[0].vehicleReferenceVelocity.y = 2
 }
 
 function tick(){

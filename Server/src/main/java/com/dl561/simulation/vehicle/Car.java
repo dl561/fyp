@@ -21,8 +21,8 @@ public class Car extends Vehicle {
     private double rollingResistance = 3000d;
     @Value("${vehicle.car.mass}")
     private double mass = 1500d;
-    private double frontWheelBase = 2d;
-    private double rearWheelBase = 3d;
+    private double frontWheelBase = 1d;
+    private double rearWheelBase = 1d;
     @Value("${vehicle.car.wheelbase}")
     private double wheelBase = frontWheelBase + rearWheelBase;
     @Value("${vehicle.car.centreofgravityheight}")
@@ -34,18 +34,21 @@ public class Car extends Vehicle {
     // @Value("${vehicle.car.wheelradius}")
     private double wheelRadius = 0.34d;
     // @Value("${vehicle.car.gearratios}")
-    private double[] gearRatios = {-2.90d, 2.66d, 1.78d, 1.30d, 1.0d, 0.74d};
+    //private double[] gearRatios = {-2.90d, 2.66d, 1.78d, 1.30d, 1.0d, 0.74d};
+    private double[] gearRatios = {-2.90d, 2.66d, 3.50d, 4.20d, 5.00d, 6.80d};
 
-    private double inertia = 1500d;
+    private double inertia = 3000d;
 
     public Car() {
         setValues();
     }
 
-    public Car(double x, double y, double rotation) {
+    public Car(int id, double x, double y, double rotation, boolean isComputer) {
         setValues();
         this.setLocation(new Location(x, y));
         this.setDirectionOfTravel(rotation);
+        this.setComputer(isComputer);
+        setId(id);
     }
 
     private void setValues() {

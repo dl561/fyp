@@ -10,8 +10,9 @@
 <script src="js/options.js"></script>
 
 <h1>Driving Simulator</h1>	
-<label>Please choose your options:</label>
 <form>
+Enter IP address of host:
+<input type="text" id="ipAddressBox" name="ipAddressBox"></input><br>
 Track Number:<br>
 <input type="radio" value="1" id="trackNumber1" name="track">1</input>
 <input type="radio" value="2" id="trackNumber2" name="track">2</input><label id="trackNumberError" hidden="true" style="color: #FF0000;"><i>  Please pick a track!</i></label><br>
@@ -66,7 +67,9 @@ Number of cars: <label id="carCountLabel"></label><br>
 	<input type="checkbox" id="carComputer6">Computer?</input><br>
 	<input type="checkbox" id="carLocal6" onclick="checkSingleLocal(6);">Local?</input">
 </div>
+<br><br>
 
+<input type="checkbox" id="soundCheckbox">Sound?</input>
 <br>
 <input type="button" id="submit" onClick="submitFunction();" value="Start"></input>
 

@@ -53,7 +53,6 @@ public class SimulationService implements ISimulationService {
 
     @Override
     public Simulation createSimulation(Simulation simulation) {
-        //TODO: how to use the simulation you are given!?!
         //I assume it will be acceptable to just take what you are given and put it into the simulation
         //If you are given a blank one then you create
         simulation.setId(simulations.size());
@@ -65,7 +64,6 @@ public class SimulationService implements ISimulationService {
     public Simulation createSimulation(NewSimulationOptionsDto newSimulationOptionsDto) {
         Simulation simulation = new Simulation();
         simulation.setId(simulations.size());
-        //TODO: this doesnt work
         populateSimulation(simulation, newSimulationOptionsDto);
         simulation.setRunning(true);
         simulation.setCurrentTime(0);
@@ -73,13 +71,13 @@ public class SimulationService implements ISimulationService {
         simulation.setRunTime(0);
         simulation.setHud(new Hud());
         simulations.add(simulation);
-        System.out.println("Finish creating simulation");
+        System.out.println("Finished creating simulation");
         return simulation;
     }
 
     private void populateSimulation(Simulation simulation, NewSimulationOptionsDto newSimulationOptionsDto) {
         simulation.setCourse(Course.getByTrackNumber(newSimulationOptionsDto.getTrackNumber()));
-        simulation.setVehicles(Course.getVehiclesByTrackNumber(newSimulationOptionsDto.getTrackNumber(), newSimulationOptionsDto.getVehiclesToCreate()));
+        simulation.setVehicles(Course.getVehicles(newSimulationOptionsDto.getVehiclesToCreate()));
     }
 
     @Override

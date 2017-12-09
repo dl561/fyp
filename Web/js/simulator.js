@@ -4,7 +4,6 @@ var ctx = canvas.getContext("2d");
 var stopButton = document.getElementById("stop");
 ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight - stopButton.offsetHeight;
-//TODO: See if you can get the height of the canvas to be a bit smaller
 
 var simulationId;
 var tickCount = 0;
@@ -19,13 +18,17 @@ var braking = false;
 var left = false;
 var right = false;
 
-//TODO: make a better way of doing this
 var acceleratorPedalDepthVariable = 0;
 var brakePedalDepthVariable = 0;
 var steeringAngle = 0;
 var gearNumber = 1;
+var frontSlip = false;
+var rearSlip = false;
 
 var lastGearChange = 0;
+
+var localCarNumber = localStorage.getItem("localCarNumber");
+setHostIP(localStorage.getItem("hostIP"));
 
 initImages();
 
@@ -39,6 +42,7 @@ if (trackNumber1) {
 }
 localStorage.setItem("trackNumber", trackNumber);
 var carCount = localStorage.getItem("carCount");
+var computerCars = localStorage.getItem("computerCars");
 
 function populateCourseObjects(course) {
 	courseRectangles = course.rectangles;
@@ -96,28 +100,32 @@ function newSimulationByOptions() {
 	doNewSimulationByOptions(function (response) {
 		var responseObj = JSON.parse(response);
 		simulationId = responseObj.id;
-	}, trackNumber, getList(carCount));
-	//Need to turn carCount into a list of car objects
+	}, trackNumber, getList());
 }
 
-function getList(carCount) {
-	var list = [{
-			vehicleType: "CAR",
-			count: carCount
+function getList() {
+	var carList = [];
+	for (i = 0; i < carCount; i++) {
+		var car = new Object();
+		car.vehicleType = "CAR";
+		if (computerCars[1 + (2 * i)] == "1") {
+			car.isComputer = true;
+		} else {
+			car.isComputer = false;
 		}
-	];
-	return list;
+		carList.push(car);
+	}
+	console.log(carList);
+	return carList;
 }
 
 function fetch() {
-	//console.log("Fetching");
 	doFetch(function (response) {
 		populate(response);
 	}, simulationId);
 }
 
 function fetchExample() {
-	console.log("Fetching example");
 	doFetchExample(function (response) {
 		populate(response);
 		draw();
@@ -150,11 +158,11 @@ function sendUpdate() {
 	}
 
 	if (left) {
-		if (steeringAngle > -Math.PI / 4) {
+		if (steeringAngle > -Math.PI / 6) {
 			steeringAngle -= Math.PI / 32;
 		}
 	} else if (right) {
-		if (steeringAngle < Math.PI / 4) {
+		if (steeringAngle < Math.PI / 6) {
 			steeringAngle += Math.PI / 32;
 		}
 	} else {
@@ -166,13 +174,13 @@ function sendUpdate() {
 	}
 
 	var vehicleUpdateDto = new Object();
-	vehicleUpdateDto.id = 0;
+	vehicleUpdateDto.id = localCarNumber;
 	vehicleUpdateDto.acceleratorPedalDepth = acceleratorPedalDepthVariable;
 	vehicleUpdateDto.brakePedalDepth = brakePedalDepthVariable;
 	vehicleUpdateDto.steeringWheelOrientation = steeringAngle;
 	vehicleUpdateDto.gear = gearNumber;
 
-	doUpdateVehicle(vehicleUpdateDto, simulationId, 0);
+	doUpdateVehicle(vehicleUpdateDto, simulationId, localCarNumber);
 }
 
 function updateKeys() {
@@ -216,6 +224,14 @@ function updateKeys() {
 			lastGearChange = tickCount;
 		}
 	}
+
+	if (keys[32]) {
+		frontSlip = true;
+		rearSlip = true;
+	} else {
+		frontSlip = false;
+		rearSlip = false;
+	}
 }
 
 function tick() {
@@ -233,10 +249,11 @@ function doUpdateTick() {
 }
 
 function beginTick() {
+	document.title = "Simulation number: " + simulationId;
+	playMusic(localStorage.getItem("sound"));
 	setInterval(tick, 30);
 }
 //CreateSimulationByOptions
 newSimulationByOptions();
-document.title = "Simulation number: " + simulationId;
 
 setTimeout(beginTick, 1000);

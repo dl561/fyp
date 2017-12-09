@@ -34,7 +34,6 @@ public class SimulationController {
 
     @RequestMapping(value = "/simulation/{simulation_id}", method = RequestMethod.GET, produces = JSON_RESULT)
     public ResponseEntity<Simulation> getSimulationById(@PathVariable("simulation_id") Integer simulationId) {
-        //System.out.println("getSimulationById(" + simulationId + ")");
         return new ResponseEntity<>(simulationService.getSimulation(simulationId), HttpStatus.OK);
     }
 

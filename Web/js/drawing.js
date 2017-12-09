@@ -1,4 +1,5 @@
-var track0;
+var track1;
+var track2;
 
 var car0;
 var car1;
@@ -46,6 +47,9 @@ var gear3;
 var gear4;
 var gear5;
 
+var speedometer;
+var needle;
+
 const STR_WHEEL_X = 5840;
 const STR_WHEEL_Y = 50;
 
@@ -61,9 +65,17 @@ const BRK_BAR_Y = 1200;
 const ARR_KEY_X = 5840;
 const ARR_KEY_Y = 2480;
 
+const SPEEDOMETER_X = 5840;
+const SPEEDOMETER_Y = 2300;
+
+const NEEDLE_X = 5840;
+const NEEDLE_Y = 2300;
+
 function initImages() {
-	track0 = new Image();
-	track0.src = "img/track0.png";
+	track1 = new Image();
+	track1.src = "img/track0.png";
+	track2 = new Image();
+	track2.src = "img/track1.png";
 
 	car0 = new Image();
 	car0.src = "img/car0.png";
@@ -150,6 +162,11 @@ function initImages() {
 	gear4.src = "img/gear4.png";
 	gear5 = new Image();
 	gear5.src = "img/gear5.png";
+
+	speedometer = new Image();
+	speedometer.src = "img/speedometer.png";
+	needle = new Image();
+	needle.src = "img/speedoDial.png";
 }
 
 function draw(accelerating, braking, left, right, accDepth, brkDepth, strAngle, gear) {
@@ -158,51 +175,61 @@ function draw(accelerating, braking, left, right, accDepth, brkDepth, strAngle, 
 	drawTrackImage(localStorage.getItem("trackNumber"));
 	drawVehicles();
 	drawHUD();
-	drawArrowKeys(accelerating, braking, left, right);
+	//drawArrowKeys(accelerating, braking, left, right);
 	drawAccBar(accDepth);
 	drawBrkBar(brkDepth);
 	drawSteerAngle(strAngle);
 	drawGear(gear);
 }
 
+function drawSpeedometer(vehicle) {
+	var speed = vehicle.speed;
+	var dialAngle = (-0.75 * Math.PI) + speed / 180 / 1.75 * Math.PI;
+	drawImage(SPEEDOMETER_X, SPEEDOMETER_Y, 0, speedometer);
+	drawImage(NEEDLE_X, NEEDLE_Y, dialAngle, needle);
+}
+
 function drawTrackImage(trackId) {
 	switch (trackId) {
-	case 1:
-		drawImage(0, 0, 0, track0);
+	case "1":
+		drawImage(0, 0, 0, track1);
 		break;
-	case 2:
+	case "2":
+		drawImage(0, 0, 0, track1);
 		break;
 	}
 }
 
 function drawVehicle(vehicle) {
-	var degreesDirection = vehicle.directionOfTravel * (180 / Math.PI)
-		var realDirection = degreesDirection + 90;
+	var normalisedDirection = vehicle.directionOfTravel + (Math.PI / 2);
 	switch (vehicle.vehicleType) {
 	case "CAR":
 		switch (vehicle.id) {
 		case 0:
-			drawImage(vehicle.location.x, vehicle.location.y, realDirection, car0);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car0);
 			break;
 		case 1:
-			drawImage(vehicle.location.x, vehicle.location.y, realDirection, car1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car1);
 			break;
 		case 2:
-			drawImage(vehicle.location.x, vehicle.location.y, realDirection, car2);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car2);
 			break;
 		case 3:
-			drawImage(vehicle.location.x, vehicle.location.y, realDirection, car3);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car3);
 			break;
 		case 4:
-			drawImage(vehicle.location.x, vehicle.location.y, realDirection, car4);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car4);
 			break;
 		case 5:
-			drawImage(vehicle.location.x, vehicle.location.y, realDirection, car5);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car5);
 			break;
 		}
 		break;
 	}
-	drawVariables(vehicle);
+	if(vehicle.id==localCarNumber){
+		drawVariables(vehicle);
+		drawSpeedometer(vehicle);
+	}
 }
 
 function drawVariables(vehicle) {
@@ -333,10 +360,9 @@ function drawGear(gear) {
 	}
 }
 
-function drawImage(x, y, degrees, img) {
+function drawImage(x, y, radians, img) {
 	var normalisedX = x / 5;
 	var normalisedY = y / 5;
-	var radians = degrees * Math.PI / 180;
 	var cx = normalisedX + img.width / 2;
 	var cy = normalisedY + img.height / 2;
 	var drawX = img.width / 2 * (-1);
@@ -411,7 +437,6 @@ function drawArc(x, y, radius, startAngle, endAngle, counterClockwise, rotation)
 }
 
 function drawText(x, y, rotation, text) {
-	console.log("Writing " + text);
 	ctx.font = "15px Arial";
 	ctx.fillText(text, x, y);
 }

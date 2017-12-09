@@ -6,6 +6,8 @@ public class VehicleUpdateDto {
     private double acceleratorPedalDepth;
     private double brakePedalDepth;
     private int gear;
+    private boolean frontSlip;
+    private boolean rearSlip;
 
     public int getId() {
         return id;
@@ -47,6 +49,22 @@ public class VehicleUpdateDto {
         this.gear = gear;
     }
 
+    public boolean isFrontSlip() {
+        return frontSlip;
+    }
+
+    public void setFrontSlip(boolean frontSlip) {
+        this.frontSlip = frontSlip;
+    }
+
+    public boolean isRearSlip() {
+        return rearSlip;
+    }
+
+    public void setRearSlip(boolean rearSlip) {
+        this.rearSlip = rearSlip;
+    }
+
     @Override
     public String toString() {
         return "VehicleUpdateDto{" +
@@ -55,6 +73,8 @@ public class VehicleUpdateDto {
                 ", acceleratorPedalDepth=" + acceleratorPedalDepth +
                 ", brakePedalDepth=" + brakePedalDepth +
                 ", gear=" + gear +
+                ", frontSlip=" + frontSlip +
+                ", rearSlip=" + rearSlip +
                 '}';
     }
 }

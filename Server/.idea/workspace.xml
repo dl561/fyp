@@ -2,29 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="082aefe0-1efd-43d3-ba7e-5a15f780d3ea" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/hud/TextHud.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Vector2DNoMAGDIR.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/drawing.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/httpRequests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/keyPressing.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/options.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/simulator.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/testCanvasPage.html.2017-10-31 10.49.58" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/testCanvasPage.html.2017-10-31 10.50.58" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Web/testCanvasPage.html.2017-10-31 10.52.58" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/AIService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/Computer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/img/steeringWheel.png" afterPath="$PROJECT_DIR$/../Web/img/steeringWheel.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/img/track0.png" afterPath="$PROJECT_DIR$/../Web/img/track0.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ExampleData.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ExampleData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/Simulation.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/Simulation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/Tick.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/Tick.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/hud/Hud.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/hud/Hud.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Vector2D.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Vector2D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java" afterPath="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/PhysicsTest.java" afterPath="$PROJECT_DIR$/src/test/java/PhysicsTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/drawing.js" afterPath="$PROJECT_DIR$/../Web/js/drawing.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/httpRequests.js" afterPath="$PROJECT_DIR$/../Web/js/httpRequests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/options.js" afterPath="$PROJECT_DIR$/../Web/js/options.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/js/simulator.js" afterPath="$PROJECT_DIR$/../Web/js/simulator.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/options.html" afterPath="$PROJECT_DIR$/../Web/options.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/testCanvasPage.html" afterPath="$PROJECT_DIR$/../Web/testCanvasPage.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Web/web.html" afterPath="$PROJECT_DIR$/../Web/web.html" />
@@ -42,33 +39,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Physics.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Physics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-42">
-              <caret line="27" column="30" lean-forward="true" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CarPhysics.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12747">
-              <caret line="611" column="2" lean-forward="false" selection-start-line="611" selection-start-column="2" selection-end-line="611" selection-end-column="2" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Vehicle.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="73" column="101" lean-forward="false" selection-start-line="73" selection-start-column="101" selection-end-line="73" selection-end-column="101" />
+            <state relative-caret-position="203">
+              <caret line="170" column="35" lean-forward="true" selection-start-line="170" selection-start-column="35" selection-end-line="170" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -77,8 +52,8 @@
       <file leaf-file-name="SimulationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="37" column="63" lean-forward="false" selection-start-line="37" selection-start-column="63" selection-end-line="37" selection-end-column="63" />
+            <state relative-caret-position="735">
+              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -87,19 +62,49 @@
       <file leaf-file-name="SimulationService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            <state relative-caret-position="1386">
+              <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Car.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java">
+      <file leaf-file-name="VehicleCreationDto.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="378">
+              <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+              <folding>
+                <element signature="e#403#404#0" expanded="true" />
+                <element signature="e#436#437#0" expanded="true" />
+                <element signature="e#484#485#0" expanded="true" />
+                <element signature="e#521#522#0" expanded="true" />
+                <element signature="e#556#557#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Course.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="945">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Vehicle.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4977">
+              <caret line="367" column="33" lean-forward="false" selection-start-line="367" selection-start-column="33" selection-end-line="367" selection-end-column="33" />
+              <folding>
+                <element signature="e#10224#10225#0" expanded="true" />
+                <element signature="e#10273#10274#0" expanded="true" />
+                <element signature="e#10310#10311#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,6 +131,7 @@
       <find>accer</find>
       <find>steering</find>
       <find>gear=3</find>
+      <find>iner</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -143,28 +149,29 @@
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ExampleData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/location/Location.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ISimulationService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/NewSimulationOptionsDto.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/dl561/simulation/physics/Vector2DTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/SpringBootStarter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/ServletInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Vector2D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Vector2DNoMAGDIR.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/Tick.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java" />
-        <option value="$PROJECT_DIR$/src/test/java/PhysicsTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/hud/TextHud.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/hud/Hud.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/Simulation.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/AIService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/PhysicsTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java" />
       </list>
     </option>
   </component>
@@ -173,6 +180,12 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-9" />
@@ -195,10 +208,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -239,36 +252,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="dl561" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dl561" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="CarPhysics.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dl561" type="462c0819:PsiDirectoryNode" />
               <item name="rest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dl561" type="462c0819:PsiDirectoryNode" />
-              <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
@@ -288,7 +272,8 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="dl561" type="462c0819:PsiDirectoryNode" />
               <item name="rest" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="dto" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
@@ -307,27 +292,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="dl561" type="462c0819:PsiDirectoryNode" />
               <item name="simulation" type="462c0819:PsiDirectoryNode" />
-              <item name="course" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dl561" type="462c0819:PsiDirectoryNode" />
-              <item name="simulation" type="462c0819:PsiDirectoryNode" />
-              <item name="hud" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dl561" type="462c0819:PsiDirectoryNode" />
-              <item name="simulation" type="462c0819:PsiDirectoryNode" />
-              <item name="physics" type="462c0819:PsiDirectoryNode" />
+              <item name="computer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
@@ -338,19 +303,6 @@
               <item name="dl561" type="462c0819:PsiDirectoryNode" />
               <item name="simulation" type="462c0819:PsiDirectoryNode" />
               <item name="vehicle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="finalyearproject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -367,7 +319,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="RequestMappingsPanelOrder2" value="2" />
-    <property name="SearchEverywhereHistoryKey" value="Simula&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;SimulatiC&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;Phy&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/physics/Physics.java&#10;Car&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/vehicle/Car.java&#10;assert&#9;PSI&#9;JAVA://org.junit.Assert&#10;Vector&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Vector.java" />
+    <property name="SearchEverywhereHistoryKey" value="SimuC&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;SimulatioSer&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/service/ISimulationService.java&#10;SimC&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;Physics&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/physics/Physics.java&#10;Tick&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/Tick.java&#10;Car&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/vehicle/Car.java&#10;Veh&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/vehicle/Vehicle.java&#10;Vehicle&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/vehicle/Vehicle.java&#10;Option&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/domain/dto/NewSimulationOptionsDto.java&#10;sim&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;CP&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/main/CarPhysics.java&#10;Simula&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;SimulatiC&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/rest/controller/SimulationController.java&#10;Phy&#9;FILE&#9;file://E:/University/CM30082/fyp/Server/src/main/java/com/dl561/simulation/physics/Physics.java&#10;assert&#9;PSI&#9;JAVA://org.junit.Assert&#10;Vector&#9;FILE&#9;jar://C:/Program Files/Java/jdk1.8.0_111/src.zip!/java/util/Vector.java" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../References/Java2DRacingPhysicsTest-master" />
   </component>
@@ -649,14 +601,16 @@
       <workItem from="1512486258446" duration="6096000" />
       <workItem from="1512498317482" duration="8357000" />
       <workItem from="1512558257201" duration="5557000" />
-      <workItem from="1512596171282" duration="1799000" />
+      <workItem from="1512596171282" duration="6462000" />
+      <workItem from="1512638297155" duration="4635000" />
+      <workItem from="1512744849992" duration="7152000" />
+      <workItem from="1512757298687" duration="4488000" />
+      <workItem from="1512777412403" duration="710000" />
+      <workItem from="1512818723848" duration="706000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PhysicsTest - 2017.11.28 at 15h 48m 43s.xml">
-      <configuration name="PhysicsTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="PhysicsTest - 2017.11.28 at 15h 49m 23s.xml">
       <configuration name="PhysicsTest" configurationId="JUnit" />
     </history-entry>
@@ -664,6 +618,9 @@
       <configuration name="PhysicsTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="PhysicsTest - 2017.11.28 at 15h 54m 21s.xml">
+      <configuration name="PhysicsTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PhysicsTest - 2017.12.06 at 22h 45m 05s.xml">
       <configuration name="PhysicsTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="PhysicsTest_testCalculateTotalForce - 2017.11.02 at 15h 10m 33s.xml">
@@ -686,7 +643,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121734000" />
+    <option name="totallyTimeSpent" value="144088000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -702,34 +659,34 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39971346" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294423" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43982807" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23476005" sideWeight="0.49164677" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24254215" sideWeight="0.49164677" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19455253" sideWeight="0.50835323" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39971346" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294423" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -782,31 +739,49 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/PhysicsTest.java</url>
-          <line>56</line>
+          <line>57</line>
           <properties />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/PhysicsTest.java</url>
-          <line>67</line>
+          <line>68</line>
           <properties />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/PhysicsTest.java</url>
-          <line>104</line>
+          <line>105</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="vehicle.getAcceleratorPedalDepth()&gt;0" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java</url>
-          <line>45</line>
+          <line>49</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java</url>
+          <line>51</line>
+          <properties />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java</url>
+          <line>61</line>
+          <properties />
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="27" />
+      <option name="time" value="30" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
@@ -815,22 +790,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="33" column="82" lean-forward="false" selection-start-line="33" selection-start-column="82" selection-end-line="33" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
@@ -891,7 +850,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1995">
           <caret line="153" column="37" lean-forward="false" selection-start-line="153" selection-start-column="37" selection-end-line="153" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="e#10224#10225#0" expanded="true" />
+            <element signature="e#10273#10274#0" expanded="true" />
+            <element signature="e#10310#10311#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -959,13 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ISimulationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="22" column="81" lean-forward="false" selection-start-line="22" selection-start-column="81" selection-end-line="22" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/segment/Rectangle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -991,20 +947,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/NewSimulationOptionsDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1071,13 +1013,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="50" column="18" lean-forward="false" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Vector2D.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1890">
@@ -1092,25 +1027,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/PhysicsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/hud/TextHud.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="29" lean-forward="false" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="41" column="80" lean-forward="false" selection-start-line="41" selection-start-column="80" selection-end-line="41" selection-end-column="80" />
         </state>
       </provider>
     </entry>
@@ -1121,13 +1041,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/Tick.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="18" column="86" lean-forward="false" selection-start-line="18" selection-start-column="86" selection-end-line="18" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/Simulation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2079">
@@ -1135,52 +1048,135 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="36" column="22" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="37" column="63" lean-forward="false" selection-start-line="37" selection-start-column="63" selection-end-line="37" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/main/CarPhysics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12747">
-          <caret line="611" column="2" lean-forward="false" selection-start-line="611" selection-start-column="2" selection-end-line="611" selection-end-column="2" />
+        <state relative-caret-position="8085">
+          <caret line="397" column="20" lean-forward="false" selection-start-line="397" selection-start-column="16" selection-end-line="397" selection-end-column="20" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleUpdateDto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-42">
-          <caret line="27" column="30" lean-forward="true" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+        <state relative-caret-position="42">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/NewSimulationOptionsDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Car.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="49" column="35" lean-forward="false" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/Tick.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="18" column="86" lean-forward="false" selection-start-line="18" selection-start-column="86" selection-end-line="18" selection-end-column="86" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/vehicle/Vehicle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="73" column="101" lean-forward="false" selection-start-line="73" selection-start-column="101" selection-end-line="73" selection-end-column="101" />
+        <state relative-caret-position="4977">
+          <caret line="367" column="33" lean-forward="false" selection-start-line="367" selection-start-column="33" selection-end-line="367" selection-end-column="33" />
+          <folding>
+            <element signature="e#10224#10225#0" expanded="true" />
+            <element signature="e#10273#10274#0" expanded="true" />
+            <element signature="e#10310#10311#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/Computer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="21" lean-forward="false" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/PhysicsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="104" column="48" lean-forward="false" selection-start-line="104" selection-start-column="48" selection-end-line="104" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/service/ISimulationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="22" column="81" lean-forward="false" selection-start-line="22" selection-start-column="81" selection-end-line="22" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/computer/AIService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/controller/SimulationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/service/SimulationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/course/Course.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/rest/domain/dto/VehicleCreationDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+          <folding>
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#436#437#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#521#522#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dl561/simulation/physics/Physics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="170" column="35" lean-forward="true" selection-start-line="170" selection-start-column="35" selection-end-line="170" selection-end-column="35" />
           <folding />
         </state>
       </provider>

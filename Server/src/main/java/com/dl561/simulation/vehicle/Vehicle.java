@@ -9,15 +9,27 @@ import org.springframework.stereotype.Component;
 @Component
 public abstract class Vehicle {
     private int id;
+    //variable
     private Location location;
     private double directionOfTravel;
-    private double worldReferenceXVelocity = 0;
-    private double worldReferenceYVelocity = 0;
-    private double mass;
     private double steeringWheelDirection;
     private double acceleratorPedalDepth;
     private double brakePedalDepth;
     private int gear;
+    private double angularAcceleration;
+    private double angularVelocity;
+    private double worldReferenceXVelocity = 0;
+    private double worldReferenceYVelocity = 0;
+    private double torque;
+    private double worldReferenceXAcceleration;
+    private double worldReferenceYAcceleration;
+    private double vehicleReferenceXAcceleration;
+    private double vehicleReferenceYAcceleration;
+    private boolean frontSlip = false;
+    private boolean rearSlip = false;
+    private boolean isComputer = false;
+    //constant
+    private double mass;
     private VehicleType vehicleType;
     private double maxEngineForce;
     private double maxBrakingForce;
@@ -31,7 +43,6 @@ public abstract class Vehicle {
     private double transmissionEfficiency;
     private double wheelRadius;
     private double[] gearRatios;
-    private double angularVelocity;
     private double inertia;
 
     public Vehicle update(VehicleUpdateDto vehicleUpdateDto) {
@@ -45,6 +56,8 @@ public abstract class Vehicle {
         } else {
             gear = vehicleUpdateDto.getGear();
         }
+        setFrontSlip(vehicleUpdateDto.isFrontSlip());
+        setRearSlip(vehicleUpdateDto.isRearSlip());
         return this;
     }
 
@@ -53,7 +66,7 @@ public abstract class Vehicle {
         return 450d;
     }
 
-    public double getSteerAngleInRadians(){
+    public double getSteerAngleInRadians() {
         return Math.toRadians(steeringWheelDirection);
     }
 
@@ -156,11 +169,19 @@ public abstract class Vehicle {
         this.gear = gear;
     }
 
-    public double getXVelocity() {
+    public double getAngularVelocity() {
+        return angularVelocity;
+    }
+
+    public void setAngularVelocity(double angularVelocity) {
+        this.angularVelocity = angularVelocity;
+    }
+
+    public double getWRXVelocity() {
         return worldReferenceXVelocity;
     }
 
-    public void setXVelocity(double xVelocity) {
+    public void setWRXVelocity(double xVelocity) {
         this.worldReferenceXVelocity = xVelocity;
     }
 
@@ -172,11 +193,11 @@ public abstract class Vehicle {
         this.maxEngineForce = maxEngineForce;
     }
 
-    public double getYVelocity() {
+    public double getWRYVelocity() {
         return worldReferenceYVelocity;
     }
 
-    public void setYVelocity(double yVelocity) {
+    public void setWRYVelocity(double yVelocity) {
         this.worldReferenceYVelocity = yVelocity;
     }
 
@@ -252,14 +273,6 @@ public abstract class Vehicle {
         this.gearRatios = gearRatios;
     }
 
-    public double getAngularVelocity() {
-        return angularVelocity;
-    }
-
-    public void setAngularVelocity(double angularVelocity) {
-        this.angularVelocity = angularVelocity;
-    }
-
     public double getInertia() {
         return inertia;
     }
@@ -282,5 +295,81 @@ public abstract class Vehicle {
 
     public void setRearWheelBase(double rearWheelBase) {
         this.rearWheelBase = rearWheelBase;
+    }
+
+    public double getAngularAcceleration() {
+        return angularAcceleration;
+    }
+
+    public void setAngularAcceleration(double angularAcceleration) {
+        this.angularAcceleration = angularAcceleration;
+    }
+
+    public double getTorque() {
+        return torque;
+    }
+
+    public void setTorque(double torque) {
+        this.torque = torque;
+    }
+
+    public double getWorldReferenceXAcceleration() {
+        return worldReferenceXAcceleration;
+    }
+
+    public void setWorldReferenceXAcceleration(double worldReferenceXAcceleration) {
+        this.worldReferenceXAcceleration = worldReferenceXAcceleration;
+    }
+
+    public double getWorldReferenceYAcceleration() {
+        return worldReferenceYAcceleration;
+    }
+
+    public void setWorldReferenceYAcceleration(double worldReferenceYAcceleration) {
+        this.worldReferenceYAcceleration = worldReferenceYAcceleration;
+    }
+
+    public double getVehicleReferenceXAcceleration() {
+        return vehicleReferenceXAcceleration;
+    }
+
+    public void setVehicleReferenceXAcceleration(double vehicleReferenceXAcceleration) {
+        this.vehicleReferenceXAcceleration = vehicleReferenceXAcceleration;
+    }
+
+    public double getVehicleReferenceYAcceleration() {
+        return vehicleReferenceYAcceleration;
+    }
+
+    public void setVehicleReferenceYAcceleration(double vehicleReferenceYAcceleration) {
+        this.vehicleReferenceYAcceleration = vehicleReferenceYAcceleration;
+    }
+
+    public double getSpeed() {
+        return Math.sqrt(worldReferenceXVelocity * worldReferenceXVelocity + worldReferenceYVelocity * worldReferenceYVelocity);
+    }
+
+    public boolean isRearSlip() {
+        return rearSlip;
+    }
+
+    public void setRearSlip(boolean rearSlip) {
+        this.rearSlip = rearSlip;
+    }
+
+    public boolean isFrontSlip() {
+        return frontSlip;
+    }
+
+    public void setFrontSlip(boolean frontSlip) {
+        this.frontSlip = frontSlip;
+    }
+
+    public boolean isComputer() {
+        return isComputer;
+    }
+
+    public void setComputer(boolean computer) {
+        isComputer = computer;
     }
 }
