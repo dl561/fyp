@@ -4,7 +4,7 @@ import com.dl561.rest.domain.dto.VehicleCreationDto;
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.course.location.Location;
 import com.dl561.simulation.physics.Physics;
-import com.dl561.simulation.physics.Vector2DNoMAGDIR;
+import com.dl561.simulation.physics.Vector2D;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
@@ -86,8 +86,8 @@ public abstract class Vehicle {
         return Math.cos(directionOfTravel);
     }
 
-    public Vector2DNoMAGDIR getVehicleReferenceVelocity() {
-        Vector2DNoMAGDIR vehicleReferenceVelocity = new Vector2DNoMAGDIR();
+    public Vector2D getVehicleReferenceVelocity() {
+        Vector2D vehicleReferenceVelocity = new Vector2D();
         vehicleReferenceVelocity.setX(getCos() * worldReferenceYVelocity + getSin() * worldReferenceXVelocity);
         vehicleReferenceVelocity.setY(getCos() * worldReferenceXVelocity - getSin() * worldReferenceYVelocity);
         return vehicleReferenceVelocity;

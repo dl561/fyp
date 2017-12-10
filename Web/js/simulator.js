@@ -179,6 +179,8 @@ function sendUpdate() {
 		vehicleUpdateDto.brakePedalDepth = brakePedalDepthVariable;
 		vehicleUpdateDto.steeringWheelOrientation = steeringAngle;
 		vehicleUpdateDto.gear = gearNumber;
+		vehicleUpdateDto.frontSlip = frontSlip;
+		vehicleUpdateDto.rearSlip = rearSlip;
 
 		doUpdateVehicle(vehicleUpdateDto, simulationId, localCarNumber);
 	}

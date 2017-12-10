@@ -13,8 +13,6 @@ package com.dl561.main;
  * origin C-code - translated by bloemschneif
  */
 
-import com.dl561.simulation.physics.Vector2DNoMAGDIR;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -464,7 +462,7 @@ class PhysicsModule extends Panel
 //        // weight per axle = half car mass times 1G (=9.8m/s^2)
 //        double weight = car.cartype.mass * 9.8 * 0.5;
 //
-//        Vector2DNoMAGDIR frontWheelLateralForce = new Vector2DNoMAGDIR();
+//        Vector2D frontWheelLateralForce = new Vector2D();
 //        frontWheelLateralForce.setX(0);
 //        frontWheelLateralForce.setY(normalise(-MAX_GRIP, MAX_GRIP, CA_F * slipAngleFront));
 //        frontWheelLateralForce.setY(frontWheelLateralForce.getY() * weight);
@@ -473,7 +471,7 @@ class PhysicsModule extends Panel
 //            frontWheelLateralForce.setY(frontWheelLateralForce.getY() * 0.5d);
 //        }
 //
-//        Vector2DNoMAGDIR rearWheelLateralForce = new Vector2DNoMAGDIR();
+//        Vector2D rearWheelLateralForce = new Vector2D();
 //        rearWheelLateralForce.setX(0);
 //        rearWheelLateralForce.setY(normalise(-MAX_GRIP, MAX_GRIP, CA_R * slipAngleRear));
 //        rearWheelLateralForce.setY(rearWheelLateralForce.getY() * weight);
@@ -483,7 +481,7 @@ class PhysicsModule extends Panel
 //        }
 //
 //
-//        Vector2DNoMAGDIR tractionForce = new Vector2DNoMAGDIR();
+//        Vector2D tractionForce = new Vector2D();
 //        tractionForce.setX(100 * (car.throttle - car.brake * SGN(velocity.x)));
 //        tractionForce.setY(0);
 //
@@ -491,7 +489,7 @@ class PhysicsModule extends Panel
 //            tractionForce.setX(tractionForce.getX() * 0.5d);
 //        }
 //
-//        Vector2DNoMAGDIR resistance = new Vector2DNoMAGDIR();
+//        Vector2D resistance = new Vector2D();
 //        double rollingResistanceX = -RESISTANCE * velocity.x;
 //        double rollingResistanceY = -RESISTANCE * velocity.y;
 //        double dragResistanceX = -DRAG * velocity.x * ABS(velocity.x);
@@ -500,7 +498,7 @@ class PhysicsModule extends Panel
 //        resistance.setY(rollingResistanceY + dragResistanceY);
 //
 //        // sum forces
-//        Vector2DNoMAGDIR totalForce = new Vector2DNoMAGDIR();
+//        Vector2D totalForce = new Vector2D();
 //        double frontWheelLateralX = Math.sin(car.steerangle) * frontWheelLateralForce.getX();
 //        double rearWheelLateralX = rearWheelLateralForce.getX();
 //        double frontWheelLateralY = Math.cos(car.steerangle) * frontWheelLateralForce.getY();
@@ -514,7 +512,7 @@ class PhysicsModule extends Panel
 //        double rearTorque = rearWheelLateralForce.getY() * car.cartype.c;
 //        double torque = frontTorque - rearTorque;
 //
-//        Vector2DNoMAGDIR acceleration = new Vector2DNoMAGDIR();
+//        Vector2D acceleration = new Vector2D();
 //        acceleration.setX(totalForce.getX() / car.cartype.mass);
 //        acceleration.setY(totalForce.getY() / car.cartype.mass);
 //        // Newton F = m.a, therefore a = F/m
@@ -525,17 +523,17 @@ class PhysicsModule extends Panel
 //        acceleration.setY(normalise(acceleration.getY(), 0.1d));
 //
 //
-//        Vector2DNoMAGDIR worldReferenceAcceleration = new Vector2DNoMAGDIR();
+//        Vector2D worldReferenceAcceleration = new Vector2D();
 //        worldReferenceAcceleration.setX(cs * acceleration.getY() + sn * acceleration.getX());
 //        worldReferenceAcceleration.setY(-sn * acceleration.getY() + cs * acceleration.getX());
 //
 //        // velocity is integrated acceleration
-//        Vector2DNoMAGDIR worldReferenceVelocity = new Vector2DNoMAGDIR();
+//        Vector2D worldReferenceVelocity = new Vector2D();
 //        worldReferenceVelocity.setX(car.velocity_wc.x + (delta_t * worldReferenceAcceleration.getX()));
 //        worldReferenceVelocity.setY(car.velocity_wc.y + (delta_t * worldReferenceAcceleration.getY()));
 //
 //        // position is integrated velocity
-//        Vector2DNoMAGDIR newPosition = new Vector2DNoMAGDIR();
+//        Vector2D newPosition = new Vector2D();
 //        newPosition.setX(delta_t * worldReferenceVelocity.getX() + car.position_wc.x);
 //        newPosition.setY(delta_t * worldReferenceVelocity.getY() + car.position_wc.y);
 //
