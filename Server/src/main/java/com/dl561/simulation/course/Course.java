@@ -1,11 +1,7 @@
 package com.dl561.simulation.course;
 
-import com.dl561.rest.domain.dto.VehicleCreationDto;
 import com.dl561.simulation.course.segment.Arc;
 import com.dl561.simulation.course.segment.Rectangle;
-import com.dl561.simulation.vehicle.Car;
-import com.dl561.simulation.vehicle.Vehicle;
-import com.dl561.simulation.vehicle.VehicleType;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
@@ -15,6 +11,11 @@ import java.util.List;
 public class Course {
     private List<Rectangle> rectangles;
     private List<Arc> arcs;
+    private static final String OBSTACLE_COLOUR = "#FFFF00";
+    private static final String ROAD_COLOUR = "#808080";
+    private static final String GRASS_COLOUR = "#323232";
+    private static final String ICE_COLOUR = "#FFFFFF";
+    private static final String SAND_COLOUR = "#000000";
 
     public static Course getByTrackNumber(int trackNumber) {
         switch (trackNumber) {
@@ -28,63 +29,36 @@ public class Course {
         Course course = new Course();
 
         List<Rectangle> rectangles = new LinkedList<>();
-        /**
-         rectangles.add(new Rectangle(150, 50, 900, 100, 0));
-         rectangles.add(new Rectangle(150, 420, 900, 100, 0));
-         rectangles.add(new Rectangle(100, 100, 100, 370, 0));
-         rectangles.add(new Rectangle(1000, 100, 100, 370, 0));
-         **/
+        rectangles.add(new Rectangle(1145, 735, 859, 297, 0, GRASS_COLOUR));
+        rectangles.add(new Rectangle(0, 0, 1280, 570, 0, GRASS_COLOUR));
+
+        rectangles.add(new Rectangle(950, 330, 920, 80, 0, ROAD_COLOUR));
+        rectangles.add(new Rectangle(665, 590, 97, 355, 0, ROAD_COLOUR));
+        rectangles.add(new Rectangle(925, 2235, 930, 83, 0, ROAD_COLOUR));
+        rectangles.add(new Rectangle(5445, 630, 77, 345, 0, ROAD_COLOUR));
+
+
+        rectangles.add(new Rectangle(0, 0, 1, 2850, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(0, 0, 6400, 1, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(6395, 0, 1, 2850, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(0, 2845, 6400, 1, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(1300, 815, 31, 265, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(1300, 815, 787, 32, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(5090, 815, 30, 264, 0, OBSTACLE_COLOUR));
+        rectangles.add(new Rectangle(1300, 1980, 789, 32, 0, OBSTACLE_COLOUR));
+
+
         course.setRectangles(rectangles);
 
         List<Arc> arcs = new LinkedList<>();
-        /**
-         arcs.add(new Arc(160, 110, 30, Math.toRadians(180), Math.toRadians(270), false, 0));
-         arcs.add(new Arc(1040, 110, 30, Math.toRadians(270), Math.toRadians(0), false, 0));
-         arcs.add(new Arc(160, 460, 30, Math.toRadians(90), Math.toRadians(180), false, 0));
-         arcs.add(new Arc(1040, 460, 30, Math.toRadians(180), Math.toRadians(90), false, 0));
-         **/
+        arcs.add(new Arc(965, 630, 30, Math.PI, 1.5 * Math.PI, false, 0, ROAD_COLOUR));
+        arcs.add(new Arc(5530, 630, 30, 1.5 * Math.PI, 0, false, 0, ROAD_COLOUR));
+        arcs.add(new Arc(965, 2350, 30, 0.5 * Math.PI, Math.PI, false, 0, ROAD_COLOUR));
+        arcs.add(new Arc(5530, 2350, 30, 0, 0.5 * Math.PI, false, 0, ROAD_COLOUR));
+
         course.setArcs(arcs);
 
         return course;
-    }
-
-    public static List<Vehicle> getVehicles(List<VehicleCreationDto> vehiclesToCreate) {
-        List<Vehicle> vehicles = new LinkedList<>();
-        int count = 0;
-        for (VehicleCreationDto vehicleCreationDto : vehiclesToCreate) {
-            vehicles.add(getVehicleById(vehicleCreationDto.getVehicleType(), vehicleCreationDto.isComputer(), count));
-            count++;
-        }
-        return vehicles;
-    }
-
-    private static Vehicle getVehicleById(VehicleType vehicleType, boolean isComputer, int id) {
-        switch (vehicleType) {
-            case CAR:
-                switch (id) {
-                    case 0:
-                        return new Car(id, 650, 100, 0, isComputer);
-                    case 1:
-                        return new Car(id, 610, 55, 0, isComputer);
-                    case 2:
-                        return new Car(id, 570, 100, 0, isComputer);
-                    case 3:
-                        return new Car(id, 530, 55, 0, isComputer);
-                    case 4:
-                        return new Car(id, 490, 100, 0, isComputer);
-                    case 5:
-                        return new Car(id, 450, 55, 0, isComputer);
-                    case 6:
-                        return new Car(id, 410, 100, 0, isComputer);
-                    case 7:
-                        return new Car(id, 370, 55, 0, isComputer);
-                    case 8:
-                        return new Car(id, 330, 100, 0, isComputer);
-                    case 9:
-                        return new Car(id, 290, 55, 0, isComputer);
-                }
-        }
-        return null;
     }
 
     public List<Rectangle> getRectangles() {

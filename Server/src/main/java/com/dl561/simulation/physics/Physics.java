@@ -18,6 +18,9 @@ public class Physics {
     private boolean showSummary;
     private static final double precision = 0.1d;
     private static final double GRAVITY = 9.81d;
+    final double CA_R = -5.20;   /* cornering stiffness */
+    final double CA_F = -5.0;    /* cornering stiffness */
+    final double MAX_GRIP = 2.0;
 
     @Autowired
     private AIService aiService;
@@ -31,119 +34,69 @@ public class Physics {
         }
     }
 
-    double SGN(double value) {
-        if (value < 0.0) return -1.0;
-        else return 1.0;
+    public void updateVehicle(Simulation simulation, Vehicle vehicle) {
+        if (vehicle.isComputer()) {
+            aiService.getComputerInput(simulation, vehicle);
+        }
+        calculateVehiclePhysics(vehicle);
     }
 
-    double ABS(double value) {
-        if (value < 0.0) return -value;
-        else return value;
-    }
-
-    //TODO: change this function name
-    private void cheat(Vehicle vehicle) {
-        final double CA_R = -5.20;   /* cornering stiffness */
-        final double CA_F = -5.0;    /* cornering stiffness */
-        final double MAX_GRIP = 2.0;
-
+    private void calculateVehiclePhysics(Vehicle vehicle) {
         Vector2DNoMAGDIR velocity = vehicle.getVehicleReferenceVelocity();
-
-        double yawSpeed = 10 * vehicle.getWheelBaseConstant() * vehicle.getAngularVelocity();
 
         double rotationAngle = 0;
         double sideSlip = 0;
-        if (velocity.getX() != 0) {
-            //car is moving forwards
+        if (normalise(velocity.getX(), precision) != 0) {
+            double yawSpeed = 0.5 * vehicle.getWheelBaseConstant() * vehicle.getAngularVelocity();
             rotationAngle = Math.atan(yawSpeed / velocity.getX());
-        }
-
-        if (velocity.getX() != 0) {
             sideSlip = Math.atan(velocity.getY() / velocity.getX());
-        }
-
-        if (velocity.getX() == 0) {
+        } else {
             vehicle.setAngularVelocity(0);
         }
 
-        double slipAngleFront = sideSlip + rotationAngle - vehicle.getSteeringWheelDirection();
+
+        double slipAngleFront = sideSlip + rotationAngle - (vehicle.getSteeringWheelDirection() / 20);
         double slipAngleRear = sideSlip - rotationAngle;
 
-        // weight per axle = half car mass times 1G (=9.8m/s^2)
-        double weight = vehicle.getMass() * GRAVITY * 0.5d;
+        double frontWheelWeight = calculateWheelWeight(vehicle, true);
+        double rearWheelWeight = calculateWheelWeight(vehicle, false);
 
-        Vector2DNoMAGDIR frontWheelLateralForce = new Vector2DNoMAGDIR();
-        frontWheelLateralForce.setX(0);
-        frontWheelLateralForce.setY(normalise(-MAX_GRIP, MAX_GRIP, CA_F * slipAngleFront));
-        frontWheelLateralForce.setY(frontWheelLateralForce.getY() * weight);
+        Vector2DNoMAGDIR frontWheelLateralForce = calculateLateralForce(CA_F, slipAngleFront, frontWheelWeight, vehicle, true);
+        Vector2DNoMAGDIR rearWheelLateralForce = calculateLateralForce(CA_R, slipAngleRear, rearWheelWeight, vehicle, false);
 
-        if (vehicle.isFrontSlip()) {
-            frontWheelLateralForce.setY(frontWheelLateralForce.getY() * 0.5d);
-        }
 
-        Vector2DNoMAGDIR rearWheelLateralForce = new Vector2DNoMAGDIR();
-        rearWheelLateralForce.setX(0);
-        rearWheelLateralForce.setY(normalise(-MAX_GRIP, MAX_GRIP, CA_R * slipAngleRear));
-        rearWheelLateralForce.setY(rearWheelLateralForce.getY() * weight);
+        Vector2DNoMAGDIR tractionForce = calculateTractionForce(vehicle);
 
-        if (vehicle.isRearSlip()) {
-            rearWheelLateralForce.setY(rearWheelLateralForce.getY() * 0.5d);
-        }
-
-        Vector2DNoMAGDIR tractionForce = new Vector2DNoMAGDIR();
-        tractionForce.setX(calculateXEngineForce(vehicle));
-        tractionForce.setY(0);
-
-        if (vehicle.isRearSlip()) {
-            tractionForce.setX(tractionForce.getX() * 0.5d);
-        }
+        Vector2DNoMAGDIR rollingResistance = calculateRollingResistanceForce(vehicle.getRollingResistanceConstant(), velocity);
+        Vector2DNoMAGDIR dragResistance = calculateDragForce(vehicle.getDragConstant(), velocity);
 
         Vector2DNoMAGDIR resistance = new Vector2DNoMAGDIR();
-        double rollingResistanceX = -vehicle.getRollingResistanceConstant() * velocity.getX();
-        double rollingResistanceY = -vehicle.getRollingResistanceConstant() * velocity.getY();
-        double dragResistanceX = -vehicle.getDragConstant() * velocity.getX() * ABS(velocity.getX());
-        double dragResistanceY = -vehicle.getDragConstant() * velocity.getY() * ABS(velocity.getY());
-        resistance.setX(rollingResistanceX + dragResistanceX);
-        resistance.setY(rollingResistanceY + dragResistanceY);
+        resistance.setX(rollingResistance.getX() + dragResistance.getX());
+        resistance.setY(rollingResistance.getY() + dragResistance.getY());
 
-        // sum forces
         Vector2DNoMAGDIR totalForce = new Vector2DNoMAGDIR();
-        double frontWheelLateralX = Math.sin(vehicle.getSteeringWheelDirection()) * frontWheelLateralForce.getX();
-        double rearWheelLateralX = rearWheelLateralForce.getX();
-        double frontWheelLateralY = Math.cos(vehicle.getSteeringWheelDirection()) * frontWheelLateralForce.getY();
-        double rearWheelLateralY = rearWheelLateralForce.getY();
+        totalForce.setX(tractionForce.getX() + frontWheelLateralForce.getX() + rearWheelLateralForce.getX() + resistance.getX());
+        totalForce.setY(tractionForce.getY() + frontWheelLateralForce.getY() + rearWheelLateralForce.getY() + resistance.getY());
 
-        totalForce.setX(tractionForce.getX() + frontWheelLateralX + rearWheelLateralX + resistance.getX());
-        totalForce.setY(tractionForce.getY() + frontWheelLateralY + rearWheelLateralY + resistance.getY());
+        double torque = calculateTorque(frontWheelLateralForce, rearWheelLateralForce, vehicle);
 
-        // torque on body from lateral forces
-        double frontTorque = frontWheelLateralForce.getY() * vehicle.getFrontWheelBase();
-        double rearTorque = rearWheelLateralForce.getY() * vehicle.getRearWheelBase();
-        double torque = frontTorque - rearTorque;
-
-// Acceleration
 
         Vector2DNoMAGDIR acceleration = new Vector2DNoMAGDIR();
         acceleration.setX(totalForce.getX() / vehicle.getMass());
         acceleration.setY(totalForce.getY() / vehicle.getMass());
-        // Newton F = m.a, therefore a = F/m
         double angularAcceleration = torque / vehicle.getInertia();
 
         acceleration.setX(normalise(acceleration.getX(), precision));
         acceleration.setY(normalise(acceleration.getY(), precision));
-// Velocity and position
 
-        // transform acceleration from car reference frame to world reference frame
         Vector2DNoMAGDIR worldReferenceAcceleration = new Vector2DNoMAGDIR();
         worldReferenceAcceleration.setX(vehicle.getCos() * acceleration.getY() + vehicle.getSin() * acceleration.getX());
         worldReferenceAcceleration.setY(-vehicle.getSin() * acceleration.getY() + vehicle.getCos() * acceleration.getX());
 
-        // velocity is integrated acceleration
         Vector2DNoMAGDIR worldReferenceVelocity = new Vector2DNoMAGDIR();
         worldReferenceVelocity.setX(vehicle.getWRXVelocity() + (Tick.SECONDS_PER_TICK * worldReferenceAcceleration.getX()));
         worldReferenceVelocity.setY(vehicle.getWRYVelocity() + (Tick.SECONDS_PER_TICK * worldReferenceAcceleration.getY()));
 
-        // position is integrated velocity
         Vector2DNoMAGDIR newPosition = new Vector2DNoMAGDIR();
         newPosition.setX(Tick.SECONDS_PER_TICK * -worldReferenceVelocity.getX() + vehicle.getLocation().getX());
         newPosition.setY(Tick.SECONDS_PER_TICK * worldReferenceVelocity.getY() + vehicle.getLocation().getY());
@@ -164,20 +117,26 @@ public class Physics {
         vehicle.setVehicleReferenceYAcceleration(acceleration.getY());
         vehicle.setWorldReferenceXAcceleration(worldReferenceAcceleration.getX());
         vehicle.setWorldReferenceYAcceleration(worldReferenceAcceleration.getY());
-
     }
 
-    public void updateVehicle(Simulation simulation, Vehicle vehicle) {
-        if (vehicle.isComputer()) {
-            aiService.getComputerInput(simulation, vehicle);
-        }
-        cheat(vehicle);
+    /**
+     * Calculating the torque on the vehicle body from the lateral forces
+     *
+     * @param frontWheelLateralForce
+     * @param rearWheelLateralForce
+     * @param vehicle
+     * @return
+     */
+    private double calculateTorque(Vector2DNoMAGDIR frontWheelLateralForce, Vector2DNoMAGDIR rearWheelLateralForce, Vehicle vehicle) {
+        double frontTorque = frontWheelLateralForce.getY() * vehicle.getFrontWheelBase();
+        double rearTorque = rearWheelLateralForce.getY() * vehicle.getRearWheelBase();
+        return frontTorque - rearTorque;
     }
 
-    private double calculateWheelWeight(Vehicle vehicle, double accelerationValue, boolean front) {
+    private double calculateWheelWeight(Vehicle vehicle, boolean front) {
         double stationaryWheelWeight = 0.5 * vehicle.getWeight();
         double centreOfGravity = vehicle.getCentreOfGravityHeight() / vehicle.getWheelBaseConstant();
-        double centreOfGravityWithMassAndAcceleration = centreOfGravity * vehicle.getMass() * accelerationValue;
+        double centreOfGravityWithMassAndAcceleration = centreOfGravity * vehicle.getMass() * vehicle.getVehicleReferenceXAcceleration();
         double wheelWeight = stationaryWheelWeight;
         if (front) {
             wheelWeight -= centreOfGravityWithMassAndAcceleration;
@@ -185,6 +144,59 @@ public class Physics {
             wheelWeight += centreOfGravityWithMassAndAcceleration;
         }
         return wheelWeight;
+    }
+
+    public Vector2DNoMAGDIR calculateTractionForce(Vehicle vehicle) {
+        Vector2DNoMAGDIR tractionForce = new Vector2DNoMAGDIR();
+        tractionForce.setX(calculateXEngineForce(vehicle));
+        tractionForce.setY(0);
+
+        if (vehicle.isRearSlip()) {
+            //TODO: change this 0.5d based on the surface
+            tractionForce.setX(tractionForce.getX() * 0.5d);
+        }
+        return tractionForce;
+    }
+
+    public double calculateXEngineForce(Vehicle vehicle) {
+        double force = vehicle.getAcceleratorPedalDepth() * vehicle.getMaxEngineForce() * vehicle.getGearRatio(vehicle.getGear());
+        if (normalise(vehicle.getVehicleReferenceXAcceleration(), precision) > 0) {
+            force -= vehicle.getBrakePedalDepth() * vehicle.getMaxBrakingForce();
+        }
+        return force;
+    }
+
+    public Vector2DNoMAGDIR calculateRollingResistanceForce(double rollingResistanceConstant, Vector2DNoMAGDIR vehicleReferenceVelocity) {
+        Vector2DNoMAGDIR rollingResistance = new Vector2DNoMAGDIR();
+        rollingResistance.setX(-rollingResistanceConstant * vehicleReferenceVelocity.getX());
+        rollingResistance.setY(-rollingResistanceConstant * vehicleReferenceVelocity.getY());
+        return rollingResistance;
+    }
+
+    public Vector2DNoMAGDIR calculateDragForce(double dragConstant, Vector2DNoMAGDIR vehicleReferenceVelocity) {
+        Vector2DNoMAGDIR drag = new Vector2DNoMAGDIR();
+        drag.setX(-dragConstant * vehicleReferenceVelocity.getX() * Math.abs(vehicleReferenceVelocity.getX()));
+        drag.setY(-dragConstant * vehicleReferenceVelocity.getY() * Math.abs(vehicleReferenceVelocity.getY()));
+        return drag;
+    }
+
+    private Vector2DNoMAGDIR calculateLateralForce(double corneringStiffness, double slipAngle, double wheelWeight, Vehicle vehicle, boolean isFront) {
+        boolean slip = (isFront) ? vehicle.isFrontSlip() : vehicle.isRearSlip();
+        Vector2DNoMAGDIR lateralForce = new Vector2DNoMAGDIR();
+        lateralForce.setX(0);
+        lateralForce.setY(normalise(-MAX_GRIP, MAX_GRIP, corneringStiffness * slipAngle));
+        lateralForce.setY(lateralForce.getY() * wheelWeight);
+
+        if (slip) {
+            //TODO: change this 0.5d to a variable based on the surface
+            lateralForce.setY(lateralForce.getY() * 0.5d);
+        }
+
+        if (isFront) {
+            lateralForce.setX(Math.sin(vehicle.getSteeringWheelDirection()) * lateralForce.getX());
+            lateralForce.setY(Math.cos(vehicle.getSteeringWheelDirection()) * lateralForce.getY());
+        }
+        return lateralForce;
     }
 
     private Vector2D calculateForwardForce(Vehicle vehicle) {
@@ -217,10 +229,6 @@ public class Physics {
         double magnitude = vehicle.getAcceleratorPedalDepth() / 100 * vehicle.getMaxEngineForce();
         double direction = Math.toRadians(vehicle.getDirectionOfTravel());
         return new Vector2D(direction, magnitude);
-    }
-
-    public double calculateXEngineForce(Vehicle vehicle) {
-        return vehicle.getAcceleratorPedalDepth() * vehicle.getMaxEngineForce() * vehicle.getGearRatio(vehicle.getGear());
     }
 
     public Vector2D calculateBrakingForce(Vehicle vehicle) {

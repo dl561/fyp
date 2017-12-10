@@ -44,9 +44,6 @@ var gearNumber = 1;
 
 initImages();
 
-vehicleObjects = [new Object()];
-
-
 function getUpdatedPedalDepths() {
 	if (accelerating) {
 		acceleratorPedalDepthVariable += 10;
@@ -99,9 +96,18 @@ function getUpdatedPedalDepths() {
 
 function tick(){
 	tickCount++;
-	updateKeys();
-	getUpdatedPedalDepths();
-	draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber);
+	//updateKeys();
+	//getUpdatedPedalDepths();
+	//draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber);
+	drawRectangle(950, 330, 920, 80, 0, "#ff0f00");
+	drawRectangle(665, 590, 97, 355, 0, "#ff0f00");
+	drawRectangle(925, 2235, 930, 83, 0, "#ff0f00");
+	drawRectangle(5445, 630, 77, 345, 0, "#ff0f00");
+	drawArc(965, 630, 30, 180 * (Math.PI/180), 270 * (Math.PI/180), false, 0, "#000080");
+	drawArc(5530, 630, 30, 270 * (Math.PI/180), 0 * (Math.PI/180), false, 0, "#000080");
+	drawArc(965, 2350, 30, 90 * (Math.PI/180), 180 * (Math.PI/180), false, 0, "#000080");
+	drawArc(5530, 2350, 30, 0 * (Math.PI/180), 90 * (Math.PI/180), false, 0, "#000080");
+
 }
 tickCount = 0;
 lastGearChange = 0;

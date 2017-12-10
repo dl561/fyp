@@ -36,13 +36,13 @@ public class ExampleData {
 
     private List<Rectangle> getListRectangle() {
         List<Rectangle> rectangles = new LinkedList<>();
-        rectangles.add(new Rectangle(10, 15, 100, 150, 10));
+        rectangles.add(new Rectangle(10, 15, 100, 150, 10, "#FFFF00"));
         return rectangles;
     }
 
     private List<Arc> getListArc() {
         List<Arc> arcs = new LinkedList<>();
-        arcs.add(new Arc(500, 105, 10, 0, 1.5 * Math.PI, false, 0));
+        arcs.add(new Arc(500, 105, 10, 0, 1.5 * Math.PI, false, 0, "#FFFF00"));
         return arcs;
     }
 

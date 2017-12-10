@@ -1,10 +1,14 @@
 package com.dl561.simulation.vehicle;
 
+import com.dl561.rest.domain.dto.VehicleCreationDto;
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
 import com.dl561.simulation.course.location.Location;
 import com.dl561.simulation.physics.Physics;
 import com.dl561.simulation.physics.Vector2DNoMAGDIR;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Component
 public abstract class Vehicle {
@@ -371,5 +375,44 @@ public abstract class Vehicle {
 
     public void setComputer(boolean computer) {
         isComputer = computer;
+    }
+
+    public static List<Vehicle> getVehicles(List<VehicleCreationDto> vehiclesToCreate) {
+        List<Vehicle> vehicles = new LinkedList<>();
+        int count = 0;
+        for (VehicleCreationDto vehicleCreationDto : vehiclesToCreate) {
+            vehicles.add(getVehicleById(vehicleCreationDto.getVehicleType(), vehicleCreationDto.isComputer(), count));
+            count++;
+        }
+        return vehicles;
+    }
+
+    private static Vehicle getVehicleById(VehicleType vehicleType, boolean isComputer, int id) {
+        switch (vehicleType) {
+            case CAR:
+                switch (id) {
+                    case 0:
+                        return new Car(id, 650, 100, 0, isComputer);
+                    case 1:
+                        return new Car(id, 610, 55, 0, isComputer);
+                    case 2:
+                        return new Car(id, 570, 100, 0, isComputer);
+                    case 3:
+                        return new Car(id, 530, 55, 0, isComputer);
+                    case 4:
+                        return new Car(id, 490, 100, 0, isComputer);
+                    case 5:
+                        return new Car(id, 450, 55, 0, isComputer);
+                    case 6:
+                        return new Car(id, 410, 100, 0, isComputer);
+                    case 7:
+                        return new Car(id, 370, 55, 0, isComputer);
+                    case 8:
+                        return new Car(id, 330, 100, 0, isComputer);
+                    case 9:
+                        return new Car(id, 290, 55, 0, isComputer);
+                }
+        }
+        return null;
     }
 }

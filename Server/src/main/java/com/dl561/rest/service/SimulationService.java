@@ -77,7 +77,7 @@ public class SimulationService implements ISimulationService {
 
     private void populateSimulation(Simulation simulation, NewSimulationOptionsDto newSimulationOptionsDto) {
         simulation.setCourse(Course.getByTrackNumber(newSimulationOptionsDto.getTrackNumber()));
-        simulation.setVehicles(Course.getVehicles(newSimulationOptionsDto.getVehiclesToCreate()));
+        simulation.setVehicles(Vehicle.getVehicles(newSimulationOptionsDto.getVehiclesToCreate()));
     }
 
     @Override

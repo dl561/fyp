@@ -7,16 +7,18 @@ public class Rectangle {
     private int xSize;
     private int ySize;
     private int rotation;
+    private String hexColour;
 
     public Rectangle() {
     }
 
-    public Rectangle(int x, int y, int xSize, int ySize, int rotation) {
+    public Rectangle(int x, int y, int xSize, int ySize, int rotation, String hexColour) {
         this.x = x;
         this.y = y;
         this.xSize = xSize;
         this.ySize = ySize;
         this.rotation = rotation;
+        this.hexColour = hexColour;
     }
 
     public int getX() {
@@ -57,5 +59,13 @@ public class Rectangle {
 
     public void setRotation(int rotation) {
         this.rotation = rotation;
+    }
+
+    public String getHexColour() {
+        return hexColour;
+    }
+
+    public void setHexColour(String hexColour) {
+        this.hexColour = hexColour;
     }
 }

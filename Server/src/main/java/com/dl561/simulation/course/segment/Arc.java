@@ -9,11 +9,12 @@ public class Arc {
     private double endAngle;
     private boolean counterClockwise;
     private int rotation;
+    private String hexColour;
 
     public Arc() {
     }
 
-    public Arc(int x, int y, double radius, double startAngle, double endAngle, boolean counterClockwise, int rotation) {
+    public Arc(int x, int y, double radius, double startAngle, double endAngle, boolean counterClockwise, int rotation, String hexColour) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -21,6 +22,7 @@ public class Arc {
         this.endAngle = endAngle;
         this.counterClockwise = counterClockwise;
         this.rotation = rotation;
+        this.hexColour = hexColour;
     }
 
     public int getX() {

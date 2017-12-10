@@ -133,54 +133,55 @@ function fetchExample() {
 }
 
 function sendUpdate() {
-	if (accelerating) {
-		acceleratorPedalDepthVariable += 10;
-	} else {
-		acceleratorPedalDepthVariable -= 10;
-	}
-	if (braking) {
-		brakePedalDepthVariable += 10;
-	} else {
-		brakePedalDepthVariable -= 10;
-	}
-
-	if (acceleratorPedalDepthVariable > 100) {
-		acceleratorPedalDepthVariable = 100;
-	}
-	if (acceleratorPedalDepthVariable < 0) {
-		acceleratorPedalDepthVariable = 0;
-	}
-	if (brakePedalDepthVariable > 100) {
-		brakePedalDepthVariable = 100;
-	}
-	if (brakePedalDepthVariable < 0) {
-		brakePedalDepthVariable = 0;
-	}
-
-	if (left) {
-		if (steeringAngle > -Math.PI / 6) {
-			steeringAngle -= Math.PI / 32;
+	if (localCarNumber != -1) {
+		if (accelerating) {
+			acceleratorPedalDepthVariable += 10;
+		} else {
+			acceleratorPedalDepthVariable -= 10;
 		}
-	} else if (right) {
-		if (steeringAngle < Math.PI / 6) {
-			steeringAngle += Math.PI / 32;
+		if (braking) {
+			brakePedalDepthVariable += 10;
+		} else {
+			brakePedalDepthVariable -= 10;
 		}
-	} else {
-		if (steeringAngle < 0) {
-			steeringAngle += Math.PI / 32;
-		} else if (steeringAngle > 0) {
-			steeringAngle -= Math.PI / 32;
+
+		if (acceleratorPedalDepthVariable > 100) {
+			acceleratorPedalDepthVariable = 100;
 		}
+		if (acceleratorPedalDepthVariable < 0) {
+			acceleratorPedalDepthVariable = 0;
+		}
+		if (brakePedalDepthVariable > 100) {
+			brakePedalDepthVariable = 100;
+		}
+		if (brakePedalDepthVariable < 0) {
+			brakePedalDepthVariable = 0;
+		}
+
+		if (left) {
+			if (steeringAngle > -Math.PI / 6) {
+				steeringAngle -= Math.PI / 32;
+			}
+		} else if (right) {
+			if (steeringAngle < Math.PI / 6) {
+				steeringAngle += Math.PI / 32;
+			}
+		} else {
+			if (steeringAngle < 0) {
+				steeringAngle += Math.PI / 32;
+			} else if (steeringAngle > 0) {
+				steeringAngle -= Math.PI / 32;
+			}
+		}
+		var vehicleUpdateDto = new Object();
+		vehicleUpdateDto.id = localCarNumber;
+		vehicleUpdateDto.acceleratorPedalDepth = acceleratorPedalDepthVariable;
+		vehicleUpdateDto.brakePedalDepth = brakePedalDepthVariable;
+		vehicleUpdateDto.steeringWheelOrientation = steeringAngle;
+		vehicleUpdateDto.gear = gearNumber;
+
+		doUpdateVehicle(vehicleUpdateDto, simulationId, localCarNumber);
 	}
-
-	var vehicleUpdateDto = new Object();
-	vehicleUpdateDto.id = localCarNumber;
-	vehicleUpdateDto.acceleratorPedalDepth = acceleratorPedalDepthVariable;
-	vehicleUpdateDto.brakePedalDepth = brakePedalDepthVariable;
-	vehicleUpdateDto.steeringWheelOrientation = steeringAngle;
-	vehicleUpdateDto.gear = gearNumber;
-
-	doUpdateVehicle(vehicleUpdateDto, simulationId, localCarNumber);
 }
 
 function updateKeys() {
