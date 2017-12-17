@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 public class Car extends Vehicle {
 
     @Value("${vehicle.car.length}")
-    private double length = 50;
+    private double length = 125;
     @Value("${vehicle.car.width}")
-    private double width = 30;
+    private double width = 50;
     @Value("${vehicle.car.maxengineforce}")
     private double maxEngineForce = 600d;
     @Value("${vehicle.car.maxbrakingforce}")
@@ -68,6 +68,8 @@ public class Car extends Vehicle {
         setInertia(inertia);
         setFrontWheelBase(frontWheelBase);
         setRearWheelBase(rearWheelBase);
+        setWidth(width);
+        setLength(length);
     }
 
 }

@@ -240,6 +240,8 @@ function drawVariables(vehicle) {
 	drawText(0, 80, 0, "wr yVelocity: " + vehicle.yvelocity);
 	drawText(0, 95, 0, "vr xVelocity: " + vehicle.vehicleReferenceVelocity.x);
 	drawText(0, 110, 0, "vr yVelocity: " + vehicle.vehicleReferenceVelocity.y);
+	drawText(0, 125, 0, "wr x: " + vehicle.location.x);
+	drawText(0, 140, 0, "wr y: " + vehicle.location.y);
 }
 
 function drawArrowKeys(accelerating, braking, left, right) {

@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PhysicsTest {
@@ -114,5 +116,47 @@ public class PhysicsTest {
         double value = 25;
         double result = Physics.normalise(min, max, value);
         assertEquals("Should not change normal value", max, result, 0d);
+    }
+
+    @Test
+    public void testSingleCollisionWithNoCollision() {
+        double v1x = 0;
+        double v1y = 0;
+        double v2x = 10;
+        double v2y = 10;
+        double v1w = 3;
+        double v1l = 5;
+        double v2w = 3;
+        double v2l = 5;
+        Vehicle vehicle1 = new Car(), vehicle2 = new Car();
+        vehicle1.setLocation(new Location(v1x, v1y));
+        vehicle2.setLocation(new Location(v2x, v2y));
+        vehicle1.setWidth(v1w);
+        vehicle1.setLength(v1l);
+        vehicle2.setWidth(v2w);
+        vehicle2.setLength(v2l);
+        boolean result = underTest.checkCollisionSingle(vehicle1, vehicle2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSingleCollisionWithCollision() {
+        double v1x = 0;
+        double v1y = 0;
+        double v2x = 0;
+        double v2y = 0;
+        double v1w = 3;
+        double v1l = 5;
+        double v2w = 3;
+        double v2l = 5;
+        Vehicle vehicle1 = new Car(), vehicle2 = new Car();
+        vehicle1.setLocation(new Location(v1x, v1y));
+        vehicle2.setLocation(new Location(v2x, v2y));
+        vehicle1.setWidth(v1w);
+        vehicle1.setLength(v1l);
+        vehicle2.setWidth(v2w);
+        vehicle2.setLength(v2l);
+        boolean result = underTest.checkCollisionSingle(vehicle1, vehicle2);
+        assertTrue(result);
     }
 }

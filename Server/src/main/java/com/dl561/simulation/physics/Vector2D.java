@@ -28,4 +28,13 @@ public class Vector2D {
     public void setY(double y) {
         this.y = y;
     }
+
+
+    public double getMagnitude() {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public double dotProduct(Vector2D that) {
+        return this.x * that.x + this.y + that.y;
+    }
 }

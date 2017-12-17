@@ -4,7 +4,9 @@ import com.dl561.simulation.Simulation;
 import com.dl561.simulation.Tick;
 import com.dl561.simulation.computer.AIService;
 import com.dl561.simulation.course.location.Location;
+import com.dl561.simulation.vehicle.MinMax;
 import com.dl561.simulation.vehicle.Vehicle;
+import com.dl561.simulation.vehicle.Vertex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class Physics {
         }
         for (Vehicle vehicle : simulation.getVehicles()) {
             updateVehicle(simulation, vehicle);
+            checkCollision(vehicle, simulation);
         }
     }
 
@@ -43,6 +46,70 @@ public class Physics {
             aiService.getComputerInput(simulation, vehicle);
         }
         calculateVehiclePhysics(vehicle);
+    }
+
+    public boolean checkCollision(Vehicle vehicle, Simulation simulation) {
+        for (Vehicle other : simulation.getVehicles()) {
+            if (vehicle.getId() == other.getId()) {
+                continue;
+            }
+            if (checkCollisionSingle(vehicle, other)) {
+                //TODO: Collision happened here!
+                System.out.println("Collision Happened");
+                doCollision(vehicle, other);
+            }
+
+        }
+        return false;
+    }
+
+    public boolean checkCollisionSingle(Vehicle vehicle, Vehicle other) {
+        Vector2D normal1 = vehicle.getNormalUnitVector1();
+        Vector2D normal2 = vehicle.getNormalUnitVector2();
+        Vector2D normal3 = other.getNormalUnitVector1();
+        Vector2D normal4 = other.getNormalUnitVector2();
+
+        MinMax a1 = getMinAndMax(vehicle, normal1);
+        MinMax b1 = getMinAndMax(other, normal1);
+
+        MinMax a2 = getMinAndMax(vehicle, normal2);
+        MinMax b2 = getMinAndMax(other, normal2);
+
+        MinMax a3 = getMinAndMax(vehicle, normal3);
+        MinMax b3 = getMinAndMax(other, normal3);
+
+        MinMax a4 = getMinAndMax(vehicle, normal4);
+        MinMax b4 = getMinAndMax(other, normal4);
+
+        if (a1.getMax() < b1.getMin() || b1.getMax() < a1.getMin()) {
+            return false;
+        } else if (a2.getMax() < b2.getMin() || b2.getMax() < a2.getMin()) {
+            return false;
+        } else if (a3.getMax() < b3.getMin() || b3.getMax() < a3.getMin()) {
+            return false;
+        } else if (a4.getMax() < b4.getMin() || b4.getMax() < a4.getMin()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void doCollision(Vehicle vehicle1, Vehicle vehicle2) {
+
+    }
+
+    private MinMax getMinAndMax(Vehicle vehicle, Vector2D normal) {
+        double currentMin = vehicle.getVertices().get(0).asVector2D().dotProduct(normal);
+        double currentMax = vehicle.getVertices().get(0).asVector2D().dotProduct(normal);
+        for (Vertex vertex : vehicle.getVertices()) {
+            double projection = vertex.asVector2D().dotProduct(normal);
+            if (projection > currentMax) {
+                currentMax = projection;
+            }
+            if (projection < currentMin) {
+                currentMin = projection;
+            }
+        }
+        return new MinMax(currentMin, currentMax);
     }
 
     private void calculateVehiclePhysics(Vehicle vehicle) {
@@ -223,5 +290,11 @@ public class Physics {
             return 0;
         }
         return value;
+    }
+
+
+    public Vector2D getUnitVector(Vector2D vector) {
+        double mag = vector.getMagnitude();
+        return new Vector2D(vector.getX() / mag, vector.getY() / mag);
     }
 }
