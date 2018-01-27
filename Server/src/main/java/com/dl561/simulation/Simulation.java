@@ -1,12 +1,15 @@
 package com.dl561.simulation;
 
 import com.dl561.simulation.course.Course;
+import com.dl561.simulation.course.Waypoint;
+import com.dl561.simulation.debug.Report;
 import com.dl561.simulation.hud.Hud;
 import com.dl561.simulation.hud.TextHud;
+import com.dl561.simulation.physics.Collidable;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
 
-import javax.xml.soap.Text;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,12 +21,17 @@ public class Simulation {
     private Course course;
     private Hud hud;
     private Boolean running;
+    private Waypoint[] waypoints;
     private double runTime;
     private double currentTime;
     private double previousTickTime;
 
     public Simulation() {
-
+        try {
+            Report.saveHeaderLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Simulation(Simulation simulation) {
@@ -56,6 +64,13 @@ public class Simulation {
         }
         this.currentTime = System.currentTimeMillis();
         this.previousTickTime = currentTime - Tick.TICK_TIME;
+    }
+
+    public List<Collidable> getAllCollidables() {
+        List<Collidable> collidables = new LinkedList<>();
+        collidables.addAll(vehicles);
+        collidables.addAll(course.getRectangles());
+        return collidables;
     }
 
     public int getId() {
@@ -122,6 +137,14 @@ public class Simulation {
         this.previousTickTime = previousTickTime;
     }
 
+    public Waypoint[] getWaypoints() {
+        return waypoints;
+    }
+
+    public void setWaypoints(Waypoint[] waypoints) {
+        this.waypoints = waypoints;
+    }
+
     public void start() {
         this.running = true;
     }
@@ -139,8 +162,7 @@ public class Simulation {
         }
     }
 
-    private void updateHud(){
+    private void updateHud() {
         List<TextHud> textHuds = new LinkedList<>();
-
     }
 }

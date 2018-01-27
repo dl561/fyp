@@ -37,4 +37,20 @@ public class Vector2D {
     public double dotProduct(Vector2D that) {
         return this.x * that.x + this.y + that.y;
     }
+
+    public Vector2D add(Vector2D other) {
+        return new Vector2D(x + other.getX(), y + other.getY());
+    }
+
+    public Vector2D subtract(Vector2D other) {
+        return new Vector2D(x - other.getX(), y - other.getY());
+    }
+
+    public Vector2D multiply(double other) {
+        return new Vector2D(other * x, other * y);
+    }
+
+    public Vector2D divide(double other) {
+        return new Vector2D(x / other, y / other);
+    }
 }

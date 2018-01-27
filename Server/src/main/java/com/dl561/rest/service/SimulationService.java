@@ -78,6 +78,7 @@ public class SimulationService implements ISimulationService {
     private void populateSimulation(Simulation simulation, NewSimulationOptionsDto newSimulationOptionsDto) {
         simulation.setCourse(Course.getByTrackNumber(newSimulationOptionsDto.getTrackNumber()));
         simulation.setVehicles(Vehicle.getVehicles(newSimulationOptionsDto.getVehiclesToCreate()));
+        simulation.setWaypoints(Course.getWayPointsByTrackNumber(newSimulationOptionsDto.getTrackNumber()));
     }
 
     @Override
@@ -105,7 +106,7 @@ public class SimulationService implements ISimulationService {
     @Override
     public void doTick() {
         for (Simulation simulation : simulations) {
-            physics.calculateNewPositions(simulation);
+            physics.simulate(simulation);
             simulation.doTick();
         }
     }

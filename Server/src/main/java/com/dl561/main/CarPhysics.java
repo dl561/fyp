@@ -17,8 +17,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static com.dl561.simulation.physics.Physics.normalise;
-
 public class CarPhysics extends java.applet.Applet {
     PhysicsModule panel;
 
@@ -553,119 +551,119 @@ class PhysicsModule extends Panel
 //
 //        /**
 
-                sn = Math.sin(car.angle);
+        sn = Math.sin(car.angle);
         cs = Math.cos(car.angle);
 
-         // SAE convention: x is to the front of the car, y is to the right, z is down
-         // transform velocity in world reference frame to velocity in car reference frame
-         velocity.x =  cs * car.velocity_wc.y + sn * car.velocity_wc.x;
-         velocity.y = -sn * car.velocity_wc.y + cs * car.velocity_wc.x;
+        // SAE convention: x is to the front of the car, y is to the right, z is down
+        // transform velocity in world reference frame to velocity in car reference frame
+        velocity.x = cs * car.velocity_wc.y + sn * car.velocity_wc.x;
+        velocity.y = -sn * car.velocity_wc.y + cs * car.velocity_wc.x;
 
-         // Lateral force on wheels
-         //
-         // Resulting velocity of the wheels as result of the yaw rate of the car body
-         // v = yawrate * r where r is distance of wheel to CG (approx. half wheel base)
-         // yawrate (ang.velocity) must be in rad/s
-         //
-         yawspeed = car.cartype.wheelbase * 0.5 * car.angularvelocity;
+        // Lateral force on wheels
+        //
+        // Resulting velocity of the wheels as result of the yaw rate of the car body
+        // v = yawrate * r where r is distance of wheel to CG (approx. half wheel base)
+        // yawrate (ang.velocity) must be in rad/s
+        //
+        yawspeed = car.cartype.wheelbase * 0.5 * car.angularvelocity;
 
-         if( velocity.x == 0 )                // TODO: fix Math.singularity
-         rot_angle = 0;
-         else
-         rot_angle = Math.atan( yawspeed / velocity.x);
-         // Calculate the side slip angle of the car (a.k.a. beta)
-         if( velocity.x == 0 )                // TODO: fix Math.singularity
-         sideslip = 0;
-         else
-         sideslip = Math.atan( velocity.y / velocity.x);
+        if (velocity.x == 0)                // TODO: fix Math.singularity
+            rot_angle = 0;
+        else
+            rot_angle = Math.atan(yawspeed / velocity.x);
+        // Calculate the side slip angle of the car (a.k.a. beta)
+        if (velocity.x == 0)                // TODO: fix Math.singularity
+            sideslip = 0;
+        else
+            sideslip = Math.atan(velocity.y / velocity.x);
 
-         // Calculate slip angles for front and rear wheels (a.k.a. alpha)
-         slipanglefront = sideslip + rot_angle - car.steerangle;
-         slipanglerear  = sideslip - rot_angle;
+        // Calculate slip angles for front and rear wheels (a.k.a. alpha)
+        slipanglefront = sideslip + rot_angle - car.steerangle;
+        slipanglerear = sideslip - rot_angle;
 
-         // weight per axle = half car mass times 1G (=9.8m/s^2)
-         weight = car.cartype.mass * 9.8 * 0.5;
+        // weight per axle = half car mass times 1G (=9.8m/s^2)
+        weight = car.cartype.mass * 9.8 * 0.5;
 
-         // lateral force on front wheels = (Ca * slip angle) capped to friction circle * load
-         flatf.x = 0;
-         flatf.y = CA_F * slipanglefront;
-         flatf.y = Math.min(MAX_GRIP, flatf.y);
-         flatf.y = Math.max(-MAX_GRIP, flatf.y);
-         flatf.y *= weight;
-         if(front_slip==1)
-         flatf.y *= 0.5;
+        // lateral force on front wheels = (Ca * slip angle) capped to friction circle * load
+        flatf.x = 0;
+        flatf.y = CA_F * slipanglefront;
+        flatf.y = Math.min(MAX_GRIP, flatf.y);
+        flatf.y = Math.max(-MAX_GRIP, flatf.y);
+        flatf.y *= weight;
+        if (front_slip == 1)
+            flatf.y *= 0.5;
 
-         // lateral force on rear wheels
-         flatr.x = 0;
-         flatr.y = CA_R * slipanglerear;
-         flatr.y = Math.min(MAX_GRIP, flatr.y);
-         flatr.y = Math.max(-MAX_GRIP, flatr.y);
-         flatr.y *= weight;
-         if(rear_slip==1)
-         flatr.y *= 0.5;
+        // lateral force on rear wheels
+        flatr.x = 0;
+        flatr.y = CA_R * slipanglerear;
+        flatr.y = Math.min(MAX_GRIP, flatr.y);
+        flatr.y = Math.max(-MAX_GRIP, flatr.y);
+        flatr.y *= weight;
+        if (rear_slip == 1)
+            flatr.y *= 0.5;
 
-         // longtitudinal force on rear wheels - very simple traction model
-         ftraction.x = 100*(car.throttle - car.brake*SGN(velocity.x));
-         ftraction.y = 0;
-         if(rear_slip==1)
-         ftraction.x *= 0.5;
+        // longtitudinal force on rear wheels - very simple traction model
+        ftraction.x = 100 * (car.throttle - car.brake * SGN(velocity.x));
+        ftraction.y = 0;
+        if (rear_slip == 1)
+            ftraction.x *= 0.5;
 
-         // Forces and torque on body
+        // Forces and torque on body
 
-         // drag and rolling resistance
-         resistance.x = -( RESISTANCE*velocity.x + DRAG*velocity.x*ABS(velocity.x) );
-         resistance.y = -( RESISTANCE*velocity.y + DRAG*velocity.y*ABS(velocity.y) );
+        // drag and rolling resistance
+        resistance.x = -(RESISTANCE * velocity.x + DRAG * velocity.x * ABS(velocity.x));
+        resistance.y = -(RESISTANCE * velocity.y + DRAG * velocity.y * ABS(velocity.y));
 
-         // sum forces
-         force.x = ftraction.x + Math.sin(car.steerangle) * flatf.x + flatr.x + resistance.x;
-         force.y = ftraction.y + Math.cos(car.steerangle) * flatf.y + flatr.y + resistance.y;
+        // sum forces
+        force.x = ftraction.x + Math.sin(car.steerangle) * flatf.x + flatr.x + resistance.x;
+        force.y = ftraction.y + Math.cos(car.steerangle) * flatf.y + flatr.y + resistance.y;
 
-         // torque on body from lateral forces
-         torque = car.cartype.b * flatf.y - car.cartype.c * flatr.y;
+        // torque on body from lateral forces
+        torque = car.cartype.b * flatf.y - car.cartype.c * flatr.y;
 
-         // Acceleration
+        // Acceleration
 
-         // Newton F = m.a, therefore a = F/m
-         acceleration.x = force.x/car.cartype.mass;
-         acceleration.y = force.y/car.cartype.mass;
-         angular_acceleration = torque / car.cartype.inertia;
+        // Newton F = m.a, therefore a = F/m
+        acceleration.x = force.x / car.cartype.mass;
+        acceleration.y = force.y / car.cartype.mass;
+        angular_acceleration = torque / car.cartype.inertia;
 
-         // Velocity and position
+        // Velocity and position
 
-         // transform acceleration from car reference frame to world reference frame
-         acceleration_wc.x =  cs * acceleration.y + sn * acceleration.x;
-         acceleration_wc.y = -sn * acceleration.y + cs * acceleration.x;
+        // transform acceleration from car reference frame to world reference frame
+        acceleration_wc.x = cs * acceleration.y + sn * acceleration.x;
+        acceleration_wc.y = -sn * acceleration.y + cs * acceleration.x;
 
-         // velocity is integrated acceleration
-         //
-         car.velocity_wc.x += delta_t * acceleration_wc.x;
-         car.velocity_wc.y += delta_t * acceleration_wc.y;
+        // velocity is integrated acceleration
+        //
+        car.velocity_wc.x += delta_t * acceleration_wc.x;
+        car.velocity_wc.y += delta_t * acceleration_wc.y;
 
-         // position is integrated velocity
-         //
-         car.position_wc.x += delta_t * car.velocity_wc.x;
-         car.position_wc.y += delta_t * car.velocity_wc.y;
+        // position is integrated velocity
+        //
+        car.position_wc.x += delta_t * car.velocity_wc.x;
+        car.position_wc.y += delta_t * car.velocity_wc.y;
 
 
-         // Angular velocity and heading
+        // Angular velocity and heading
 
-         // integrate angular acceleration to get angular velocity
-         //
-         car.angularvelocity += delta_t * angular_acceleration;
+        // integrate angular acceleration to get angular velocity
+        //
+        car.angularvelocity += delta_t * angular_acceleration;
 
-         // integrate angular velocity to get angular orientation
-         //
-         car.angle += delta_t * car.angularvelocity ;
+        // integrate angular velocity to get angular orientation
+        //
+        car.angle += delta_t * car.angularvelocity;
 
     }
 
-/*
- * End of Physics module
- */
+    /*
+     * End of Physics module
+     */
 
-/*
- * Input module
- */
+    /*
+     * Input module
+     */
 
     boolean kUp, kDown, kLeft, kRight, kQ, kW, kSpace, kCtrl, kESC;
 
@@ -777,9 +775,9 @@ class PhysicsModule extends Panel
     public void keyTyped(KeyEvent e) {
     }
 
-/*
- * End of Input module
- */
+    /*
+     * End of Input module
+     */
 
     //doppelpuffer zeug
     Image offscreen;

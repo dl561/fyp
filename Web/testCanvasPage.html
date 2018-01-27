@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset = "utf-8"/>
-<title> Driving Simulator </title>
-<style>
-* {
-padding: 0;
-margin: 0;
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset = "utf-8"/>
+	 <title> Driving Simulator </title>
+	<style>
+	 * {
+	padding: 0;
+	margin: 0;
 }
 canvas {
 	background:  # FFFFFF;
 	display: block;
 	margin: 0 auto;
 }
-</style>
-</head>
-<body>
+ </style>
+ <head>
+ <body>
 
-<canvas id = "simulationCanvas" width = "480" height = "320">  < / canvas>
+ <canvas id = "simulationCanvas" width = "480" height = "320">  </canvas>
 
-<script src = "js/httpRequests.js"></script>
-<script src = "js/drawing.js"></script>
-<script src = "js/keyPressing.js"></script>
-<script src = "js/simulator.js"></script>
-<script>
-var canvas = document.getElementById("simulationCanvas");
+	 <script src = "js/httpRequests.js" ></script>
+	 <script src = "js/drawing.js" ></script>
+	 <script src = "js/keyPressing.js"></script>
+	 <script src = "js/simulator.js"></script>
+	 <script>
+	var canvas = document.getElementById("simulationCanvas");
 var ctx = canvas.getContext("2d");
 
 var stopButton = document.getElementById("stop");
@@ -42,6 +42,8 @@ var brakePedalDepthVariable = 0;
 var steeringAngle = 0;
 var gearNumber = 1;
 
+var zoom = 5;
+
 initImages();
 
 function getUpdatedPedalDepths() {
@@ -56,25 +58,25 @@ function getUpdatedPedalDepths() {
 		brakePedalDepthVariable -= 10;
 	}
 
-	if (acceleratorPedalDepthVariable> 100) {
+	if (acceleratorPedalDepthVariable > 100) {
 		acceleratorPedalDepthVariable = 100;
 	}
-	if (acceleratorPedalDepthVariable <0) {
+	if (acceleratorPedalDepthVariable < 0) {
 		acceleratorPedalDepthVariable = 0;
 	}
-	if (brakePedalDepthVariable> 100) {
+	if (brakePedalDepthVariable > 100) {
 		brakePedalDepthVariable = 100;
 	}
-	if (brakePedalDepthVariable <0) {
+	if (brakePedalDepthVariable < 0) {
 		brakePedalDepthVariable = 0;
 	}
 
 	if (left) {
-		if (steeringAngle > -Math.PI / 6) {
+		if (steeringAngle > -Math.PI / 8) {
 			steeringAngle -= Math.PI / 64;
 		}
 	} else if (right) {
-		if (steeringAngle < Math.PI / 6) {
+		if (steeringAngle < Math.PI / 8) {
 			steeringAngle += Math.PI / 64;
 		}
 	} else {
@@ -94,23 +96,35 @@ function getUpdatedPedalDepths() {
 	vehicleObjects[0].vehicleReferenceVelocity.y = 2
 }
 
-function tick(){
+function tick() {
 	tickCount++;
-	//updateKeys();
-	//getUpdatedPedalDepths();
-	//draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber);
-	drawRectangle(950, 330, 920, 80, 0, "#ff0f00");
-	drawRectangle(665, 590, 97, 355, 0, "#ff0f00");
-	drawRectangle(925, 2235, 930, 83, 0, "#ff0f00");
-	drawRectangle(5445, 630, 77, 345, 0, "#ff0f00");
-	drawArc(965, 630, 30, 180 * (Math.PI/180), 270 * (Math.PI/180), false, 0, "#000080");
-	drawArc(5530, 630, 30, 270 * (Math.PI/180), 0 * (Math.PI/180), false, 0, "#000080");
-	drawArc(965, 2350, 30, 90 * (Math.PI/180), 180 * (Math.PI/180), false, 0, "#000080");
-	drawArc(5530, 2350, 30, 0 * (Math.PI/180), 90 * (Math.PI/180), false, 0, "#000080");
-
+	updateKeys();
+	getUpdatedPedalDepths();
+	//draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber, zoom);
+	//drawRectangle(950, 330, 920, 80, 0, "#ff0f00");
+	//drawRectangle(665, 590, 97, 355, 0, "#ff0f00");
+	//drawRectangle(925, 2235, 930, 83, 0, "#ff0f00");
+	//drawRectangle(5445, 630, 77, 345, 0, "#ff0f00");
+	//drawArc(965, 630, 30, 180 * (Math.PI/180), 270 * (Math.PI/180), false, 0, "#000080");
+	//drawArc(5530, 630, 30, 270 * (Math.PI/180), 0 * (Math.PI/180), false, 0, "#000080");
+	//drawArc(965, 2350, 30, 90 * (Math.PI/180), 180 * (Math.PI/180), false, 0, "#000080");
+	//drawArc(5530, 2350, 30, 0 * (Math.PI/180), 90 * (Math.PI/180), false, 0, "#000080");
+	var car1;
+	car1 = new Image();
+	car1.src = "img/car1.png";
+	drawImage(100, 200, 0, car1, 1);
+	
 }
 tickCount = 0;
 lastGearChange = 0;
+vehicle = new Object();
+vehicle.location = new Object();
+vehicle.location.x = 30;
+vehicle.location.y = 40;
+vehicle.vehicleReferenceVelocity = new Object();
+vehicle.vehicleReferenceVelocity.x = 1;
+vehicle.vehicleReferenceVelocity.y = 2
+	vehicleObjects[0] = vehicle;
 setInterval(tick, 30);
  </script>
 

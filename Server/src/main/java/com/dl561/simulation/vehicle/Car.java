@@ -1,31 +1,30 @@
 package com.dl561.simulation.vehicle;
 
-import com.dl561.simulation.course.location.Location;
-import org.springframework.beans.factory.annotation.Value;
+import com.dl561.simulation.physics.Vector2D;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Car extends Vehicle {
 
-    @Value("${vehicle.car.length}")
-    private double length = 125;
-    @Value("${vehicle.car.width}")
-    private double width = 50;
-    @Value("${vehicle.car.maxengineforce}")
+    //    @Value("${vehicle.car.length}")
+    private double length = 5;
+    //    @Value("${vehicle.car.width}")
+    private double width = 2;
+    //    @Value("${vehicle.car.maxengineforce}")
     private double maxEngineForce = 600d;
-    @Value("${vehicle.car.maxbrakingforce}")
+    //    @Value("${vehicle.car.maxbrakingforce}")
     private double maxBrakingForce = 800d;
-    @Value("${vehicle.car.dragresistance}")
+    //    @Value("${vehicle.car.dragresistance}")
     private double dragResistance = 500d;
-    @Value("${vehicle.car.rollingresistance}")
+    //    @Value("${vehicle.car.rollingresistance}")
     private double rollingResistance = 3000d;
-    @Value("${vehicle.car.mass}")
+    //    @Value("${vehicle.car.mass}")
     private double mass = 1500d;
     private double frontWheelBase = 1d;
     private double rearWheelBase = 1d;
-    @Value("${vehicle.car.wheelbase}")
+    //    @Value("${vehicle.car.wheelbase}")
     private double wheelBase = frontWheelBase + rearWheelBase;
-    @Value("${vehicle.car.centreofgravityheight}")
+    //    @Value("${vehicle.car.centreofgravityheight}")
     private double centreOfGravityHeight = 1d;
     //   @Value("${vehicle.car.differentialratio}")
     private double differentialRatio = 3.4d;
@@ -39,13 +38,15 @@ public class Car extends Vehicle {
 
     private double inertia = 3000d;
 
+    private double coefficientOfRestitution = 1;
+
     public Car() {
         setValues();
     }
 
     public Car(int id, double x, double y, double rotation, boolean isComputer) {
         setValues();
-        this.setLocation(new Location(x, y));
+        this.setLocation(new Vector2D(x, y));
         this.setDirectionOfTravel(rotation);
         this.setComputer(isComputer);
         setId(id);
@@ -70,6 +71,7 @@ public class Car extends Vehicle {
         setRearWheelBase(rearWheelBase);
         setWidth(width);
         setLength(length);
+        setCoefficientOfResitution(coefficientOfRestitution);
     }
 
 }

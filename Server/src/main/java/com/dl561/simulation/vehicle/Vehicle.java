@@ -2,7 +2,7 @@ package com.dl561.simulation.vehicle;
 
 import com.dl561.rest.domain.dto.VehicleCreationDto;
 import com.dl561.rest.domain.dto.VehicleUpdateDto;
-import com.dl561.simulation.course.location.Location;
+import com.dl561.simulation.physics.Collidable;
 import com.dl561.simulation.physics.Physics;
 import com.dl561.simulation.physics.Vector2D;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public abstract class Vehicle {
+public abstract class Vehicle extends Collidable {
     private int id;
     //variable
-    private Location location;
+    private Vector2D location;
     private double directionOfTravel;
     private double steeringWheelDirection;
     private double acceleratorPedalDepth;
@@ -32,9 +32,12 @@ public abstract class Vehicle {
     private boolean frontSlip = false;
     private boolean rearSlip = false;
     private boolean isComputer = false;
+    private double coefficientOfResitution;
+    private int waypointNumber = 0;
+    private int rpm = 1000;
+    //constant
     private double width;
     private double length;
-    //constant
     private double mass;
     private VehicleType vehicleType;
     private double maxEngineForce;
@@ -67,93 +70,64 @@ public abstract class Vehicle {
         return this;
     }
 
+    protected void applyCollision(Vector2D velocityAddition, double angularVelocityAddition) {
+        Vector2D currentVelocity = getVelocity();
+        Vector2D newVelocity = currentVelocity.add(velocityAddition);
+
+        double currentAngularVelocity = angularVelocity;
+        double newAngularVelocity = currentAngularVelocity + angularVelocityAddition;
+
+        setWRXVelocity(newVelocity.getX());
+        setWRYVelocity(newVelocity.getY());
+
+        setAngularVelocity(newAngularVelocity);
+    }
+
+    /**
+     * This method nudges the vehicle in the direction of the collision normal
+     *
+     * @param normal
+     */
+    protected void nudge(Vector2D normal) {
+        Vector2D location = new Vector2D(this.location.getX(), this.location.getY());
+        Vector2D newLocation = location.add(Physics.getUnitVector(normal));
+        this.location.setX(newLocation.getX());
+        this.location.setY(newLocation.getY());
+        System.out.println("Old location: " + location.getX() + ", " + location.getY() + ". New location: " + newLocation.getX() + ", " + newLocation.getY());
+    }
+
     public double getMaxEngineTorque(double RPM) {
         //TODO: Find out how to make a graph into a RPM to torque conversion.
         return 450d;
     }
 
-
-    /**
-     * This method returns a list of unit vectors for Normals of the vehicle
-     * Though there are 4 normals, only 2 of them are needed (X and Y of vehicle)
-     *
-     * @return
-     */
-    public Vector2D getNormalUnitVector1() {
-        List<Vertex> vertices = getVertices();
-        Vector2D n1;
-
-        Vertex a = new Vertex();
-        Vertex b = new Vertex();
-        for (Vertex vertex : vertices) {
-            if (vertex.getId() == 0) {
-                a = vertex;
-            } else if (vertex.getId() == 1) {
-                b = vertex;
-            }
-        }
-        double dx = b.getX() - a.getX();
-        double dy = b.getY() - a.getY();
-        n1 = new Vector2D(-dy, dx);
-        return n1;
-    }
-
-    public Vector2D getNormalUnitVector2() {
-        List<Vertex> vertices = getVertices();
-        Vector2D n2;
-
-        Vertex a = new Vertex();
-        Vertex d = new Vertex();
-        for (Vertex vertex : vertices) {
-            if (vertex.getId() == 0) {
-                a = vertex;
-            } else if (vertex.getId() == 3) {
-                d = vertex;
-            }
-        }
-        double dx = d.getX() - a.getX();
-        double dy = d.getY() - a.getY();
-        n2 = new Vector2D(-dy, dx);
-        return n2;
-    }
-
-    public List<Vertex> getVertices() {
-        List<Vertex> vertices = new LinkedList<>();
-        Vector2D center = new Vector2D(location.getX() + (width / 2), location.getY() + (length / 2));
-        List<Vector2D> preRotationVertices = new LinkedList<>();
-        //TODO: check whether this is still true, taking a to be top left is from the front end rather
-        //than the back end.
-        //Upper left hand corner before rotation
-        Vector2D a = new Vector2D(location.getX(), location.getY());
-        //Upper right hand corner
-        Vector2D b = new Vector2D(a.getX() + width, a.getY());
-        //Lower right hand corner
-        Vector2D c = new Vector2D(a.getX() + width, a.getY() + length);
-        //Lower left hand corner
-        Vector2D d = new Vector2D(a.getX(), a.getY() + length);
-
-        preRotationVertices.add(a);
-        preRotationVertices.add(b);
-        preRotationVertices.add(c);
-        preRotationVertices.add(d);
-
-        int count = 0;
-        for (Vector2D vertex : preRotationVertices) {
-            Vector2D translated = new Vector2D(vertex.getX() - center.getX(), vertex.getY() - center.getY());
-            double rotatedX = translated.getX() * Math.cos(directionOfTravel) - translated.getY() * Math.sin(directionOfTravel);
-            double rotatedY = translated.getX() * Math.sin(directionOfTravel) + translated.getY() * Math.cos(directionOfTravel);
-            Vertex realVertexPosition = new Vertex();
-            realVertexPosition.setId(count);
-            realVertexPosition.setX(rotatedX + center.getX());
-            realVertexPosition.setY(rotatedY + center.getY());
-            vertices.add(realVertexPosition);
-            count++;
-        }
-        return vertices;
-    }
-
     public double getSteerAngleInRadians() {
         return Math.toRadians(steeringWheelDirection);
+    }
+
+    protected boolean isSolid() {
+        return true;
+    }
+
+    protected Vector2D getCentreMass() {
+        //TODO: is there a better way to find this?
+        List<Vertex> vertices = getRectangleVertices();
+        Vector2D point0 = vertices.get(0).asVector2D();
+        Vector2D point1 = vertices.get(1).asVector2D();
+        Vector2D point2 = vertices.get(2).asVector2D();
+        Vector2D point3 = vertices.get(3).asVector2D();
+
+        Vector2D total = point0.add(point1).add(point2).add(point3);
+
+        return total.divide(4);
+    }
+
+    protected double getCoefficientOfResitution() {
+        return this.coefficientOfResitution;
+    }
+
+    public void setCoefficientOfResitution(double coefficientOfResitution) {
+        this.coefficientOfResitution = coefficientOfResitution;
     }
 
     public double getGearRatio(int gearNumber) {
@@ -191,11 +165,11 @@ public abstract class Vehicle {
         this.vehicleType = vehicleType;
     }
 
-    public Location getLocation() {
+    public Vector2D getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(Vector2D location) {
         this.location = location;
     }
 
@@ -459,6 +433,14 @@ public abstract class Vehicle {
         isComputer = computer;
     }
 
+    public double getX() {
+        return location.getX();
+    }
+
+    public double getY() {
+        return location.getY();
+    }
+
     public double getWidth() {
         return width;
     }
@@ -473,6 +455,34 @@ public abstract class Vehicle {
 
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public boolean isMovable() {
+        return true;
+    }
+
+    public double getRotation() {
+        return directionOfTravel;
+    }
+
+    public Vector2D getVelocity() {
+        return new Vector2D(worldReferenceXVelocity, worldReferenceYVelocity);
+    }
+
+    public int getWaypointNumber() {
+        return waypointNumber;
+    }
+
+    public void setWaypointNumber(int waypointNumber) {
+        this.waypointNumber = waypointNumber;
+    }
+
+    public int getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(int rpm) {
+        this.rpm = rpm;
     }
 
     public static List<Vehicle> getVehicles(List<VehicleCreationDto> vehiclesToCreate) {
@@ -491,7 +501,7 @@ public abstract class Vehicle {
                 switch (id) {
                     //TODO: change this back
                     case 0:
-                        return new Car(id, 610, 55, 0, isComputer);
+                        return new Car(id, 150, 20, 0, isComputer);
                     case 1:
                         return new Car(id, 610, 55, 0, isComputer);
                     case 2:

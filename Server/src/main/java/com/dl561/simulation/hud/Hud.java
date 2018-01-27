@@ -10,7 +10,7 @@ public class Hud {
 
     private List<TextHud> hudList;
 
-    public Hud(){
+    public Hud() {
         hudList = new LinkedList<>();
     }
 

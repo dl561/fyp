@@ -34,12 +34,14 @@ function submitFunction() {
 		document.location.href = newUrl;
 	}
 }
+
 function updateRange() {
 	var range = document.getElementById("carCount").value;
 	var label = document.getElementById("carCountLabel");
 	label.innerHTML = range;
 	hideCarButtons(range);
 }
+
 function checkSingleLocal(carNumber) {
 	if (document.getElementById("carLocal" + carNumber).checked) {
 		for (i = 1; i < 7; i++) {

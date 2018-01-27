@@ -7,6 +7,7 @@ ctx.canvas.height = window.innerHeight - stopButton.offsetHeight;
 
 var simulationId;
 var tickCount = 0;
+var zoom = 2.5; //pixels per metre
 
 var courseRectangles = [];
 var courseArcs = [];
@@ -26,6 +27,7 @@ var frontSlip = false;
 var rearSlip = false;
 
 var lastGearChange = 0;
+var lastSteeringWheelUpdate = 0;
 
 var localCarNumber = localStorage.getItem("localCarNumber");
 setHostIP(localStorage.getItem("hostIP"));
@@ -158,19 +160,21 @@ function sendUpdate() {
 			brakePedalDepthVariable = 0;
 		}
 
-		if (left) {
-			if (steeringAngle > -Math.PI / 6) {
-				steeringAngle -= Math.PI / 32;
-			}
-		} else if (right) {
-			if (steeringAngle < Math.PI / 6) {
-				steeringAngle += Math.PI / 32;
-			}
-		} else {
-			if (steeringAngle < 0) {
-				steeringAngle += Math.PI / 32;
-			} else if (steeringAngle > 0) {
-				steeringAngle -= Math.PI / 32;
+		if (tickCount - lastSteeringWheelUpdate > 4) {
+			if (left) {
+				if (steeringAngle > -Math.PI / 6) {
+					steeringAngle -= Math.PI / 32;
+				}
+			} else if (right) {
+				if (steeringAngle < Math.PI / 6) {
+					steeringAngle += Math.PI / 32;
+				}
+			} else {
+				if (steeringAngle < 0) {
+					steeringAngle += Math.PI / 32;
+				} else if (steeringAngle > 0) {
+					steeringAngle -= Math.PI / 32;
+				}
 			}
 		}
 		var vehicleUpdateDto = new Object();
@@ -244,7 +248,7 @@ function tick() {
 	}
 	fetch();
 	updateKeys();
-	draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber);
+	draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber, zoom);
 }
 
 function doUpdateTick() {

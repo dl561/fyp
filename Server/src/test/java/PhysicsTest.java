@@ -1,6 +1,5 @@
-import com.dl561.simulation.Simulation;
-import com.dl561.simulation.course.location.Location;
 import com.dl561.simulation.physics.Physics;
+import com.dl561.simulation.physics.Vector2D;
 import com.dl561.simulation.vehicle.Car;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.junit.Ignore;
@@ -22,7 +21,7 @@ public class PhysicsTest {
     @Test
     public void testAcceleration() {
         Vehicle vehicle = new Car();
-        vehicle.setLocation(new Location(100, 100));
+        vehicle.setLocation(new Vector2D(100, 100));
         vehicle.setWRXVelocity(0);
         vehicle.setWRYVelocity(0);
         vehicle.setDirectionOfTravel(0);
@@ -34,7 +33,7 @@ public class PhysicsTest {
     @Ignore
     public void testBraking() {
         Vehicle vehicle = new Car();
-        vehicle.setLocation(new Location(100, 100));
+        vehicle.setLocation(new Vector2D(100, 100));
         vehicle.setWRXVelocity(2d);
         vehicle.setWRYVelocity(0d);
         vehicle.setDirectionOfTravel(90d);
@@ -85,8 +84,8 @@ public class PhysicsTest {
         vehicle.setWRYVelocity(0);
         vehicle.setWRXVelocity(2d);
         vehicle.setDirectionOfTravel(0);
-        vehicle.setLocation(new Location(100, 100));
-        underTest.updateVehicle(new Simulation(), vehicle);
+        vehicle.setLocation(new Vector2D(100, 100));
+        // underTest.updateVehicle(new Simulation(), vehicle);
         System.out.println("stuff");
         //TODO: WTF do I need to do here to make this shit correct?
     }
@@ -129,8 +128,8 @@ public class PhysicsTest {
         double v2w = 3;
         double v2l = 5;
         Vehicle vehicle1 = new Car(), vehicle2 = new Car();
-        vehicle1.setLocation(new Location(v1x, v1y));
-        vehicle2.setLocation(new Location(v2x, v2y));
+        vehicle1.setLocation(new Vector2D(v1x, v1y));
+        vehicle2.setLocation(new Vector2D(v2x, v2y));
         vehicle1.setWidth(v1w);
         vehicle1.setLength(v1l);
         vehicle2.setWidth(v2w);
@@ -150,8 +149,8 @@ public class PhysicsTest {
         double v2w = 3;
         double v2l = 5;
         Vehicle vehicle1 = new Car(), vehicle2 = new Car();
-        vehicle1.setLocation(new Location(v1x, v1y));
-        vehicle2.setLocation(new Location(v2x, v2y));
+        vehicle1.setLocation(new Vector2D(v1x, v1y));
+        vehicle2.setLocation(new Vector2D(v2x, v2y));
         vehicle1.setWidth(v1w);
         vehicle1.setLength(v1l);
         vehicle2.setWidth(v2w);

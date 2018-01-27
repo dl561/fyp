@@ -2,10 +2,10 @@ package com.dl561.rest.service;
 
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.course.Course;
-import com.dl561.simulation.course.location.Location;
 import com.dl561.simulation.course.segment.Arc;
 import com.dl561.simulation.course.segment.Rectangle;
 import com.dl561.simulation.hud.Hud;
+import com.dl561.simulation.physics.Vector2D;
 import com.dl561.simulation.vehicle.Car;
 import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class ExampleData {
 
     private List<Rectangle> getListRectangle() {
         List<Rectangle> rectangles = new LinkedList<>();
-        rectangles.add(new Rectangle(10, 15, 100, 150, 10, "#FFFF00"));
+        rectangles.add(new Rectangle(0, 10, 15, 100, 150, 10, "#FFFF00", true));
         return rectangles;
     }
 
@@ -55,7 +55,7 @@ public class ExampleData {
     private Car getExampleVehicle() {
         Car vehicle = new Car();
         vehicle.setId(1);
-        Location location = new Location();
+        Vector2D location = new Vector2D();
         location.setX(100);
         location.setY(20);
         vehicle.setLocation(location);
