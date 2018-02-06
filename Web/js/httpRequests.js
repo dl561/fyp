@@ -60,10 +60,11 @@ function doNewSimulation(callBackFunction) {
 	client.put('http://' + hostIP + ':8080/simulation', callBackFunction, simulationDataDto);
 }
 
-function doNewSimulationByOptions(callBackFunction, trackNumber, vehiclesToCreate) {
+function doNewSimulationByOptions(callBackFunction, trackNumber, vehiclesToCreate, numberOfLaps) {
 	var newSimulationOptionsDto = new Object();
 	newSimulationOptionsDto.trackNumber = trackNumber;
 	newSimulationOptionsDto.vehiclesToCreate = vehiclesToCreate;
+	newSimulationOptionsDto.numberOfLaps = numberOfLaps;
 	var client = new HttpClient();
 	client.put('http://' + hostIP + ':8080/simulation/options', callBackFunction, newSimulationOptionsDto);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class NewSimulationOptionsDto {
     private int trackNumber;
+    private int numberOfLaps;
     private List<VehicleCreationDto> vehiclesToCreate;
 
     public int getTrackNumber() {
@@ -20,5 +21,13 @@ public class NewSimulationOptionsDto {
 
     public void setVehiclesToCreate(List<VehicleCreationDto> vehiclesToCreate) {
         this.vehiclesToCreate = vehiclesToCreate;
+    }
+
+    public int getNumberOfLaps() {
+        return numberOfLaps;
+    }
+
+    public void setNumberOfLaps(int numberOfLaps) {
+        this.numberOfLaps = numberOfLaps;
     }
 }

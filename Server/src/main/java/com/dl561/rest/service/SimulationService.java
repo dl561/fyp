@@ -70,6 +70,7 @@ public class SimulationService implements ISimulationService {
         simulation.setPreviousTickTime(-10);
         simulation.setRunTime(0);
         simulation.setHud(new Hud());
+        simulation.setNumberOfLaps(newSimulationOptionsDto.getNumberOfLaps());
         simulations.add(simulation);
         System.out.println("Finished creating simulation");
         return simulation;

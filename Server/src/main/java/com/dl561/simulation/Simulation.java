@@ -10,6 +10,7 @@ import com.dl561.simulation.vehicle.Vehicle;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Simulation {
     private Hud hud;
     private Boolean running;
     private Waypoint[] waypoints;
+    private int numberOfLaps;
     private double runTime;
     private double currentTime;
     private double previousTickTime;
@@ -145,6 +147,14 @@ public class Simulation {
         this.waypoints = waypoints;
     }
 
+    public int getNumberOfLaps() {
+        return numberOfLaps;
+    }
+
+    public void setNumberOfLaps(int numberOfLaps) {
+        this.numberOfLaps = numberOfLaps;
+    }
+
     public void start() {
         this.running = true;
     }
@@ -159,10 +169,91 @@ public class Simulation {
             currentTime = System.currentTimeMillis();
             runTime += currentTime - previousTickTime;
             updateHud();
+            checkWaypointForAllVehicles();
+            checkFinishedState();
+            updatePositions();
         }
     }
 
     private void updateHud() {
         List<TextHud> textHuds = new LinkedList<>();
+    }
+
+    private void checkWaypointForAllVehicles() {
+        for (Vehicle vehicle : vehicles) {
+            checkWaypointForVehicle(vehicle);
+        }
+    }
+
+    private void checkWaypointForVehicle(Vehicle vehicle) {
+        int current = vehicle.getWaypointNumber();
+        int next = current + 1;
+        int previous = current - 1;
+        next = next > waypoints.length ? waypoints.length : next;
+        previous = previous < 0 ? 0 : previous;
+
+        double distanceToNext = waypoints[next].findDistanceToWaypoint(vehicle.getLocation());
+        double distanceToPrevious = waypoints[previous].findDistanceToWaypoint(vehicle.getLocation());
+
+        if (distanceToNext < distanceToPrevious) {
+            //Closer to next waypoint than previous
+            vehicle.setWaypointNumber(next);
+            if (current == waypoints.length - 1) {
+                vehicle.setLap(vehicle.getLap() + 1);
+            }
+        } else if (distanceToNext > distanceToPrevious) {
+            //Further from next waypoint than previous
+            vehicle.setWaypointNumber(previous);
+            if (current == 0) {
+                vehicle.setLap(vehicle.getLap() - 1);
+            }
+        }
+    }
+
+    private void checkFinishedState() {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getLap() >= numberOfLaps) {
+                //Vehicle has finished
+                vehicle.setFinished(true);
+            }
+        }
+    }
+
+    private void updatePositions() {
+        //Simply add all of them to a list and then sort the list on lap, waypoint then distance to next
+        List<PositionNode> positionNodes = new ArrayList<>();
+        for (Vehicle vehicle : vehicles) {
+            double distanceToNextWaypoint = waypoints[vehicle.getWaypointNumber()].findDistanceToWaypoint(vehicle.getLocation());
+            positionNodes.add(new PositionNode(vehicle, vehicle.getLap(), vehicle.getWaypointNumber(), distanceToNextWaypoint));
+        }
+        positionNodes.sort((o1, o2) -> {
+            //TODO: check this Comparator, might be doing it in reverse
+            int comparison;
+            if (o1.lap > o2.lap) {
+                comparison = 0;
+            } else if (o2.lap > o1.lap) {
+                comparison = 1;
+            } else {
+                if (o1.waypoint > o2.waypoint) {
+                    comparison = 0;
+                } else if (o2.waypoint > o1.waypoint) {
+                    comparison = 1;
+                } else {
+                    if (o1.distanceToNextWaypoint < o2.distanceToNextWaypoint) {
+                        comparison = 0;
+                    } else if (o2.distanceToNextWaypoint < o2.distanceToNextWaypoint) {
+                        comparison = 1;
+                    } else {
+                        comparison = 0;
+                    }
+                }
+            }
+            return comparison;
+        });
+        int count = 1;
+        for (PositionNode positionNode : positionNodes) {
+            positionNode.vehicle.setPosition(count);
+            count++;
+        }
     }
 }

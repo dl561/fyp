@@ -34,6 +34,9 @@ public abstract class Vehicle extends Collidable {
     private boolean isComputer = false;
     private double coefficientOfResitution;
     private int waypointNumber = 0;
+    private int lap = 0;
+    private boolean finished = false;
+    private int position = id + 1;
     private int rpm = 1000;
     //constant
     private double width;
@@ -55,18 +58,24 @@ public abstract class Vehicle extends Collidable {
     private double inertia;
 
     public Vehicle update(VehicleUpdateDto vehicleUpdateDto) {
-        steeringWheelDirection = Physics.normalise(-45d, 45d, vehicleUpdateDto.getSteeringWheelOrientation());
-        acceleratorPedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getAcceleratorPedalDepth());
-        brakePedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getBrakePedalDepth());
-        if (vehicleUpdateDto.getGear() < 0) {
-            gear = 0;
-        } else if (vehicleUpdateDto.getGear() > 5) {
-            gear = 5;
+        if (!finished) {
+            steeringWheelDirection = Physics.normalise(-45d, 45d, vehicleUpdateDto.getSteeringWheelOrientation());
+            acceleratorPedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getAcceleratorPedalDepth());
+            brakePedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getBrakePedalDepth());
+            if (vehicleUpdateDto.getGear() < 0) {
+                gear = 0;
+            } else if (vehicleUpdateDto.getGear() > 5) {
+                gear = 5;
+            } else {
+                gear = vehicleUpdateDto.getGear();
+            }
+            setFrontSlip(vehicleUpdateDto.isFrontSlip());
+            setRearSlip(vehicleUpdateDto.isRearSlip());
         } else {
-            gear = vehicleUpdateDto.getGear();
+            steeringWheelDirection = 0;
+            acceleratorPedalDepth = 0;
+            brakePedalDepth = 0;
         }
-        setFrontSlip(vehicleUpdateDto.isFrontSlip());
-        setRearSlip(vehicleUpdateDto.isRearSlip());
         return this;
     }
 
@@ -477,12 +486,36 @@ public abstract class Vehicle extends Collidable {
         this.waypointNumber = waypointNumber;
     }
 
+    public int getLap() {
+        return lap;
+    }
+
+    public void setLap(int lap) {
+        this.lap = lap;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
     public int getRpm() {
         return rpm;
     }
 
     public void setRpm(int rpm) {
         this.rpm = rpm;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public static List<Vehicle> getVehicles(List<VehicleCreationDto> vehiclesToCreate) {

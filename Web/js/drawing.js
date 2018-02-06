@@ -253,8 +253,10 @@ function drawVariables(vehicle) {
 	drawText(0, 125, 0, "wr x: " + vehicle.location.x);
 	drawText(0, 140, 0, "wr y: " + vehicle.location.y);
 	drawText(0, 155, 0, "waypoint: " + vehicle.waypointNumber);
-	drawText(0, 170, 0, "speed: " + vehicle.speed);
-	drawText(0, 185, 0, "RPM: " + vehicle.rpm);
+	drawText(0, 170, 0, "lap: " + vehicle.lap);
+	drawText(0, 185, 0, "position: " + vehicle.position);
+	drawText(0, 200, 0, "speed: " + vehicle.speed);
+	drawText(0, 215, 0, "RPM: " + vehicle.rpm);
 }
 
 function drawArrowKeys(accelerating, braking, left, right) {

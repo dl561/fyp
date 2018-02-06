@@ -58,7 +58,6 @@ public class Physics {
          collisionCount++;
          }
          **/
-        checkWaypointForAllVehicles(simulation.getVehicles(), simulation.getWaypoints());
     }
 
     private void shiftCollidingObjects(CollisionData collisionData) {
@@ -499,21 +498,6 @@ public class Physics {
             lateralForce.setY(Math.cos(vehicle.getSteeringWheelDirection()) * lateralForce.getY());
         }
         return lateralForce;
-    }
-
-    private void checkWaypointForAllVehicles(List<Vehicle> vehicles, Waypoint[] waypoints) {
-        for (Vehicle vehicle : vehicles) {
-            checkWaypointForVehicle(vehicle, waypoints);
-        }
-    }
-
-    private void checkWaypointForVehicle(Vehicle vehicle, Waypoint[] waypoints) {
-        int currentWaypointNumber = vehicle.getWaypointNumber();
-        if (currentWaypointNumber > 0 && waypoints[currentWaypointNumber - 1].findDistanceToWaypoint(vehicle.getLocation()) < Waypoint.WAYPOINT_DISTANCE) {
-            vehicle.setWaypointNumber(currentWaypointNumber - 1);
-        } else if (currentWaypointNumber < waypoints.length - 1 && waypoints[currentWaypointNumber + 1].findDistanceToWaypoint(vehicle.getLocation()) < Waypoint.WAYPOINT_DISTANCE) {
-            vehicle.setWaypointNumber(currentWaypointNumber + 1);
-        }
     }
 
     public static double normalise(double min, double max, double value) {

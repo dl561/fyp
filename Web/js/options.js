@@ -1,5 +1,6 @@
 function submitFunction() {
 	var carCount = document.getElementById("carCount").value;
+	var numberOfLaps = document.getElementById("lapCount").value;
 	var trackNumber1 = document.getElementById("trackNumber1").checked;
 	var trackNumber2 = document.getElementById("trackNumber2").checked;
 	var sound = document.getElementById("soundCheckbox").checked;
@@ -30,6 +31,7 @@ function submitFunction() {
 		localStorage.setItem("hostIP", hostIp);
 		localStorage.setItem("localCarNumber", localCarNumber);
 		localStorage.setItem("computerCars", computerCars);
+		localStorage.setItem("numberOfLaps", numberOfLaps);
 		window.location.replace(newUrl);
 		document.location.href = newUrl;
 	}
@@ -40,6 +42,9 @@ function updateRange() {
 	var label = document.getElementById("carCountLabel");
 	label.innerHTML = range;
 	hideCarButtons(range);
+	range = document.getElementById("lapCount").value;
+	label = document.getElementById("lapCountLabel");
+	label.innerHTML = range;
 }
 
 function checkSingleLocal(carNumber) {

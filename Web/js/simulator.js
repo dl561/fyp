@@ -45,6 +45,7 @@ if (trackNumber1) {
 localStorage.setItem("trackNumber", trackNumber);
 var carCount = localStorage.getItem("carCount");
 var computerCars = localStorage.getItem("computerCars");
+var numberOfLaps = localStorage.getItem("numberOfLaps");
 
 function populateCourseObjects(course) {
 	courseRectangles = course.rectangles;
@@ -102,7 +103,7 @@ function newSimulationByOptions() {
 	doNewSimulationByOptions(function (response) {
 		var responseObj = JSON.parse(response);
 		simulationId = responseObj.id;
-	}, trackNumber, getList());
+	}, trackNumber, getList(), numberOfLaps);
 }
 
 function getList() {
