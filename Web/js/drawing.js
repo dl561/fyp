@@ -50,6 +50,8 @@ var gear5;
 var speedometer;
 var needle;
 
+var positionsBar;
+
 const STR_WHEEL_X = 1168;
 const STR_WHEEL_Y = 10;
 
@@ -70,6 +72,9 @@ const SPEEDOMETER_Y = 460;
 
 const NEEDLE_X = 1168;
 const NEEDLE_Y = 460;
+
+const POSITIONS_BAR_X = 250;
+const POSITIONS_BAR_Y = 0;
 
 var zoom = 1;
 
@@ -169,23 +174,58 @@ function initImages() {
 	speedometer.src = "img/speedometer.png";
 	needle = new Image();
 	needle.src = "img/speedoDial.png";
+
+	positionsBar = new Image();
+	positionsBar.src = "img/positionBar.png";
 }
 
-function draw(accelerating, braking, left, right, accDepth, brkDepth, strAngle, gear, zoom) {
+function draw(zoom) {
 	this.zoom = zoom;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawTrackImage(localStorage.getItem("trackNumber"));
 	drawVehicles();
+	drawPositionsBar();
 	if (localCarNumber != -1) {
 		//Local car should have camera follow and extra HUD items
 		//drawArrowKeys(accelerating, braking, left, right);
-		drawAccBar(accDepth);
-		drawBrkBar(brkDepth);
-		drawSteerAngle(strAngle);
-		drawGear(gear);
+		drawAccBar(vehicleObjects[localCarNumber].acceleratorPedalDepth);
+		drawBrkBar(vehicleObjects[localCarNumber].brakePedalDepth);
+		drawSteerAngle(vehicleObjects[localCarNumber].steeringWheelDirection);
+		drawGear(vehicleObjects[localCarNumber].gear);
 	}
-
 	drawHUD();
+}
+
+function drawPositionsBar() {
+	drawNonZoomedImage(POSITIONS_BAR_X, POSITIONS_BAR_Y, 0, positionsBar, 1);
+	vehicleObjects.forEach(drawVehiclePosition);
+}
+
+function drawVehiclePosition(vehicle) {
+	var x = POSITIONS_BAR_X + 20 + ((vehicle.position - 1) * 100);
+	var y = POSITIONS_BAR_Y + 20;
+	var carToDraw;
+	switch (vehicle.id) {
+	case 0:
+		carToDraw = car0;
+		break;
+	case 1:
+		carToDraw = car1;
+		break;
+	case 2:
+		carToDraw = car2;
+		break;
+	case 3:
+		carToDraw = car3;
+		break;
+	case 4:
+		carToDraw = car4;
+		break;
+	case 5:
+		carToDraw = car5;
+		break;
+	}
+	drawNonZoomedImage(x, y, 0, carToDraw, 1);
 }
 
 function drawSpeedometer(vehicle) {
@@ -205,8 +245,8 @@ function drawTrackImage(trackId) {
 	case "1":
 		drawImage(trackX, trackY, 0, track1, zoom);
 		break;
-		drawImage(trackX, trackY, 0, track1, zoom);
 	case "2":
+		drawImage(trackX, trackY, 0, track1, zoom);
 		break;
 	}
 }
@@ -217,22 +257,22 @@ function drawVehicle(vehicle) {
 	case "CAR":
 		switch (vehicle.id) {
 		case 0:
-			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car0, 1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car0, zoom);
 			break;
 		case 1:
-			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car1, 1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car1, zoom);
 			break;
 		case 2:
-			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car2, 1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car2, zoom);
 			break;
 		case 3:
-			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car3, 1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car3, zoom);
 			break;
 		case 4:
-			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car4, 1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car4, zoom);
 			break;
 		case 5:
-			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car5, 1);
+			drawImage(vehicle.location.x, vehicle.location.y, normalisedDirection, car5, zoom);
 			break;
 		}
 		break;
@@ -394,13 +434,12 @@ function drawImage(x, y, radians, img, zoomMultiplier) {
 	}
 	var zoomedWidth = window.innerWidth;
 	var zoomedHeight = window.innerHeight;
-	var translatedX;
-	var translatedY;
+	var translatedX = zoomedX;
+	var translatedY = zoomedY;
 	if (localCarNumber != -1) {
 		translatedX = zoomedX - zoomedLocalX + (zoomedWidth / 2);
 		translatedY = zoomedY - zoomedLocalY + (zoomedHeight / 2);
 	}
-	console.log(x + "," + y + " -> " + translatedX + "," + translatedY + ".");
 	drawNonZoomedImage(translatedX, translatedY, radians, img, zoomMultiplier);
 }
 
@@ -454,6 +493,11 @@ function rotationTest() {
 	drawRectangle(x, y, w, h, rotationAmount);
 }
 
+function drawText(x, y, rotation, text) {
+	ctx.font = "15px Arial";
+	ctx.fillText(text, x, y);
+}
+
 function drawRectangle(x, y, width, height, degrees, colour) {
 	var normalisedX = x * zoom;
 	var normalisedY = y * zoom;
@@ -482,9 +526,4 @@ function drawArc(x, y, radius, startAngle, endAngle, counterClockwise, rotation,
 	ctx.stroke();
 	ctx.closePath();
 	ctx.restore();
-}
-
-function drawText(x, y, rotation, text) {
-	ctx.font = "15px Arial";
-	ctx.fillText(text, x, y);
 }

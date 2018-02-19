@@ -2,14 +2,11 @@ package com.dl561.simulation.physics;
 
 import com.dl561.simulation.Simulation;
 import com.dl561.simulation.Tick;
-import com.dl561.simulation.computer.AIService;
-import com.dl561.simulation.course.Waypoint;
 import com.dl561.simulation.debug.Report;
 import com.dl561.simulation.debug.ReportLine;
 import com.dl561.simulation.vehicle.MinMax;
 import com.dl561.simulation.vehicle.Vehicle;
 import com.dl561.simulation.vehicle.Vertex;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,19 +26,21 @@ public class Physics {
     final double CA_F = -5.0;    /* cornering stiffness */
     final double MAX_GRIP = 2.0;
 
-    private final AIService aiService;
-
-    @Autowired
-    public Physics(AIService aiService) {
-        this.aiService = aiService;
-    }
-
+    /**
+     * Runs the simulation one tick
+     *
+     * @param simulation The simulation to run
+     */
     public void simulate(Simulation simulation) {
         if (showDebug) {
             System.out.println("Calculating new positions");
         }
-        //TODO: Add in computer actions here
         applyVehicleForcesToVehicles(simulation.getVehicles());
+        if (checkAllCollisions(simulation)) {
+            //There has been a collision
+            CollisionData collisionData = findCollision(simulation);
+            resolveThis(collisionData);
+        }
         /**
          int collisionCount = 0;
          while (checkAllCollisions(simulation) && collisionCount < 100) {
@@ -60,10 +59,53 @@ public class Physics {
          **/
     }
 
+    private void resolveThis(CollisionData collisionData) {
+        if (collisionData == null) {
+            return;
+        }
+        double forceMultiplier = 1000;
+        Collidable a = collisionData.getA();
+        Collidable b = collisionData.getB();
+
+        //TODO: try just oppositing the velocities
+
+        double aXCentre = a.getX() + (a.getWidth() / 2);
+        double aYCentre = a.getY() + (a.getLength() / 2);
+
+        double bXCentre = b.getX() + (b.getWidth() / 2);
+        double bYCentre = b.getY() + (b.getLength() / 2);
+
+        double dx = Math.abs(aXCentre - bXCentre);
+        double dy = Math.abs(aYCentre - bYCentre);
+        double distanceBetween = Math.sqrt(dx * dx + dy * dy);
+
+        double bounceForce = forceMultiplier / distanceBetween;
+//        System.out.println("bounceForce: " + bounceForce);
+
+        Vector2D force = getUnitVector(new Vector2D(dx, dy)).multiply(bounceForce);
+
+        if (a.isMovable()) {
+            a.applyCollision(force);
+        }
+        if (b.isMovable()) {
+            b.applyCollision(force.multiply(-1));
+        }
+    }
+
+    /**
+     * Moves the objects that are colliding slightly so they are not penetrating
+     *
+     * @param collisionData
+     */
     private void shiftCollidingObjects(CollisionData collisionData) {
         collisionData.getA().nudge(collisionData.getSideNormal().getNormal());
     }
 
+    /**
+     * Calculates the new positions and velocities of colliding objects
+     *
+     * @param collisionData
+     */
     private void resolveCollision(CollisionData collisionData) {
         Collidable a = collisionData.getA();
         Vector2D collidingVertex = collisionData.getCollidingCorner().asVector2D();
@@ -91,6 +133,12 @@ public class Physics {
         collisionData.getA().applyCollision(centreMassVelocityAddition, angularVelocityAddition);
     }
 
+    /**
+     * Finds whether there are any collisions between collidable objects
+     *
+     * @param simulation
+     * @return CollisionData    data that is needed to resolve any collison
+     */
     public CollisionData findCollision(Simulation simulation) {
         List<Collidable> collidables = simulation.getAllCollidables();
         for (Collidable collidable1 : collidables) {
@@ -107,6 +155,13 @@ public class Physics {
         return null;
     }
 
+    /**
+     * Finding the data about the collision for two collidables
+     *
+     * @param a The first collidable
+     * @param b The second collidable
+     * @return CollisionData    The data needed to resolve this collision
+     */
     public CollisionData findCollisionData(Collidable a, Collidable b) {
         List<Vertex> vertices = a.getRectangleVertices();
         CollisionData collisionData = new CollisionData();
@@ -124,13 +179,13 @@ public class Physics {
 
                 if (intersection < -1d) {
                     //TODO: Always penetrating
-                    System.out.println("Penetrating");
+//                    System.out.println("Penetrating");
                     collisionData.setCollisionType(CollisionType.PENETRATING);
                     collisionData.setCollisionStatus(true);
                 } else if (intersection < 1d) {
                     double relativeVelocity = edge.getNormal().dotProduct(velocityOfCorner);
                     if (relativeVelocity < 0d) {
-                        System.out.println("Colliding");
+//                        System.out.println("Colliding");
                         collisionData.setCollisionType(CollisionType.COLLIDING);
                         collisionData.setCollisionStatus(true);
                     }
@@ -148,7 +203,13 @@ public class Physics {
         return null;
     }
 
-
+    /**
+     * Checks for any collisions between all objects
+     * It only looks at whether a movable object is colliding with a solid object
+     *
+     * @param simulation
+     * @return boolean      Whether there has been a collision
+     */
     public boolean checkAllCollisions(Simulation simulation) {
         List<Collidable> collidables = simulation.getAllCollidables();
         for (Collidable collidable1 : collidables) {
@@ -170,6 +231,13 @@ public class Physics {
         return false;
     }
 
+    /**
+     * Checks for a collision between two collidable objects
+     *
+     * @param collidable
+     * @param other
+     * @return boolean      Whether there is a collision of any kind
+     */
     public boolean checkCollisionSingle(Collidable collidable, Collidable other) {
         Vector2D normal1 = collidable.getNormalVector1();
         Vector2D normal2 = collidable.getNormalVector2();
@@ -200,6 +268,12 @@ public class Physics {
         return true;
     }
 
+    /**
+     * Acting on the collision between vehicles
+     *
+     * @param vehicle1
+     * @param vehicle2
+     */
     public void doCollision(Vehicle vehicle1, Vehicle vehicle2) {
 //        System.out.println("Collision Happened");
 //        Vector2D shortestSeperation = findShortestSeperationVector(vehicle1, vehicle2);
@@ -210,6 +284,13 @@ public class Physics {
 //        double penetrationSpeed = 1;
     }
 
+    /**
+     * Finding the minimum and maximum distance of the dotProduct along the normal
+     *
+     * @param collidable
+     * @param normal
+     * @return MinMax   The min and max that is currently there
+     */
     private MinMax getMinAndMax(Collidable collidable, Vector2D normal) {
         List<Vertex> vertices = collidable.getRectangleVertices();
         double currentMin = vertices.get(0).asVector2D().dotProduct(normal);
@@ -226,6 +307,12 @@ public class Physics {
         return new MinMax(currentMin, currentMax);
     }
 
+    /**
+     * Initial force applied to the wheels from braking, engine, rolling and drag
+     *
+     * @param vehicle
+     * @return Vector2D     The force applied
+     */
     private Vector2D calculateInitialWheelForce(Vehicle vehicle) {
         Vector2D velocity = vehicle.getVehicleReferenceVelocity();
         double brakingForce = -vehicle.getMaxBrakingForce() * vehicle.getBrakePedalDepth();
@@ -238,12 +325,22 @@ public class Physics {
         return initialForce;
     }
 
+    /**
+     * Calculating and applying all forces to each vehicle
+     *
+     * @param vehicleList
+     */
     public void applyVehicleForcesToVehicles(List<Vehicle> vehicleList) {
         for (Vehicle vehicle : vehicleList) {
             applyVehicleForces(vehicle);
         }
     }
 
+    /**
+     * Calculating and applying all forces to this vehicle
+     *
+     * @param vehicle
+     */
     private void applyVehicleForces(Vehicle vehicle) {
         /**
          Vector2D velocity = vehicle.getVehicleReferenceVelocity();
@@ -520,6 +617,13 @@ public class Physics {
             return 0;
         }
         return value;
+    }
+
+    public static double normaliseBearing(double bearing) {
+        while (bearing < 0) {
+            bearing += 2 * Math.PI;
+        }
+        return bearing % (2 * Math.PI);
     }
 
     public static Vector2D getUnitVector(Vector2D vector) {

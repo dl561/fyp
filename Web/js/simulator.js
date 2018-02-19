@@ -30,6 +30,7 @@ var lastGearChange = 0;
 var lastSteeringWheelUpdate = 0;
 
 var localCarNumber = localStorage.getItem("localCarNumber");
+var isLocalDrivable;
 setHostIP(localStorage.getItem("hostIP"));
 
 initImages();
@@ -47,148 +48,17 @@ var carCount = localStorage.getItem("carCount");
 var computerCars = localStorage.getItem("computerCars");
 var numberOfLaps = localStorage.getItem("numberOfLaps");
 
-function populateCourseObjects(course) {
-	courseRectangles = course.rectangles;
-	courseArcs = course.arcs;
-}
-
-function populateVehicles(vehicles) {
-	vehicleObjects = vehicles;
-}
-
-function populateHUD(huds) {
-	hUDObjects = huds;
-}
-
-function populate(json) {
-	var obj = JSON.parse(json);
-	populateCourseObjects(obj.course);
-	populateVehicles(obj.vehicles);
-	populateHUD(obj.hud);
-}
-
-function startSimulation() {
-	console.log("Starting simulation");
-	doStartSimulation(function (response) {
-		//Add something here!
-	});
-}
-
-function stopSimulation() {
-	console.log("Stopping simulation");
-	doStopSimulation(function (response) {
-		//Add something here!
-	});
-}
-
-function resetSimulation() {
-	console.log("Resetting simulation");
-	doResetSimulation(function (response) {
-		console.log("Reset simulation " + response.id);
-	});
-}
-
-function newSimulation() {
-	console.log("Getting new simulation");
-	doNewSimulation(function (response) {
-		var responseObj = JSON.parse(response);
-		simulationId = responseObj.id;
-	});
-}
-
-function newSimulationByOptions() {
-	console.log("Getting new simulation by options");
-	console.log("Track Number: " + trackNumber);
-	console.log("Car count: " + carCount);
-	doNewSimulationByOptions(function (response) {
-		var responseObj = JSON.parse(response);
-		simulationId = responseObj.id;
-	}, trackNumber, getList(), numberOfLaps);
-}
-
-function getList() {
-	var carList = [];
-	for (i = 0; i < carCount; i++) {
-		var car = new Object();
-		car.vehicleType = "CAR";
-		if (computerCars[1 + (2 * i)] == "1") {
-			car.isComputer = true;
-		} else {
-			car.isComputer = false;
-		}
-		carList.push(car);
-	}
-	console.log(carList);
-	return carList;
-}
-
-function fetch() {
-	doFetch(function (response) {
-		populate(response);
-	}, simulationId);
-}
-
-function fetchExample() {
-	doFetchExample(function (response) {
-		populate(response);
-		draw();
-	});
-}
-
 function sendUpdate() {
-	if (localCarNumber != -1) {
-		if (accelerating) {
-			acceleratorPedalDepthVariable += 10;
-		} else {
-			acceleratorPedalDepthVariable -= 10;
-		}
-		if (braking) {
-			brakePedalDepthVariable += 10;
-		} else {
-			brakePedalDepthVariable -= 10;
-		}
+	var vehicleUpdateDto = new Object();
+	vehicleUpdateDto.id = localCarNumber;
+	vehicleUpdateDto.acceleratorPedalDepth = acceleratorPedalDepthVariable;
+	vehicleUpdateDto.brakePedalDepth = brakePedalDepthVariable;
+	vehicleUpdateDto.steeringWheelOrientation = steeringAngle;
+	vehicleUpdateDto.gear = gearNumber;
+	vehicleUpdateDto.frontSlip = frontSlip;
+	vehicleUpdateDto.rearSlip = rearSlip;
 
-		if (acceleratorPedalDepthVariable > 100) {
-			acceleratorPedalDepthVariable = 100;
-		}
-		if (acceleratorPedalDepthVariable < 0) {
-			acceleratorPedalDepthVariable = 0;
-		}
-		if (brakePedalDepthVariable > 100) {
-			brakePedalDepthVariable = 100;
-		}
-		if (brakePedalDepthVariable < 0) {
-			brakePedalDepthVariable = 0;
-		}
-
-		if (tickCount - lastSteeringWheelUpdate > 4) {
-			if (left) {
-				if (steeringAngle > -Math.PI / 6) {
-					steeringAngle -= Math.PI / 32;
-				}
-			} else if (right) {
-				if (steeringAngle < Math.PI / 6) {
-					steeringAngle += Math.PI / 32;
-				}
-			} else {
-				if (steeringAngle < 0) {
-					steeringAngle += Math.PI / 32;
-				} else if (steeringAngle > 0) {
-					steeringAngle -= Math.PI / 32;
-				}
-			}
-		}
-		var vehicleUpdateDto = new Object();
-		vehicleUpdateDto.id = localCarNumber;
-		vehicleUpdateDto.acceleratorPedalDepth = acceleratorPedalDepthVariable;
-		vehicleUpdateDto.brakePedalDepth = brakePedalDepthVariable;
-		vehicleUpdateDto.steeringWheelOrientation = steeringAngle;
-		vehicleUpdateDto.gear = gearNumber;
-		vehicleUpdateDto.frontSlip = frontSlip;
-		vehicleUpdateDto.rearSlip = rearSlip;
-
-		doUpdateVehicle(vehicleUpdateDto, simulationId, localCarNumber);
-	}
+	doUpdateVehicle(vehicleUpdateDto, simulationId, localCarNumber);
 }
 
 function updateKeys() {
@@ -210,7 +80,6 @@ function updateKeys() {
 	} else {
 		left = false;
 	}
-
 	if (keys[39]) {
 		right = true;
 	} else {
@@ -224,7 +93,6 @@ function updateKeys() {
 			lastGearChange = tickCount;
 		}
 	}
-
 	if (keys[17]) {
 		//gear down with ctrl
 		if (gearNumber > 0 && tickCount - lastGearChange > 6) {
@@ -242,17 +110,64 @@ function updateKeys() {
 	}
 }
 
-function tick() {
-	tickCount++;
-	if (tickCount % 3) {
-		doUpdateTick();
+function updateVehicleValues() {
+	if (accelerating) {
+		acceleratorPedalDepthVariable += 10;
+	} else {
+		acceleratorPedalDepthVariable -= 10;
 	}
-	fetch();
-	updateKeys();
-	draw(accelerating, braking, left, right, acceleratorPedalDepthVariable, brakePedalDepthVariable, steeringAngle, gearNumber, zoom);
+	if (braking) {
+		brakePedalDepthVariable += 10;
+	} else {
+		brakePedalDepthVariable -= 10;
+	}
+
+	if (acceleratorPedalDepthVariable > 100) {
+		acceleratorPedalDepthVariable = 100;
+	}
+	if (acceleratorPedalDepthVariable < 0) {
+		acceleratorPedalDepthVariable = 0;
+	}
+	if (brakePedalDepthVariable > 100) {
+		brakePedalDepthVariable = 100;
+	}
+	if (brakePedalDepthVariable < 0) {
+		brakePedalDepthVariable = 0;
+	}
+
+	if (tickCount - lastSteeringWheelUpdate > 4) {
+		if (left) {
+			if (steeringAngle > -Math.PI / 6) {
+				steeringAngle -= Math.PI / 32;
+			}
+		} else if (right) {
+			if (steeringAngle < Math.PI / 6) {
+				steeringAngle += Math.PI / 32;
+			}
+		} else {
+			if (steeringAngle < 0) {
+				steeringAngle += Math.PI / 32;
+			} else if (steeringAngle > 0) {
+				steeringAngle -= Math.PI / 32;
+			}
+		}
+	}
 }
 
-function doUpdateTick() {
+function tick() {
+	tickCount++;
+	if (isLocalDrivable) {
+		updateKeys();
+		if (tickCount % 3) {
+			updateTick();
+		}
+	}
+	fetch();
+	draw(zoom);
+}
+
+function updateTick() {
+	updateVehicleValues();
 	sendUpdate();
 }
 
@@ -263,5 +178,8 @@ function beginTick() {
 }
 //CreateSimulationByOptions
 newSimulationByOptions();
-
+isLocalDrivable = localCarNumber != -1 && computerCars[localCarNumber] == 0;
+if(localCarNumber==-1){
+	zoom = 1;
+}
 setTimeout(beginTick, 1000);

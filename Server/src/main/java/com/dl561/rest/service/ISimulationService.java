@@ -31,4 +31,6 @@ public interface ISimulationService {
     Simulation exampleSimulationData();
 
     void doTick();
+
+    List<Integer> getAllSimulationIds();
 }

@@ -39,18 +39,26 @@ public class Vector2D {
     }
 
     public Vector2D add(Vector2D other) {
-        return new Vector2D(x + other.getX(), y + other.getY());
+        x += other.getX();
+        y += other.getY();
+        return this;
     }
 
     public Vector2D subtract(Vector2D other) {
-        return new Vector2D(x - other.getX(), y - other.getY());
+        x -= other.getX();
+        y -= other.getY();
+        return this;
     }
 
     public Vector2D multiply(double other) {
-        return new Vector2D(other * x, other * y);
+        x *= other;
+        y *= other;
+        return this;
     }
 
     public Vector2D divide(double other) {
-        return new Vector2D(x / other, y / other);
+        x /= other;
+        y /= other;
+        return this;
     }
 }

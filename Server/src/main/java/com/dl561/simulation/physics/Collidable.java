@@ -23,6 +23,8 @@ public abstract class Collidable {
 
     protected abstract void applyCollision(Vector2D velocityAddition, double angularVelocityAddition);
 
+    protected abstract void applyCollision(Vector2D velocityAddition);
+
     protected abstract void nudge(Vector2D normal);
 
     public Vector2D getNormalVector1() {

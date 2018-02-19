@@ -1,7 +1,7 @@
 var music = new sound("audio/music.mp3");
 
 function playMusic(sound) {
-	if (sound == true) {
+	if (sound == "true") {
 		music.play();
 	} else {
 		music.stop();

@@ -1,5 +1,6 @@
 package com.dl561.simulation;
 
+import com.dl561.simulation.computer.AIService;
 import com.dl561.simulation.course.Course;
 import com.dl561.simulation.course.Waypoint;
 import com.dl561.simulation.debug.Report;
@@ -27,6 +28,7 @@ public class Simulation {
     private double runTime;
     private double currentTime;
     private double previousTickTime;
+    private AIService aiService = new AIService();
 
     public Simulation() {
         try {
@@ -171,12 +173,23 @@ public class Simulation {
             updateHud();
             checkWaypointForAllVehicles();
             checkFinishedState();
+            if (Tick.getTickCount() % 10 == 0) {
+                updateComputerVehicles();
+            }
             updatePositions();
         }
     }
 
     private void updateHud() {
         List<TextHud> textHuds = new LinkedList<>();
+    }
+
+    private void updateComputerVehicles() {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.isComputer()) {
+                aiService.getComputerInput(this, vehicle);
+            }
+        }
     }
 
     private void checkWaypointForAllVehicles() {
@@ -189,37 +202,53 @@ public class Simulation {
         int current = vehicle.getWaypointNumber();
         int next = current + 1;
         int previous = current - 1;
-        next = next > waypoints.length ? waypoints.length : next;
-        previous = previous < 0 ? 0 : previous;
+        next = next >= waypoints.length ? 0 : next;
+        previous = previous < 0 ? waypoints.length - 1 : previous;
 
+        double distanceToCurrent = waypoints[current].findDistanceToWaypoint(vehicle.getLocation());
         double distanceToNext = waypoints[next].findDistanceToWaypoint(vehicle.getLocation());
         double distanceToPrevious = waypoints[previous].findDistanceToWaypoint(vehicle.getLocation());
 
-        if (distanceToNext < distanceToPrevious) {
-            //Closer to next waypoint than previous
+        if (distanceToNext < distanceToCurrent) {
+            //closer to the next one
             vehicle.setWaypointNumber(next);
             if (current == waypoints.length - 1) {
+                //end of lap
                 vehicle.setLap(vehicle.getLap() + 1);
             }
-        } else if (distanceToNext > distanceToPrevious) {
-            //Further from next waypoint than previous
+        } else if (distanceToPrevious < distanceToCurrent) {
+            //closer to the previous one
             vehicle.setWaypointNumber(previous);
             if (current == 0) {
+                //going backwards through laps
                 vehicle.setLap(vehicle.getLap() - 1);
             }
         }
     }
 
     private void checkFinishedState() {
+        boolean shouldContinue = false;
         for (Vehicle vehicle : vehicles) {
+            if (!vehicle.isFinished()) {
+                shouldContinue = true;
+            }
             if (vehicle.getLap() >= numberOfLaps) {
                 //Vehicle has finished
                 vehicle.setFinished(true);
             }
         }
+        if (shouldContinue) {
+            //everyone has finished and so the race should finish
+            finishRace();
+        }
+    }
+
+    private void finishRace() {
+        //TODO: Add finish code here. The positions of each vehicle when it finished are in the vehicle objects
     }
 
     private void updatePositions() {
+        //TODO: check this because if you finish and move past someone you shouldn't take over them in the positions
         //Simply add all of them to a list and then sort the list on lap, waypoint then distance to next
         List<PositionNode> positionNodes = new ArrayList<>();
         for (Vehicle vehicle : vehicles) {

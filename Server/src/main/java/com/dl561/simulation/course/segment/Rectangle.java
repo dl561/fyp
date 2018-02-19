@@ -128,6 +128,11 @@ public class Rectangle extends Collidable {
     }
 
     @Override
+    protected void applyCollision(Vector2D velocityAddition) {
+        System.out.println("This should not be moving");
+    }
+
+    @Override
     protected void nudge(Vector2D normal) {
         System.out.println("This should not be moving!!");
     }

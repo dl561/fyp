@@ -25,9 +25,13 @@ public class Course {
         return null;
     }
 
+    /**
+     * Hard coded waypoints for track 1
+     * @return Waypoint[]   An array of the waypoints in the race
+     */
     private static Waypoint[] getWayPointsForTrack1() {
         Waypoint[] waypoints = new Waypoint[8];
-        waypoints[0] = new Waypoint(170, 100);
+        waypoints[0] = new Waypoint(180, 100);
         waypoints[1] = new Waypoint(600, 100);
         waypoints[2] = new Waypoint(1110, 100);
         waypoints[3] = new Waypoint(1110, 300);
@@ -46,7 +50,12 @@ public class Course {
         return null;
     }
 
+    /**
+     * Gives the rectangles and arcs used to create track 1
+     * @return Course   The course for track 1
+     */
     private static Course getTrack1() {
+        //TODO: is this being used anywhere reasonable?
         Course course = new Course();
 
         List<Rectangle> rectangles = new LinkedList<>();

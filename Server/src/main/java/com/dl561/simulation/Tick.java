@@ -69,4 +69,8 @@ public class Tick {
             tickCount = 0;
         }
     }
+
+    public static int getTickCount() {
+        return tickCount;
+    }
 }

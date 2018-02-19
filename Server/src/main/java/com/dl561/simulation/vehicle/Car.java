@@ -33,7 +33,7 @@ public class Car extends Vehicle {
     // @Value("${vehicle.car.wheelradius}")
     private double wheelRadius = 0.34d;
     // @Value("${vehicle.car.gearratios}")
-    //private double[] gearRatios = {-2.90d, 2.66d, 1.78d, 1.30d, 1.0d, 0.74d};
+//    private double[] gearRatios = {-2.90d, 2.66d, 1.78d, 1.30d, 1.0d, 0.74d};
     private double[] gearRatios = {-2.90d, 2.66d, 3.50d, 4.20d, 5.00d, 6.80d};
 
     private double inertia = 3000d;

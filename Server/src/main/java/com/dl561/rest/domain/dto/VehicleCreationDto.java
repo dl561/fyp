@@ -4,7 +4,7 @@ import com.dl561.simulation.vehicle.VehicleType;
 
 public class VehicleCreationDto {
     private VehicleType vehicleType;
-    private String isComputer;
+    private boolean isComputer;
 
     public VehicleType getVehicleType() {
         return vehicleType;
@@ -14,15 +14,12 @@ public class VehicleCreationDto {
         this.vehicleType = vehicleType;
     }
 
-    public String getComputer() {
+    public boolean getComputer() {
         return isComputer;
     }
 
-    public void setComputer(String computer) {
+    public void setComputer(boolean computer) {
         isComputer = computer;
     }
 
-    public boolean isComputer() {
-        return this.isComputer != null && this.isComputer.equalsIgnoreCase("true");
-    }
 }

@@ -10,8 +10,8 @@ function submitFunction() {
 	}
 	var localCarNumber = getLocalCarNumber();
 	var computerCars = [];
-	for (i = 1; i <= carCount; i++) {
-		if (document.getElementById("carComputer" + i).checked) {
+	for (i = 0; i < carCount; i++) {
+		if (document.getElementById("carComputer" + (i+1)).checked) {
 			computerCars[i] = 1;
 		} else {
 			computerCars[i] = 0;
@@ -66,4 +66,24 @@ function getLocalCarNumber() {
 		}
 	}
 	return localCar;
+}
+
+function searchForSimulationIds(){
+	var hostIp = document.getElementById("ipAddressBox").value;
+	if (hostIp == "") {
+		hostIp = "localhost";
+	}
+	setHostIP(hostIp);
+	doSearchSimulationIds(function(response){
+		var responseObj = JSON.parse(response);
+		updateSelect(responseObj);
+		responseObj.forEach(function(id){
+			console.log("Found ID: " + id);
+		});
+	});
+}
+
+function submitJoinFunction(){
+	var simulationId;
+	document.getElementById()
 }

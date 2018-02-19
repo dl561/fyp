@@ -83,3 +83,8 @@ function doUpdateVehicle(vehicleUpdateDto, simulationId, vehicleId) {
 	var client = new HttpClient();
 	client.post('http://' + hostIP + ':8080/simulation/' + simulationId + '/vehicle/' + vehicleId, function (response) {}, vehicleUpdateDto);
 }
+
+function doSearchSimulationIds(callBackFunction){
+	var client = new HttpClient();
+	client.get('http://' + hostIP + ':8080/simulation/ids', callBackFunction);
+}

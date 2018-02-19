@@ -57,9 +57,11 @@ public abstract class Vehicle extends Collidable {
     private double[] gearRatios;
     private double inertia;
 
+    public static final double MAXIMUM_STEER_ANGLE = Math.PI / 6;
+
     public Vehicle update(VehicleUpdateDto vehicleUpdateDto) {
         if (!finished) {
-            steeringWheelDirection = Physics.normalise(-45d, 45d, vehicleUpdateDto.getSteeringWheelOrientation());
+            steeringWheelDirection = Physics.normalise(-MAXIMUM_STEER_ANGLE, MAXIMUM_STEER_ANGLE, vehicleUpdateDto.getSteeringWheelOrientation());
             acceleratorPedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getAcceleratorPedalDepth());
             brakePedalDepth = Physics.normalise(0d, 100d, vehicleUpdateDto.getBrakePedalDepth());
             if (vehicleUpdateDto.getGear() < 0) {
@@ -90,6 +92,14 @@ public abstract class Vehicle extends Collidable {
         setWRYVelocity(newVelocity.getY());
 
         setAngularVelocity(newAngularVelocity);
+    }
+
+    protected void applyCollision(Vector2D velocityAddition) {
+        Vector2D currentVelocity = getVelocity();
+        Vector2D newVelocity = currentVelocity.add(velocityAddition);
+        setWRXVelocity(newVelocity.getX());
+        setWRYVelocity(newVelocity.getY());
+        System.out.println("vel: " + getWRXVelocity() + ", " + getWRYVelocity());
     }
 
     /**
@@ -187,11 +197,12 @@ public abstract class Vehicle extends Collidable {
     }
 
     public void setDirectionOfTravel(double directionOfTravel) {
-        this.directionOfTravel = directionOfTravel % 360;
+        this.directionOfTravel = Physics.normaliseBearing(directionOfTravel);
     }
 
     public double getOppositeDirectionOfTravel() {
-        return (180 + this.directionOfTravel) % 360;
+        double angle = directionOfTravel + Math.PI;
+        return Physics.normaliseBearing(angle);
     }
 
     public double getMass() {
@@ -212,6 +223,18 @@ public abstract class Vehicle extends Collidable {
 
     public void setSteeringWheelDirection(double steeringWheelDirection) {
         this.steeringWheelDirection = steeringWheelDirection;
+    }
+
+    public void steerRight() {
+        steeringWheelDirection = MAXIMUM_STEER_ANGLE;
+    }
+
+    public void steerLeft() {
+        steeringWheelDirection = -MAXIMUM_STEER_ANGLE;
+    }
+
+    public void normaliseSteerAngle() {
+        steeringWheelDirection = 0;
     }
 
     public double getAcceleratorPedalDepth() {
@@ -522,7 +545,7 @@ public abstract class Vehicle extends Collidable {
         List<Vehicle> vehicles = new LinkedList<>();
         int count = 0;
         for (VehicleCreationDto vehicleCreationDto : vehiclesToCreate) {
-            vehicles.add(getVehicleById(vehicleCreationDto.getVehicleType(), vehicleCreationDto.isComputer(), count));
+            vehicles.add(getVehicleById(vehicleCreationDto.getVehicleType(), vehicleCreationDto.getComputer(), count));
             count++;
         }
         return vehicles;
@@ -534,25 +557,17 @@ public abstract class Vehicle extends Collidable {
                 switch (id) {
                     //TODO: change this back
                     case 0:
-                        return new Car(id, 150, 20, 0, isComputer);
+                        return new Car(id, 150, 225, Math.PI, isComputer);
                     case 1:
-                        return new Car(id, 610, 55, 0, isComputer);
+                        return new Car(id, 200, 240, Math.PI, isComputer);
                     case 2:
-                        return new Car(id, 570, 100, 0, isComputer);
+                        return new Car(id, 150, 255, Math.PI, isComputer);
                     case 3:
-                        return new Car(id, 530, 55, 0, isComputer);
+                        return new Car(id, 200, 270, Math.PI, isComputer);
                     case 4:
-                        return new Car(id, 490, 100, 0, isComputer);
+                        return new Car(id, 150, 285, Math.PI, isComputer);
                     case 5:
-                        return new Car(id, 450, 55, 0, isComputer);
-                    case 6:
-                        return new Car(id, 410, 100, 0, isComputer);
-                    case 7:
-                        return new Car(id, 370, 55, 0, isComputer);
-                    case 8:
-                        return new Car(id, 330, 100, 0, isComputer);
-                    case 9:
-                        return new Car(id, 290, 55, 0, isComputer);
+                        return new Car(id, 200, 300, Math.PI, isComputer);
                 }
         }
         return null;
