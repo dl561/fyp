@@ -14,9 +14,12 @@
 	<form>
 		Enter IP address of host:
 		<input type="text" id="ipAddressBox" name="ipAddressBox"></input><br>
+    Simulation Name:
+    <input type="text" id="simNameBox" name="simNameBox"></input><br>
 		Track Number:<br>
 		<input type="radio" value="1" id="trackNumber1" name="track">1</input>
-		<input type="radio" value="2" id="trackNumber2" name="track">2</input><label id="trackNumberError" hidden="true" style="color: #FF0000;"><i>  Please pick a track!</i></label><br>
+		<input type="radio" value="2" id="trackNumber2" name="track">2</input>
+    <label id="trackNumberError" hidden="true"><i>  Please pick a track!</i></label><br>
 
 		<br>
 		<input type="checkbox" id="soundCheckbox">Sound?</input><br>
@@ -74,7 +77,8 @@
 		<br><br>
 
 		<br>
-		<input 	type="button" id="submit" onClick="submitFunction();" value="Start"></input>
+		<input 	type="button" id="submit" onClick="createNewSimulation();" value="Start"></input>
+    <label id="finishedCreatingLabel" hidden=true>Finished Creating Simulation</label>
 	</form>
 </div>
 <div id="joinSimulation" class="tabcontent">
@@ -83,16 +87,24 @@
 		<input type="text" id="ipAddressBoxForJoin" name="ipAddressBox"></input><br>
 		<input type="button" id="searchForSimulation" onClick="searchForSimulationIds()" value="Search"></input>
 		<br>
-		<select name="simulations" id="simulationSelect" size="3">
+		<select name="simulations" id="simulationSelect" onchange="updateVehiclesSelect()" size="3">
 			<option value="None">None</option>
 		</select>
 		<br>
-		<input type="button" id="submitJoin" onClick="submitJoinFunction();" value="Start"></input>
+    Select local car (selecting none gives overview)<br>
+    <select name="vehicles" id="vehiclesSelect" size="3">
+      <option value="None selected.">None selected</option>
+    </select>
+    <br>
+    <input type="checkbox" id="audioCheckBox">Audio?</input>
+    <br>
+		<input type="button" id="submitJoin" onClick="joinSimulationNoArgs();" value="Start"></input>
 	</form>
 </div>
 <script src="js/httpRequests.js"></script>
+<script src="js/simulatorService.js"></script>
 <script src="js/tabs.js"></script>
-<script src="js/options.js"></script>
+<script src="js/options2.js"></script>
 <script>
 updateRange();
 </script>

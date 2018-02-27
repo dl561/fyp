@@ -89,7 +89,7 @@ public class Rectangle extends Collidable {
     }
 
     @Override
-    protected boolean isSolid() {
+    public boolean isSolid() {
         return isSolid;
     }
 

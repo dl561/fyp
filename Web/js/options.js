@@ -1,4 +1,5 @@
 function submitFunction() {
+	var simulationName = document.getElementById("simNameBox").value;
 	var carCount = document.getElementById("carCount").value;
 	var numberOfLaps = document.getElementById("lapCount").value;
 	var trackNumber1 = document.getElementById("trackNumber1").checked;
@@ -11,7 +12,7 @@ function submitFunction() {
 	var localCarNumber = getLocalCarNumber();
 	var computerCars = [];
 	for (i = 0; i < carCount; i++) {
-		if (document.getElementById("carComputer" + (i+1)).checked) {
+		if (document.getElementById("carComputer" + (i + 1)).checked) {
 			computerCars[i] = 1;
 		} else {
 			computerCars[i] = 0;
@@ -24,6 +25,8 @@ function submitFunction() {
 	} else {
 		var buttons = document.getElementById("submit");
 		var newUrl = "web.html";
+		localStorage.setItem("create", true);
+    localStorage.setItem("name", simulationName);
 		localStorage.setItem("carCount", carCount);
 		localStorage.setItem("trackNumber1", trackNumber1);
 		localStorage.setItem("trackNumber2", trackNumber2);
@@ -68,22 +71,27 @@ function getLocalCarNumber() {
 	return localCar;
 }
 
-function searchForSimulationIds(){
+function searchForSimulationIds() {
 	var hostIp = document.getElementById("ipAddressBox").value;
 	if (hostIp == "") {
 		hostIp = "localhost";
 	}
 	setHostIP(hostIp);
-	doSearchSimulationIds(function(response){
+	doSearchSimulationIds(function (response) {
 		var responseObj = JSON.parse(response);
 		updateSelect(responseObj);
-		responseObj.forEach(function(id){
-			console.log("Found ID: " + id);
+		responseObj.forEach(function (simulation) {
+			console.log("Found ID: " + simulation.id);
+			console.log("Found name: " + simulation.name);
+			console.log("Found trackNo: " + simulation.trackNumber);
+			console.log("Found noOfLaps: " + simulation.numberOfLaps);
+			console.log("Found " + simulation.vehicles.length + " vehicles.");
 		});
 	});
 }
 
-function submitJoinFunction(){
+function submitJoinFunction() {
 	var simulationId;
-	document.getElementById()
+	document.getElementById();
+	localStorage.setItem("create", false);
 }

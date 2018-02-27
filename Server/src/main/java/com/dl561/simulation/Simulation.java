@@ -19,7 +19,9 @@ import java.util.List;
 public class Simulation {
 
     private int id;
+    private String name;
     private List<Vehicle> vehicles;
+    private int trackNumber;
     private Course course;
     private Hud hud;
     private Boolean running;
@@ -83,6 +85,14 @@ public class Simulation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Vehicle> getVehicles() {
@@ -155,6 +165,14 @@ public class Simulation {
 
     public void setNumberOfLaps(int numberOfLaps) {
         this.numberOfLaps = numberOfLaps;
+    }
+
+    public int getTrackNumber() {
+        return trackNumber;
+    }
+
+    public void setTrackNumber(int trackNumber) {
+        this.trackNumber = trackNumber;
     }
 
     public void start() {

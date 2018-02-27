@@ -99,7 +99,7 @@ public abstract class Vehicle extends Collidable {
         Vector2D newVelocity = currentVelocity.add(velocityAddition);
         setWRXVelocity(newVelocity.getX());
         setWRYVelocity(newVelocity.getY());
-        System.out.println("vel: " + getWRXVelocity() + ", " + getWRYVelocity());
+//        System.out.println("vel: " + getWRXVelocity() + ", " + getWRYVelocity());
     }
 
     /**

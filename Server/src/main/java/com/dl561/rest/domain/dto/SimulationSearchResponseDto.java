@@ -2,11 +2,21 @@ package com.dl561.rest.domain.dto;
 
 import java.util.List;
 
-public class NewSimulationOptionsDto {
+public class SimulationSearchResponseDto {
+
+    private int id;
     private String name;
     private int trackNumber;
     private int numberOfLaps;
-    private List<VehicleCreationDto> vehiclesToCreate;
+    private List<VehicleSearchResponseDto> vehicles;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -24,19 +34,19 @@ public class NewSimulationOptionsDto {
         this.trackNumber = trackNumber;
     }
 
-    public List<VehicleCreationDto> getVehiclesToCreate() {
-        return vehiclesToCreate;
-    }
-
-    public void setVehiclesToCreate(List<VehicleCreationDto> vehiclesToCreate) {
-        this.vehiclesToCreate = vehiclesToCreate;
-    }
-
     public int getNumberOfLaps() {
         return numberOfLaps;
     }
 
     public void setNumberOfLaps(int numberOfLaps) {
         this.numberOfLaps = numberOfLaps;
+    }
+
+    public List<VehicleSearchResponseDto> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<VehicleSearchResponseDto> vehicles) {
+        this.vehicles = vehicles;
     }
 }

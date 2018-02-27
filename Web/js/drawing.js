@@ -182,7 +182,7 @@ function initImages() {
 function draw(zoom) {
 	this.zoom = zoom;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	drawTrackImage(localStorage.getItem("trackNumber"));
+	drawTrackImage(trackNumber);
 	drawVehicles();
 	drawPositionsBar();
 	if (localCarNumber != -1) {
@@ -284,14 +284,6 @@ function drawVehicle(vehicle) {
 }
 
 function drawVariables(vehicle) {
-	drawText(0, 35, 0, "angularAcceleration: " + vehicle.angularAcceleration);
-	drawText(0, 50, 0, "angularVelocity: " + vehicle.angularVelocity);
-	drawText(0, 65, 0, "wr xVelocity: " + vehicle.xvelocity);
-	drawText(0, 80, 0, "wr yVelocity: " + vehicle.yvelocity);
-	drawText(0, 95, 0, "vr xVelocity: " + vehicle.vehicleReferenceVelocity.x);
-	drawText(0, 110, 0, "vr yVelocity: " + vehicle.vehicleReferenceVelocity.y);
-	drawText(0, 125, 0, "wr x: " + vehicle.location.x);
-	drawText(0, 140, 0, "wr y: " + vehicle.location.y);
 	drawText(0, 155, 0, "waypoint: " + vehicle.waypointNumber);
 	drawText(0, 170, 0, "lap: " + vehicle.lap);
 	drawText(0, 185, 0, "position: " + vehicle.position);

@@ -60,8 +60,9 @@ function doNewSimulation(callBackFunction) {
 	client.put('http://' + hostIP + ':8080/simulation', callBackFunction, simulationDataDto);
 }
 
-function doNewSimulationByOptions(callBackFunction, trackNumber, vehiclesToCreate, numberOfLaps) {
+function doNewSimulationByOptions(callBackFunction, name, trackNumber, vehiclesToCreate, numberOfLaps) {
 	var newSimulationOptionsDto = new Object();
+	newSimulationOptionsDto.name = name;
 	newSimulationOptionsDto.trackNumber = trackNumber;
 	newSimulationOptionsDto.vehiclesToCreate = vehiclesToCreate;
 	newSimulationOptionsDto.numberOfLaps = numberOfLaps;
@@ -86,5 +87,5 @@ function doUpdateVehicle(vehicleUpdateDto, simulationId, vehicleId) {
 
 function doSearchSimulationIds(callBackFunction){
 	var client = new HttpClient();
-	client.get('http://' + hostIP + ':8080/simulation/ids', callBackFunction);
+	client.get('http://' + hostIP + ':8080/simulation/search', callBackFunction);
 }
